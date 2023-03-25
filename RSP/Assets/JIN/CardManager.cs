@@ -84,9 +84,9 @@ public class CardManager : MonoBehaviour
         //ShowCardList();
     }
 
-    public void ShowCardList()
-    {
-        for(int i =0; i < cards.Count; i++)
-            Debug.Log(cards[i].CardCost.ToString() +  cards[i].CardType.ToString() + cards[i].CardAttribute.ToString());
-    }
+    //public void ShowCardList()
+    //{
+    //    for(int i =0; i < cards.Count; i++)
+    //        Debug.Log(cards[i].CardCost.ToString() +  cards[i].CardType.ToString() + cards[i].CardAttribute.ToString());
+    //}
 }
