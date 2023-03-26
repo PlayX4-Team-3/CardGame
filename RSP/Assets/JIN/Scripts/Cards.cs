@@ -21,13 +21,9 @@ public enum CardAttribute
 
 public class Cards : MonoBehaviour
 {
-    [SerializeField]
-    public int cc;
-    public CardType ct;
-    public CardAttribute ca;
+    public int cc; // cost
+    public CardType ct; // att def utilty
+    public CardAttribute ca; // rock sissors paper
 
-    public static implicit operator Cards(GameObject v)
-    {
-        throw new NotImplementedException();
-    }
+    public int cardPower; // att(2damage), def(2shield), util(+2 or -2)
 }

@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e5939e82b4f104d97544f408f966b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cc: 0
+  cc: 1
   ct: 3
   ca: 3
+  cardPower: 2
