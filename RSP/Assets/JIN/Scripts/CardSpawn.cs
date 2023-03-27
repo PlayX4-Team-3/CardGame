@@ -17,4 +17,9 @@ public class CardSpawn : MonoBehaviour
 
         go.transform.SetParent(this.transform, false);
     }
+
+    public void Shuffle()
+    {
+
+    }
 }

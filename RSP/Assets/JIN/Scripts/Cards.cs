@@ -25,5 +25,5 @@ public class Cards : MonoBehaviour
     public CardType ct; // att def utilty
     public CardAttribute ca; // rock sissors paper
 
-    public int cardPower; // att(2damage), def(2shield), util(+2 or -2)
+    public int cardPower; // att(2damage), def(2shield), util(+2 or -2)...
 }
