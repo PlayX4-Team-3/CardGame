@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public enum State { start, playerTurn, enemyTurn, win, lose}
-
+    
     public State state;
     public bool EnemyIsLive; //적 생존 여부
     [Header("Player")]
@@ -74,6 +74,6 @@ public class GameManager : MonoBehaviour
 
     void EndBattle()
     {
-        
+        Debug.Log("게임 종료"); 
     }
 }
