@@ -8,8 +8,11 @@ public class DeckMaker : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> deck = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> enemyDeck = new List<GameObject>();
 
     public List<GameObject> copiedDeck = new List<GameObject>();
+
 
     private static DeckMaker _instance;
 
