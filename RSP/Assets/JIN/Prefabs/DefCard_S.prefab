@@ -89,6 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cc: 1
-  ct: 2
+  ct: 1
   ca: 2
   cardPower: 2

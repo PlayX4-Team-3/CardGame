@@ -30,5 +30,4 @@ public class CardPoolManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-
 }

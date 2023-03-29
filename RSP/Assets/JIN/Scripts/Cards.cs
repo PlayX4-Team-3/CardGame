@@ -5,7 +5,6 @@ using UnityEngine;
 
 public enum CardType
 {
-    None = 0,
     Attack,
     Defense,
     Utility
