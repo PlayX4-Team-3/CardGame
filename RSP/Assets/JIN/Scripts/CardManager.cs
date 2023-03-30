@@ -46,7 +46,7 @@ public class CardManager : Singletan<CardManager>
 
     public void Draw()
     {
-        if (copiedPlayerDeck.Count != 0 && hands.Count <= 5)
+        if (copiedPlayerDeck.Count != 0)
         {
             int drawIndex = copiedPlayerDeck.Count - 1;
             GameObject drawCard = copiedPlayerDeck[drawIndex];
@@ -55,9 +55,7 @@ public class CardManager : Singletan<CardManager>
             drawCard.transform.SetParent(HandArea.transform, false);
         }
         else
-        {
             GraveToDeck();
-        }
     }
 
     public void GraveToDeck()

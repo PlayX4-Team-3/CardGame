@@ -21,9 +21,4 @@ public class Singletan<T> : MonoBehaviour where T : MonoBehaviour
             return _instance;
         }
     }
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 }

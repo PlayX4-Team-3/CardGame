@@ -22,9 +22,7 @@ public class GameManager : Singletan<GameManager>
     private void Update()
     {
         if (isPlayerTurn)
-        {
             dm.Draw();
-        }
     }
 
     public void TurnEnd()
