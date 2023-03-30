@@ -8,23 +8,28 @@ namespace manager
 {
     public class UIModel : MonoBehaviour
     {
-        public Player player;
+        [SerializeField]
+        private Player player;
+        [SerializeField]
         public Enemy enemy;
-
-        private void Awake()
-        {
-            
-        }
 
         /// <summary>
         /// 플레이어 체력 텍스트
         /// </summary>
-        public int PHpbar { get; set; }
+        public int PHpbar
+        { 
+            get => player.Hp; 
+            set => player.Hp = value; 
+        }
 
         /// <summary>
         /// 적 체력 텍스트
         /// </summary>
-        public int EHpbar { get; set; }
+        public int EHpbar
+        {
+            get => enemy.Hp;
+            set => enemy.Hp = value;
+        }
 
 
         /// <summary>
@@ -33,16 +38,16 @@ namespace manager
         /// <param name="amount">플레이어 체력 입력</param>
         public void PlayerHpbar(int amount)
         {
-            player.Hp += amount;
+            PHpbar += amount;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="amount">적 체력 입력</param>
         public void EnemyHpbar(int amount)
         {
-            enemy.Hp += amount;
+            EHpbar += amount;
         }
     }
 }

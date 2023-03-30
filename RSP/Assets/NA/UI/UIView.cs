@@ -20,5 +20,6 @@ namespace manager
         {
             ehpText.text = "HP : " + ehpbar;
         }
+
     }
 }
