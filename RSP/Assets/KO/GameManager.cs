@@ -21,8 +21,11 @@ public class GameManager : Singletan<GameManager>
 
     private void Update()
     {
-        if (isPlayerTurn)
+        if(Input.GetMouseButtonDown(0))
+        {
             dm.Draw();
+            TurnEnd();
+        }
     }
 
     public void TurnEnd()
