@@ -4,7 +4,7 @@ using UnityEngine;
 
 using System.Linq;
 
-public class CardManager : Singletan<CardManager>
+public class CardManager : Singleton<CardManager>
 {
     [SerializeField]
     private List<GameObject> playerDeck = new List<GameObject>();
@@ -13,10 +13,11 @@ public class CardManager : Singletan<CardManager>
     [SerializeField]
     private List<GameObject> graveDeck = new List<GameObject>();
     [SerializeField]
-    private List<GameObject> hands = new List<GameObject>();
+    public List<GameObject> handDeck = new List<GameObject>();
 
     public List<GameObject> copiedPlayerDeck = new List<GameObject>();
     public GameObject HandArea;
+    public GameObject GraveArea;
 
 
     // °ÔÀÓ ½ÃÀÛ¶§ µ¦ ¼ÅÇÃ, µ¦ ¸ðµÎ »ç¿ë ÈÄ ¹¦Áö ¼ÅÇÃ
@@ -50,7 +51,7 @@ public class CardManager : Singletan<CardManager>
         {
             int drawIndex = copiedPlayerDeck.Count - 1;
             GameObject drawCard = copiedPlayerDeck[drawIndex];
-            graveDeck.Add(copiedPlayerDeck[drawIndex]);
+            handDeck.Add(copiedPlayerDeck[drawIndex]);
             copiedPlayerDeck.RemoveAt(drawIndex);
             drawCard.transform.SetParent(HandArea.transform, false);
         }
@@ -66,13 +67,17 @@ public class CardManager : Singletan<CardManager>
         {
             int graveIndex = graveDeck.Count - 1;
             GameObject graveCard = graveDeck[graveIndex];
+            graveCard.SetActive(true);
             copiedPlayerDeck.Add(graveDeck[graveIndex]);
             graveDeck.RemoveAt(graveIndex);
         }
     }
 
-    public void UseHandCard()
+    public void HandToGrave(GameObject card)
     {
-        Debug.Log("");
+        graveDeck.Add(card);
+        handDeck.Remove(card);
+        card.SetActive(false);
     }
+
 }

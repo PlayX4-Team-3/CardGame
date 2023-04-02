@@ -2,34 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singletan<GameManager>
+public class GameManager : Singleton<GameManager>
 {
-    private CardManager dm;
+    private CardManager cm;
+    private TurnManager tm;
 
-    private bool isPlayerTurn = false;
-
-
-    private void Awake()
+    private void Start()
     {
-        dm = CardManager.Instance;
+        cm = CardManager.Instance;
+        tm = TurnManager.Instance;
 
-        dm.DeckInstantiate();
-        dm.DeckShuffle(dm.copiedPlayerDeck);
+        cm.DeckInstantiate();
+        cm.DeckShuffle(cm.copiedPlayerDeck);
 
-        isPlayerTurn = true;
+        tm.onTurnEnd.AddListener(OnTurnEnd);
+        tm.StartTurn(PlayerID.Player);
+
+        cm.Draw();
     }
 
-    private void Update()
+    public void OnTurnEnd(PlayerID nextPlayer)
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            dm.Draw();
-            TurnEnd();
-        }
-    }
-
-    public void TurnEnd()
-    {
-        isPlayerTurn = !isPlayerTurn;
+        tm.StartTurn(nextPlayer);
+        if (nextPlayer == PlayerID.Player)
+            cm.Draw();
     }
 }
