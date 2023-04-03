@@ -11,10 +11,5 @@ namespace AllCharacter
             InitHp(100);
             InitCost(5);
         }
-
-        private void Update()
-        {
-            
-        }
     }
 }

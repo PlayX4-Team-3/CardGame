@@ -57,6 +57,8 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
         if (hit.collider != null && hit.collider.CompareTag("DropArea"))
         {
+            //GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
+            Debug.Log("Use Card!" + this.gameObject.name);
             cm.HandToGrave(this.gameObject);
         }
         else

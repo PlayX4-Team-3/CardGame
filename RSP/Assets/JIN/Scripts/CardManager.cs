@@ -60,6 +60,7 @@ public class CardManager : Singleton<CardManager>
 
             drawCard.transform.SetParent(HandArea.transform, false);
         }
+
         else
             GraveToDeck();
     }
@@ -67,20 +68,25 @@ public class CardManager : Singleton<CardManager>
     public void GraveToDeck()
     {
         if (graveDeck.Count != 0)
+        {
             DeckShuffle(graveDeck);
 
-        while(graveDeck.Count > 0)
-        {
-            int graveIndex = graveDeck.Count - 1;
+            while (graveDeck.Count > 0)
+            {
+                int graveIndex = graveDeck.Count - 1;
 
-            GameObject graveCard = graveDeck[graveIndex];
-            copiedPlayerDeck.Add(graveDeck[graveIndex]);
+                GameObject graveCard = graveDeck[graveIndex];
+                copiedPlayerDeck.Add(graveDeck[graveIndex]);
 
-            graveCard.SetActive(false);
-            graveDeck.RemoveAt(graveIndex);
-        }
-        if (graveDeck.Count != 0)
+                graveCard.SetActive(false);
+                graveDeck.RemoveAt(graveIndex);
+            }
+
             Draw();
+        }
+
+        else
+            Debug.Log("묘지에 카드가 없습니다.");
     }
 
     public void HandToGrave(GameObject card)

@@ -11,10 +11,6 @@ namespace AllCharacter
         {
             InitHp(100);
         }
-        private void Update()
-        {
-
-        }
     }
 }
 
