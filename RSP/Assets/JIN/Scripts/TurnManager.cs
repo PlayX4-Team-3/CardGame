@@ -16,7 +16,9 @@ public class TurnManager : Singleton<TurnManager>
 {
     public List<PlayerID> players;
     public PlayerID currentPlayer;
+
     public TurnEndEvent onTurnEnd = new TurnEndEvent();
+
     public void StartTurn(PlayerID playerID)
     {
         currentPlayer = playerID;

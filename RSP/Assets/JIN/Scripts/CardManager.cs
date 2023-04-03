@@ -16,9 +16,10 @@ public class CardManager : Singleton<CardManager>
     public List<GameObject> handDeck = new List<GameObject>();
 
     public List<GameObject> copiedPlayerDeck = new List<GameObject>();
+
     public GameObject HandArea;
     public GameObject GraveArea;
-
+    public GameObject DeckArea;
 
     // °ÔÀÓ ½ÃÀÛ¶§ µ¦ ¼ÅÇÃ, µ¦ ¸ðµÎ »ç¿ë ÈÄ ¹¦Áö ¼ÅÇÃ
     public List<GameObject> DeckShuffle(List<GameObject> decksToShuffle)
@@ -50,9 +51,13 @@ public class CardManager : Singleton<CardManager>
         if (copiedPlayerDeck.Count != 0)
         {
             int drawIndex = copiedPlayerDeck.Count - 1;
+
             GameObject drawCard = copiedPlayerDeck[drawIndex];
             handDeck.Add(copiedPlayerDeck[drawIndex]);
+
+            drawCard.SetActive(true);
             copiedPlayerDeck.RemoveAt(drawIndex);
+
             drawCard.transform.SetParent(HandArea.transform, false);
         }
         else
@@ -61,22 +66,28 @@ public class CardManager : Singleton<CardManager>
 
     public void GraveToDeck()
     {
-        DeckShuffle(graveDeck);
+        if (graveDeck.Count != 0)
+            DeckShuffle(graveDeck);
 
         while(graveDeck.Count > 0)
         {
             int graveIndex = graveDeck.Count - 1;
+
             GameObject graveCard = graveDeck[graveIndex];
-            graveCard.SetActive(true);
             copiedPlayerDeck.Add(graveDeck[graveIndex]);
+
+            graveCard.SetActive(false);
             graveDeck.RemoveAt(graveIndex);
         }
+        if (graveDeck.Count != 0)
+            Draw();
     }
 
     public void HandToGrave(GameObject card)
     {
         graveDeck.Add(card);
         handDeck.Remove(card);
+
         card.SetActive(false);
     }
 
