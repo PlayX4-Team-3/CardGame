@@ -32,7 +32,7 @@ namespace AllCharacter
             this.data = data;
         }
 
-        public void UpdateHpText(int pHp, int eHp)
+        public void UpdateDisplay(int pHp, int eHp)
         {
             this.hpText.text = pHp.ToString();
         }
