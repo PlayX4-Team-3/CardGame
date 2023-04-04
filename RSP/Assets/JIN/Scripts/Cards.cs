@@ -23,6 +23,7 @@ public enum CardAttribute
 public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public CardManager cm;
+    public TurnManager tm;
 
     public int cardID;
     public int cc; // cost
@@ -37,34 +38,43 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     private void Start()
     {
         cm = CardManager.Instance;
+        tm = TurnManager.Instance;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        startPos = transform.position;
-        offset = startPos - (Vector2)eventData.position;
+        if (tm.currentPlayer == PlayerID.Player)
+        {
+            startPos = transform.position;
+            offset = startPos - (Vector2)eventData.position;
 
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position + offset;
+        if (tm.currentPlayer == PlayerID.Player)
+            transform.position = eventData.position + offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
-        if (hit.collider != null && hit.collider.CompareTag("DropArea"))
+        if (tm.currentPlayer == PlayerID.Player)
         {
-            //GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
-            Debug.Log("Use Card!" + this.gameObject.name);
-            cm.HandToGrave(this.gameObject);
-        }
-        else
-        {
-            transform.position = startPos;
-            Debug.Log("no hit!!");
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
+            if (hit.collider != null && hit.collider.CompareTag("DropArea"))
+            {
+                //GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
+                //Debug.Log("Use Card!" + this.gameObject.name);
+                cm.HandToGrave(this.gameObject);
+                GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
+            }
+            else
+            {
+                transform.position = startPos;
+                //Debug.Log("no hit!!");
+            }
         }
     }
 }

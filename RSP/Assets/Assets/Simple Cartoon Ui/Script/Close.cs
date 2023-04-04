@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Close : MonoBehaviour
 {
-    public GameObject gameObject;
+    public GameObject go;
     public void close()
     {
-        gameObject.SetActive(false);
+        go.SetActive(false);
     }
 }

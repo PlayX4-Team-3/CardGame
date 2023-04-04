@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
+using AllCharacter;
+
+public enum GameState
+{
+    Playing,
+    GameEnd
+}
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,9 +17,11 @@ public class GameManager : Singleton<GameManager>
     private TurnManager tm;
 
     private GameObject player;
-    private GameObject enemy;
+    public Enemy enemy;
 
     public Button BtnTurnEnd;
+
+    private GameState gs;
 
     private void Start()
     {
@@ -24,28 +34,32 @@ public class GameManager : Singleton<GameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        cm.Draw();
+        while (cm.handDeck.Count < 3)
+            cm.Draw();
 
         player = GameObject.FindWithTag("Player");
-        enemy = GameObject.FindWithTag("Enemy");
-
+        //enemy = GameObject.FindWithTag("Enemy");
+        gs = GameState.Playing;
     }
 
     public void OnTurnEnd(PlayerID nextPlayer)
     {
-        tm.StartTurn(nextPlayer);
-
-        // 플레이어 턴일때만 턴 종료 버튼 활성화
-        if (nextPlayer == PlayerID.Player)
+        if (gs == GameState.Playing)
         {
-            cm.Draw();
-            BtnTurnEnd.interactable = true;
-        }
+            tm.StartTurn(nextPlayer);
 
-        else
-        {
-            EnemyTurn();
-            BtnTurnEnd.interactable = false;
+            // 플레이어 턴일때만 턴 종료 버튼 활성화
+            if (nextPlayer == PlayerID.Player)
+            {
+                cm.Draw();
+                BtnTurnEnd.interactable = true;
+            }
+
+            else
+            {
+                EnemyTurn();
+                BtnTurnEnd.interactable = false;
+            }
         }
     }
 
@@ -72,7 +86,6 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("Enemy Turn End!");
         OnTurnEnd(PlayerID.Player);
     }
 
@@ -100,20 +113,29 @@ public class GameManager : Singleton<GameManager>
 
         switch (cardType)
         {
-            case 0: // 적 카드
-                break;
-            case 1: // 공격 카드
+            case 0: // 공격 카드
                 /* 공격 코드 */
+                enemy.Hp -= cardPower;
+                if (enemy.Hp == 0)
+                    GameEnd(tm.currentPlayer);
                 break;
-            case 2: // 방어 카드
+            case 1: // 방어 카드
                 /* 방어 코드 */
                 break;
-            case 3: // 유틸리티 카드
+            case 2: // 유틸리티 카드
                 /* 유틸리티 코드 */
                 break;
             default:
-                Debug.LogError("잘못된 카드 타입입니다.");
+                Debug.Log("잘못된 카드 타입입니다.");
                 break;
         }
+    }
+
+    private void GameEnd(PlayerID currentPlayer)
+    {
+        PlayerID winnerPlayer = currentPlayer;
+
+        Debug.Log("winner is " + winnerPlayer);
+        gs = GameState.GameEnd;
     }
 }
