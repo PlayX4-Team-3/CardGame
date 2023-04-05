@@ -39,27 +39,30 @@ public class GameManager : Singleton<GameManager>
 
         player = GameObject.FindWithTag("Player");
         //enemy = GameObject.FindWithTag("Enemy");
+
         gs = GameState.Playing;
     }
 
     public void OnTurnEnd(PlayerID nextPlayer)
     {
-        if (gs == GameState.Playing)
+        if (gs != GameState.Playing)
         {
-            tm.StartTurn(nextPlayer);
+            Debug.Log("게임 종료");
+            return;
+        }
+        tm.StartTurn(nextPlayer);
 
-            // 플레이어 턴일때만 턴 종료 버튼 활성화
-            if (nextPlayer == PlayerID.Player)
-            {
-                cm.Draw();
-                BtnTurnEnd.interactable = true;
-            }
+        // 플레이어 턴일때만 턴 종료 버튼 활성화
+        if (nextPlayer == PlayerID.Player)
+        {
+            cm.Draw();
+            BtnTurnEnd.interactable = true;
+        }
 
-            else
-            {
-                EnemyTurn();
-                BtnTurnEnd.interactable = false;
-            }
+        else
+        {
+            EnemyTurn();
+            BtnTurnEnd.interactable = false;
         }
     }
 
@@ -106,6 +109,12 @@ public class GameManager : Singleton<GameManager>
 
     public void UseCard(Cards card)
     {
+        if(gs != GameState.Playing)
+        {
+            Debug.Log("게임 종료 상태입니다.");
+            return;
+        }
+
         int cost = card.cc;
         int cardAttribute = (int)card.ca;
         int cardType = (int)card.ct;

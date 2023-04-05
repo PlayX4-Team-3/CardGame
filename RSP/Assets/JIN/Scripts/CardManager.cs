@@ -14,7 +14,7 @@ public class CardManager : Singleton<CardManager>
     private List<GameObject> graveDeck = new List<GameObject>();
     [SerializeField]
     public List<GameObject> handDeck = new List<GameObject>();
-
+    [SerializeField]
     public List<GameObject> copiedPlayerDeck = new List<GameObject>();
 
     public GameObject HandArea;

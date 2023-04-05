@@ -22,8 +22,8 @@ public enum CardAttribute
 
 public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public CardManager cm;
-    public TurnManager tm;
+    private CardManager cm;
+    private TurnManager tm;
 
     public int cardID;
     public int cc; // cost
