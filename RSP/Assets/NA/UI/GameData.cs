@@ -25,11 +25,11 @@ namespace ObserverPattern
         {
             foreach(IObserver observer in list_Observers)
             {
-                observer.UpdateHpText(this.pHp, this.eHp);
+                observer.UpdateDisplay(this.pHp, this.eHp);
             }
         }
 
-        public void UpdateHpText(int pHp, int eHp)
+        public void UpdateDisplay(int pHp, int eHp)
         {
             this.pHp = pHp;
             this.eHp = eHp;

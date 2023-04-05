@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using Unity;
+
 namespace AllCharacter
 {
     public interface ICharacter
