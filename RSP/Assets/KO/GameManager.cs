@@ -5,18 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using AllCharacter;
 
-public enum GameState
-{
-    Playing,
-    GameEnd
-}
 
 public class GameManager : Singleton<GameManager>
 {
     private CardManager cm;
     private TurnManager tm;
 
-    private GameObject player;
+    public Player player;
     public Enemy enemy;
 
     public Button BtnTurnEnd;
@@ -34,10 +29,10 @@ public class GameManager : Singleton<GameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        while (cm.handDeck.Count < 3)
+        while (cm.handDeck.Count < 3) // 3은 게임 시작시 패 드로우 수
             cm.Draw();
 
-        player = GameObject.FindWithTag("Player");
+        //player = GameObject.FindWithTag("Player");
         //enemy = GameObject.FindWithTag("Enemy");
 
         gs = GameState.Playing;
@@ -50,6 +45,7 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("게임 종료");
             return;
         }
+
         tm.StartTurn(nextPlayer);
 
         // 플레이어 턴일때만 턴 종료 버튼 활성화
@@ -94,12 +90,15 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyAttack()
     {
-        //Debug.Log(player);
+        player.Hp -= 2;
+
+        if (player.Hp == 0)
+            GameEnd(tm.currentPlayer);
     }
 
     private void EnemyDefense()
     {
-        //Debug.Log(player);
+        enemy.Defense_Figures(2);
     }
 
     private void EnemyUtility()

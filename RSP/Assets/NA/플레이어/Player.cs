@@ -16,18 +16,18 @@ namespace AllCharacter
         private void Awake()
         {
             cards = GetComponent<Cards>();
-            InitHp(100);
+            InitHp(3);
             InitCost(5);
         }
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                Hp -= 10;
-                Debug.Log(Hp);
-            }
-            Defense_Figures(cards.cardPower);
+            //if(Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    Hp -= 10;
+            //    Debug.Log(Hp);
+            //}
+            //Defense_Figures(cards.cardPower);
         }
         
         public void DataInit(GameData data)
