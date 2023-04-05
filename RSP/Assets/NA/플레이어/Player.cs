@@ -12,8 +12,10 @@ namespace AllCharacter
         private Text hpText;
 
         private GameData data;
+        private Cards cards;
         private void Awake()
         {
+            cards = GetComponent<Cards>();
             InitHp(100);
             InitCost(5);
         }
@@ -25,6 +27,7 @@ namespace AllCharacter
                 Hp -= 10;
                 Debug.Log(Hp);
             }
+            Defense_Figures(cards.cardPower);
         }
         
         public void DataInit(GameData data)
