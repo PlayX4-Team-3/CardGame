@@ -123,7 +123,12 @@ public class GameManager : Singleton<GameManager>
         {
             case 0: // 공격 카드
                 /* 공격 코드 */
+                //int eHp;
+                //eHp -= cardPower;
+                //eHp = eHp + enemy.Hp;
+                
                 enemy.Hp -= cardPower;
+                
                 if (enemy.Hp == 0)
                     GameEnd(tm.currentPlayer);
                 break;
