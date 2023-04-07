@@ -21,6 +21,7 @@ public class CardManager : Singleton<CardManager>
     public GameObject GraveArea;
     public GameObject DeckArea;
 
+
     // °ÔÀÓ ½ÃÀÛ¶§ µ¦ ¼ÅÇÃ, µ¦ ¸ðµÎ »ç¿ë ÈÄ ¹¦Áö ¼ÅÇÃ
     public List<GameObject> DeckShuffle(List<GameObject> decksToShuffle)
     {
@@ -55,10 +56,12 @@ public class CardManager : Singleton<CardManager>
             GameObject drawCard = copiedPlayerDeck[drawIndex];
             handDeck.Add(copiedPlayerDeck[drawIndex]);
 
-            drawCard.SetActive(true);
+            //drawCard.SetActive(true);
             copiedPlayerDeck.RemoveAt(drawIndex);
 
             drawCard.transform.SetParent(HandArea.transform, false);
+            drawCard.transform.SetAsLastSibling();
+            drawCard.SetActive(true);
         }
 
         else

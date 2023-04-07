@@ -17,6 +17,8 @@ public class GameManager : Singleton<GameManager>
     public Button BtnTurnEnd;
 
     private GameState gs;
+    [SerializeField]
+    private Image[] playerCostImg = new Image[5];
 
     private void Start()
     {
@@ -29,7 +31,7 @@ public class GameManager : Singleton<GameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        while (cm.handDeck.Count < 3) // 3은 게임 시작시 패 드로우 수
+        while (cm.handDeck.Count < 9) // 3은 게임 시작시 패 드로우 수
             cm.Draw();
 
         //player = GameObject.FindWithTag("Player");
@@ -52,7 +54,12 @@ public class GameManager : Singleton<GameManager>
         if (nextPlayer == PlayerID.Player)
         {
             cm.Draw();
+
             BtnTurnEnd.interactable = true;
+
+            player.Cost = player.MaxCost;
+            for (int i = 0; i < player.MaxCost; i++)
+                playerCostImg[i].gameObject.SetActive(true);
         }
 
         else
@@ -99,6 +106,7 @@ public class GameManager : Singleton<GameManager>
     private void EnemyDefense()
     {
         enemy.Defense_Figures(2);
+        Debug.Log("Def");
     }
 
     private void EnemyUtility()
@@ -119,16 +127,15 @@ public class GameManager : Singleton<GameManager>
         int cardType = (int)card.ct;
         int cardPower = card.cardPower;
 
+        for (int i = player.MaxCost - 1; i >= player.Cost; i--)
+            playerCostImg[i].gameObject.SetActive(false);
+
         switch (cardType)
         {
             case 0: // 공격 카드
                 /* 공격 코드 */
-                //int eHp;
-                //eHp -= cardPower;
-                //eHp = eHp + enemy.Hp;
-                
                 enemy.Hp -= cardPower;
-                
+
                 if (enemy.Hp == 0)
                     GameEnd(tm.currentPlayer);
                 break;
@@ -142,6 +149,7 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("잘못된 카드 타입입니다.");
                 break;
         }
+
     }
 
     private void GameEnd(PlayerID currentPlayer)
@@ -150,5 +158,14 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log("winner is " + winnerPlayer);
         gs = GameState.GameEnd;
+
+        StartCoroutine(GameEndDelay());
+    }
+
+    private IEnumerator GameEndDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
+        SceneChange.Instance.GoResultScene();
     }
 }

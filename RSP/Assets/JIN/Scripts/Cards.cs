@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
+using AllCharacter;
 
 public enum CardType
 {
@@ -35,10 +37,15 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     private Vector2 startPos;
     private Vector2 offset;
 
+    [SerializeField]
+    private Player player;
+
     private void Start()
     {
         cm = CardManager.Instance;
         tm = TurnManager.Instance;
+
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -60,20 +67,19 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (tm.currentPlayer == PlayerID.Player)
+        if (tm.currentPlayer == PlayerID.Player )
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
-            if (hit.collider != null && hit.collider.CompareTag("DropArea"))
+            if (hit.collider != null && hit.collider.CompareTag("DropArea") && player.Cost >= cc)
             {
-                //GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
-                //Debug.Log("Use Card!" + this.gameObject.name);
                 cm.HandToGrave(this.gameObject);
+                player.Cost -= cc;
+            
                 GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
             }
             else
             {
                 transform.position = startPos;
-                //Debug.Log("no hit!!");
             }
         }
     }

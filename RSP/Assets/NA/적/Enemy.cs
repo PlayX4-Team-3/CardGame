@@ -16,7 +16,7 @@ namespace AllCharacter
         private void Awake()
         {
             cards = GetComponent<Cards>();
-            InitHp(3);
+            InitHp(10);
         }
         private void Update()
         {

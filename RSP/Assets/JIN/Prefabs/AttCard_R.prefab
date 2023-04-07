@@ -91,10 +91,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardID: 3
-  cc: 1
+  cc: 2
   ct: 0
   ca: 1
   cardPower: 2
+  player: {fileID: 0}
 --- !u!61 &-9210047188081180829
 BoxCollider2D:
   m_ObjectHideFlags: 0
