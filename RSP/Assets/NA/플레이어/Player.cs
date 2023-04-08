@@ -10,12 +10,13 @@ namespace AllCharacter
     {
         [SerializeField]
         private Text hpText;
+        [SerializeField]
+        private Text dfText;
 
         private GameData data;
-        private Cards cards;
+
         private void Awake()
         {
-            cards = GetComponent<Cards>();
             InitHp(10);
             InitCost(5);
             Defense_Figures = 0;
@@ -28,7 +29,6 @@ namespace AllCharacter
             //    Hp -= 10;
             //    Debug.Log(Hp);
             //}
-            //Defense_Figures(cards.cardPower);
         }
         
         public void DataInit(GameData data)
@@ -36,9 +36,10 @@ namespace AllCharacter
             this.data = data;
         }
 
-        public void UpdateDisplay(int pHp, int eHp)
+        public void UpdateDisplay(int pHp, int eHp, int pDf, int eDf)
         {
             this.hpText.text = pHp.ToString();
+            this.dfText.text = pDf.ToString();
         }
     }
 }

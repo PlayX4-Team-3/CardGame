@@ -32,6 +32,6 @@ namespace ObserverPattern
         /// </summary>
         /// <param name="php">플레이어 체력 값</param>
         /// <param name="ehp">적 체력 값</param>
-        void UpdateDisplay(int php, int ehp);
+        void UpdateDisplay(int php, int ehp, int pdf, int edf);
     }
 }
