@@ -18,6 +18,7 @@ namespace AllCharacter
             cards = GetComponent<Cards>();
             InitHp(10);
             InitCost(5);
+            Defense_Figures = 0;
         }
 
         private void Update()

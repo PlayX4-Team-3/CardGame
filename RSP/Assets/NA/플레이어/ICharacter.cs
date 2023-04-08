@@ -7,12 +7,12 @@ namespace AllCharacter
     public interface ICharacter
     {
         /// <summary>
-        /// 플레이어 / 적 체력
+        /// 캐릭터 체력
         /// </summary>
         int Hp { get; set; }
 
         /// <summary>
-        /// 플레이어 최대 체력
+        /// 캐릭터 최대 체력
         /// </summary>
         int MaxHp { get; set; }
 
@@ -27,8 +27,8 @@ namespace AllCharacter
         int MaxCost { get; set; }
 
         /// <summary>
-        /// 플레이어 생존 여부
+        /// 캐릭터 방어수치
         /// </summary>
-        bool IsDie { get; set; }
+        int Defense_Figures { get; set; }
     }
 }

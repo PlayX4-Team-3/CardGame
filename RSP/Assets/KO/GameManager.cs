@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyDefense()
     {
-        enemy.Defense_Figures(2);
+        enemy.Defense_Figures += 2;
         Debug.Log("Def");
     }
 
@@ -134,8 +134,9 @@ public class GameManager : Singleton<GameManager>
         {
             case 0: // 공격 카드
                 /* 공격 코드 */
-                enemy.Hp -= cardPower;
+                enemy.Defense_Figures -= cardPower;
 
+                enemy.Hp = enemy.Hp + enemy.Defense_Figures;
                 if (enemy.Hp == 0)
                     GameEnd(tm.currentPlayer);
                 break;

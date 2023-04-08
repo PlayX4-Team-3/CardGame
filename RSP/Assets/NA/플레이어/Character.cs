@@ -14,8 +14,6 @@ namespace AllCharacter
 
         [SerializeField] private int maxCost;
 
-        [SerializeField] private bool isDie;
-
         [SerializeField] private int defense_Figures;
 
         public int MaxHp
@@ -48,10 +46,10 @@ namespace AllCharacter
             }
         }
 
-        public bool IsDie
+        public int Defense_Figures
         {
-            get => isDie;
-            set => isDie = value;
+            get => defense_Figures;
+            set => defense_Figures = value;
         }
 
         /// <summary>
@@ -71,16 +69,6 @@ namespace AllCharacter
         {
             MaxCost = amount;
             Cost = MaxCost;
-        }
-
-        /// <summary>
-        /// 방어 수치
-        /// </summary>
-        /// <param name="amount">방어카드수치 값</param>
-        public void Defense_Figures(int amount)
-        {
-            defense_Figures = 0;
-            defense_Figures += amount;
         }
     }
 }

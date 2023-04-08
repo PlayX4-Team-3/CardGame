@@ -17,6 +17,7 @@ namespace AllCharacter
         {
             cards = GetComponent<Cards>();
             InitHp(10);
+            Defense_Figures = 0;
         }
         private void Update()
         {
@@ -25,7 +26,6 @@ namespace AllCharacter
             //    Hp -= 10;
             //    Debug.Log(Hp);
             //}
-            //Defense_Figures(cards.cardPower);
         }
 
         public void DataInit(GameData data)
