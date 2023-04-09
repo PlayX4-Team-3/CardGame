@@ -80,50 +80,78 @@ public class GameManager : Singleton<GameManager>
     #region 적 행동 패턴
     private void EnemyTurn()
     {
+        // 적 턴 시작 시 적 방어력 0으로 초기화
         enemy.Defense_Figures = 0;
 
+        // 적 행동 패턴 랜덤으로 선택
         int action = Random.Range(0, 3);
+
         switch (action)
         {
             case 0:
                 EnemyAttack();
                 break;
+
             case 1:
                 EnemyDefense();
                 break;
+
             case 2:
                 EnemyUtility();
                 break;
         }
 
+        // 적 턴 동안 딜레이를 줘 행동하는 듯한 느낌을 줌
         StartCoroutine(EnemyTurnEndDelay());
     }
 
     private IEnumerator EnemyTurnEndDelay()
     {
         yield return new WaitForSeconds(2f);
+
+        player.Defense_Figures = 0;
         display.UpdateCharacterState();
+
         OnTurnEnd(PlayerID.Player);
     }
 
+    // 적 공격 패턴
     private void EnemyAttack()
     {
-        player.Hp -= Random.Range(1, 4);
+        int randomDamage = Random.Range(1, 5);
+        
+        if (player.Defense_Figures > 0)
+        {
+            player.Defense_Figures -= randomDamage;
+            if (player.Defense_Figures <= 0)
+            {
+                player.Hp = player.Hp + player.Defense_Figures;
+                player.Defense_Figures = 0;
+            }
+        }
+
+        else
+            player.Hp -= randomDamage;
+
+        display.UpdateCharacterState();
 
         if (player.Hp == 0)
             GameEnd(tm.currentPlayer);
     }
 
+    // 적 방어 패턴
     private void EnemyDefense()
     {
-        enemy.Defense_Figures += Random.Range(1, 4);
+        enemy.Defense_Figures += Random.Range(1, 5);
     }
 
+    // 적 유틸 패턴
     private void EnemyUtility()
     {
         //Debug.Log(player);
     }
     #endregion
+
 
     #region 플레이어 카드 사용
     public void UseCard(Cards card)
@@ -162,6 +190,7 @@ public class GameManager : Singleton<GameManager>
 
             case 1: // 방어 카드
                 /* 방어 코드 */
+                player.Defense_Figures += cardPower;
                 break;
 
             case 2: // 유틸리티 카드

@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using AllCharacter;
 
+using UnityEngine.UI;
+
 public enum CardType
 {
     None = 0,
@@ -21,7 +23,7 @@ public enum CardAttribute
     Paper
 }
 
-public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private CardManager cm;
     private TurnManager tm;
@@ -45,6 +47,7 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         tm = TurnManager.Instance;
 
         player = GameObject.Find("Player").GetComponent<Player>();
+        //this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -81,5 +84,20 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
                 transform.position = startPos;
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        this.transform.localScale = new Vector3(this.transform.localScale.x * 1.3f, this.transform.localScale.y * 1.3f, 1f);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+    }
+
+    private void OnEnable()
+    {
+        this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 }
