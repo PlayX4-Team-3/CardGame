@@ -17,7 +17,7 @@ namespace AllCharacter
 
         private void Awake()
         {
-            InitHp(10);
+            InitHp(15);
             Defense_Figures = 0;
         }
 
