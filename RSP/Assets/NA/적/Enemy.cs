@@ -20,14 +20,6 @@ namespace AllCharacter
             InitHp(10);
             Defense_Figures = 0;
         }
-        private void Update()
-        {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    Hp -= 10;
-            //    Debug.Log(Hp);
-            //}
-        }
 
         public void DataInit(GameData data)
         {

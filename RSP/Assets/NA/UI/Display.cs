@@ -34,7 +34,7 @@ public class Display : MonoBehaviour
         this.data.RegisterObserver(this.enemy);    
     }
 
-    private void Update()
+    public void UpdateCharacterState()
     {
         //옵저버들의 초기화
         this.data.UpdateDisplay(this.player.Hp, this.enemy.Hp, this.player.Defense_Figures, this.enemy.Defense_Figures);

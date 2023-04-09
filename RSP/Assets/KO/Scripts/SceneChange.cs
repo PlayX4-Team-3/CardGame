@@ -29,4 +29,5 @@ public class SceneChange : Singleton<SceneChange>
     {
         Application.Quit();
     }
+
 }
