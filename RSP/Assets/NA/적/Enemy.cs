@@ -12,6 +12,8 @@ namespace AllCharacter
         private Text hpText;
         [SerializeField]
         private Text dfText;
+        [SerializeField]
+        private Slider hpSlider;
 
         private GameData data;
 
@@ -19,6 +21,7 @@ namespace AllCharacter
         {
             InitHp(15);
             Defense_Figures = 0;
+            hpSlider.value = Hp;
         }
 
         public void DataInit(GameData data)
