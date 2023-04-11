@@ -21,6 +21,12 @@ public class CardManager : Singleton<CardManager>
     public GameObject GraveArea;
     public GameObject DeckArea;
 
+    public void CardInit()
+    {
+        graveDeck.Clear();
+        handDeck.Clear();
+        copiedPlayerDeck.Clear();
+    }
 
     // °ÔÀÓ ½ÃÀÛ¶§ µ¦ ¼ÅÇÃ, µ¦ ¸ğµÎ »ç¿ë ÈÄ ¹¦Áö ¼ÅÇÃ
     public List<GameObject> DeckShuffle(List<GameObject> decksToShuffle)

@@ -47,7 +47,6 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         tm = TurnManager.Instance;
 
         player = GameObject.Find("Player").GetComponent<Player>();
-        //this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

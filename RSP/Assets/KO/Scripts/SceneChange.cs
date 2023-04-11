@@ -1,33 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class SceneChange : Singleton<SceneChange>
 {
-    public void GoBracketScene()
+    private static SceneChange _instance;
+
+    [HideInInspector]
+    public int winnerIndex = 0;
+
+    void Awake()
     {
-        SceneManager.LoadScene(1);
+        if (_instance == null)
+        {
+            _instance = this as SceneChange;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        else if (_instance != this)
+        {
+            Debug.Log("같은 타입의 Singleton이 이미 존재합니다. 새로 생성된 오브젝트를 삭제합니다.");
+            Destroy(gameObject);
+        }
     }
 
-    public void GoGameScene()
+    void OnDestroy()
     {
-        SceneManager.LoadScene(2);
+        if (_instance == this)
+            _instance = null;
     }
 
-    public void GoResultScene()
+    public void Quit()
     {
-        SceneManager.LoadScene(3);
-    }
-
-    public void GoTitleScene()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void GameExit()
-    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
+    public void GoNextScene()
+    {
+        int currentSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1) % 4;
+
+        SceneManager.LoadScene(currentSceneIndex);
+    }
 }

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using UnityEngine.UI;
 using AllCharacter;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager : Singleton<GameManager>
@@ -11,10 +9,11 @@ public class GameManager : Singleton<GameManager>
     private CardManager cm;
     private TurnManager tm;
 
-    public Player player;
-    public Enemy enemy;
+    [SerializeField]
+    private Player player;
+    private Enemy enemy;
 
-    public Button BtnTurnEnd;
+    private Button BtnTurnEnd;
 
     // 게임 상태 (게임 중, 게임 끝)
     private GameState gs;
@@ -22,28 +21,39 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Image[] playerCostImg = new Image[5];
 
-    [SerializeField]
     private Display display;
 
     public int drawAmount;
+
+    private int enemyActionIndex;
+    public Text enemyActionText;
 
     private void Start()
     {
         cm = CardManager.Instance;
         tm = TurnManager.Instance;
 
-        cm.DeckInstantiate();
-        cm.DeckShuffle(cm.copiedPlayerDeck);
+        player = GameObject.Find("Player").GetComponent<Player>();
+        enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
+        BtnTurnEnd = GameObject.Find("BtnTurnEnd").GetComponent<Button>();
+        display = GameObject.Find("UIManager").GetComponent<Display>();
 
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
+
+        cm.CardInit();
+
+        cm.DeckInstantiate();
+        cm.DeckShuffle(cm.copiedPlayerDeck);
 
         while (cm.handDeck.Count < drawAmount) // 3은 게임 시작시 패 드로우 수
             cm.Draw();
 
         gs = GameState.Playing;
-
         display.UpdateCharacterState();
+
+        enemyActionIndex = Random.Range(0, 3);
+        EnemyActionTextUpdate();
     }
 
     #region 턴 종료 시
@@ -65,8 +75,12 @@ public class GameManager : Singleton<GameManager>
             BtnTurnEnd.interactable = true;
 
             player.Cost = player.MaxCost;
+
             for (int i = 0; i < player.MaxCost; i++)
                 playerCostImg[i].gameObject.SetActive(true);
+
+            enemyActionIndex = Random.Range(0, 3);
+            EnemyActionTextUpdate();
         }
 
         else
@@ -78,15 +92,25 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
     #region 적 행동 패턴
+    private void EnemyActionTextUpdate()
+    {
+        if (enemyActionIndex == 0)
+            enemyActionText.text = "Attack";
+        else if (enemyActionIndex == 1)
+            enemyActionText.text = "Defense";
+        else
+            enemyActionText.text = "Utility";
+    }
+
     private void EnemyTurn()
     {
         // 적 턴 시작 시 적 방어력 0으로 초기화
         enemy.Defense_Figures = 0;
 
         // 적 행동 패턴 랜덤으로 선택
-        int action = Random.Range(0, 3);
+        //int action = Random.Range(0, 3);
 
-        switch (action)
+        switch (enemyActionIndex)
         {
             case 0:
                 EnemyAttack();
@@ -119,7 +143,7 @@ public class GameManager : Singleton<GameManager>
     private void EnemyAttack()
     {
         int randomDamage = Random.Range(1, 5);
-        
+
         if (player.Defense_Figures > 0)
         {
             player.Defense_Figures -= randomDamage;
@@ -152,11 +176,10 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
 
-
     #region 플레이어 카드 사용
     public void UseCard(Cards card)
     {
-        if(gs != GameState.Playing)
+        if (gs != GameState.Playing)
         {
             Debug.Log("게임 종료 상태입니다.");
             return;
@@ -216,7 +239,6 @@ public class GameManager : Singleton<GameManager>
     {
         PlayerID winnerPlayer = currentPlayer;
 
-        Debug.Log("winner is " + winnerPlayer);
         gs = GameState.GameEnd;
 
         StartCoroutine(GameEndDelay(currentPlayer));
@@ -225,8 +247,10 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator GameEndDelay(PlayerID player)
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log(player);
-        SceneChange.Instance.GoResultScene();
+
+        SceneChange.Instance.winnerIndex = (int)player;
+        //SceneChange.Instance.GoResultScene();
+        SceneChange.Instance.GoNextScene();
     }
     #endregion
 }
