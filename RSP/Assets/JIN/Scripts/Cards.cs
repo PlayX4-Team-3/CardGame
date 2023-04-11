@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using AllCharacter;
-
 using UnityEngine.UI;
+using AllCharacter;
+using manager;
 
 public enum CardType
 {
