@@ -19,7 +19,7 @@ namespace AllCharacter
 
         private void Awake()
         {
-            InitHp(15);
+            InitHp(40);
             Defense_Figures = 0;
             hpSlider.value = Hp;
         }

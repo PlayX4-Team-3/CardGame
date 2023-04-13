@@ -18,7 +18,7 @@ public class SceneChange : Singleton<SceneChange>
 
         else if (_instance != this)
         {
-            Debug.Log("같은 타입의 Singleton이 이미 존재합니다. 새로 생성된 오브젝트를 삭제합니다.");
+            //Debug.Log("같은 타입의 Singleton이 이미 존재합니다. 새로 생성된 오브젝트를 삭제합니다.");
             Destroy(gameObject);
         }
     }

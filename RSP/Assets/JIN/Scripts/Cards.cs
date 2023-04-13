@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using AllCharacter;
-using manager;
 
 public enum CardType
 {
@@ -38,7 +37,6 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     private Vector2 startPos;
     private Vector2 offset;
 
-    [SerializeField]
     private Player player;
 
     private void Start()
@@ -78,10 +76,9 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             
                 GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
             }
+
             else
-            {
                 transform.position = startPos;
-            }
         }
     }
 

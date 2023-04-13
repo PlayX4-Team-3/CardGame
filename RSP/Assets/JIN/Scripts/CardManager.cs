@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System.Linq;
+using AllCharacter;
 
 public class CardManager : Singleton<CardManager>
 {
@@ -104,6 +105,18 @@ public class CardManager : Singleton<CardManager>
         handDeck.Remove(card);
 
         card.SetActive(false);
+    }
+
+    public void Heal(Player player, int n)
+    {
+        player.Hp += n;
+    }
+
+    public void SpellDraw(int n)
+    {
+        for (int i = 0; i < n; i++)
+            if (graveDeck.Count > 0)
+                Draw();
     }
 
 }
