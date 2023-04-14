@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using AllCharacter;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using AllCharacter;
 
 public enum CardType
 {
@@ -39,6 +35,8 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     private Player player;
 
+    private int childIndex;
+
     private void Start()
     {
         cm = CardManager.Instance;
@@ -51,45 +49,57 @@ public class Cards : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     {
         if (tm.currentPlayer == PlayerID.Player)
         {
-            startPos = transform.position;
+            cm.isClick = true;
+
+            startPos = this.transform.position;
             offset = startPos - (Vector2)eventData.position;
 
-            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            childIndex = this.transform.GetSiblingIndex();
+            this.transform.SetAsLastSibling();
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (tm.currentPlayer == PlayerID.Player)
-            transform.position = eventData.position + offset;
+            this.transform.position = eventData.position + offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (tm.currentPlayer == PlayerID.Player )
+        if (tm.currentPlayer == PlayerID.Player)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.zero);
+
             if (hit.collider != null && hit.collider.CompareTag("DropArea") && player.Cost >= cc)
             {
                 cm.HandToGrave(this.gameObject);
                 player.Cost -= cc;
-            
+
                 GameManager.Instance.UseCard(this.gameObject.GetComponent<Cards>());
             }
 
             else
-                transform.position = startPos;
+            {
+                this.transform.SetSiblingIndex(childIndex);
+                this.transform.position = startPos;
+            }
+
+            cm.isClick = false;
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        this.transform.localScale = new Vector3(this.transform.localScale.x * 1.3f, this.transform.localScale.y * 1.3f, 1f);
+        if (cm.isClick == false)
+            this.transform.localScale = new Vector3(this.transform.localScale.x * 1.3f, this.transform.localScale.y * 1.3f, 1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        if (cm.isClick == false)
+            this.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     private void OnEnable()
