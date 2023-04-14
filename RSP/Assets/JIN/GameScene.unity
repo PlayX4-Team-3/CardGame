@@ -340,6 +340,7 @@ MonoBehaviour:
   HandArea: {fileID: 1526342915}
   GraveArea: {fileID: 119555872}
   DeckArea: {fileID: 654624956}
+  isClick: 0
 --- !u!1 &185105732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1719,7 @@ MonoBehaviour:
   defense_Figures: 0
   hpText: {fileID: 109940658}
   dfText: {fileID: 1414964149}
+  hpSlider: {fileID: 0}
 --- !u!1 &1521400126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1777,7 @@ GameObject:
   - component: {fileID: 1526342918}
   - component: {fileID: 1526342917}
   - component: {fileID: 1526342919}
+  - component: {fileID: 1526342920}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -1865,6 +1868,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!210 &1526342920
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526342915}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1529364992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +2000,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 583627191}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2192,6 +2206,7 @@ MonoBehaviour:
   defense_Figures: 0
   hpText: {fileID: 185105734}
   dfText: {fileID: 2128181723}
+  hpSlider: {fileID: 0}
 --- !u!1 &1958277012
 GameObject:
   m_ObjectHideFlags: 0

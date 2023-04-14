@@ -218,8 +218,6 @@ public class GameManager : Singleton<GameManager>
         for (int i = player.MaxCost - 1; i >= player.Cost; i--)
             playerCostImg[i].gameObject.SetActive(false);
 
-        Debug.Log(cardType);
-
         switch (cardType)
         {
             case 1: // 공격 카드
