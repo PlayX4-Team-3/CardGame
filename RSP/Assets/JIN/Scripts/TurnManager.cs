@@ -10,12 +10,6 @@ public enum PlayerID
     Enemy
 }
 
-public enum GameState
-{
-    Playing,
-    GameEnd
-}
-
 public class TurnEndEvent : UnityEvent<PlayerID> { }
 
 public class TurnManager : Singleton<TurnManager>

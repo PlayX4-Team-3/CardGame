@@ -1,0 +1,268 @@
+{
+  "CardDB": [
+    {
+      "ID": 101,
+      "Name": "la_R",
+      "Attribute": "Rock",
+      "Type": "Attack",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/Weapon9_Card",
+      "Description": "약한 공격",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 102,
+      "Name": "la_P",
+      "Attribute": "Paper",
+      "Type": "Attack",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/Weapon12_Card",
+      "Description": "약한 공격",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 103,
+      "Name": "la_S",
+      "Attribute": "Sissors",
+      "Type": "Attack",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/Weapon15_Card",
+      "Description": "약한 공격",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 104,
+      "Name": "na_R",
+      "Attribute": "Rock",
+      "Type": "Attack",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/Weapon18_Card",
+      "Description": "보통 공격",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 105,
+      "Name": "na_P",
+      "Attribute": "Paper",
+      "Type": "Attack",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/Weapon19_Card",
+      "Description": "보통 공격",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 106,
+      "Name": "na_S",
+      "Attribute": "Sissors",
+      "Type": "Attack",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/Weapon13_Card",
+      "Description": "보통 공격",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 201,
+      "Name": "ld_R",
+      "Attribute": "Rock",
+      "Type": "Defense",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/LeatherArmor_Card",
+      "Description": "약한 방어",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 202,
+      "Name": "ld_P",
+      "Attribute": "Paper",
+      "Type": "Defense",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/RoundShield_Card",
+      "Description": "약한 방어",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 203,
+      "Name": "ld_S",
+      "Attribute": "Sissors",
+      "Type": "Defense",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "CardImage\/ChainArmor_Card",
+      "Description": "약한 방어",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 204,
+      "Name": "nd_R",
+      "Attribute": "Rock",
+      "Type": "Defense",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/GoldMetalArmor_Card",
+      "Description": "보통 방어",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 205,
+      "Name": "nd_P",
+      "Attribute": "Paper",
+      "Type": "Defense",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/LongShield_Card",
+      "Description": "보통 방어",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 206,
+      "Name": "nd_S",
+      "Attribute": "Sissors",
+      "Type": "Defense",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/MetalArmor_Card",
+      "Description": "보통 방어",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 301,
+      "Name": "lu_R",
+      "Attribute": "Rock",
+      "Type": "Utility",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/ManaPortion_Card",
+      "Description": "약한 유틸",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 302,
+      "Name": "lu_P",
+      "Attribute": "Paper",
+      "Type": "Utility",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/FireBall_Card",
+      "Description": "약한 유틸",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 303,
+      "Name": "lu_S",
+      "Attribute": "Sissors",
+      "Type": "Utility",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "CardImage\/Bind_Card",
+      "Description": "약한 유틸",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 304,
+      "Name": "nu_R",
+      "Attribute": "Rock",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 4,
+      "ImageLink": "CardImage\/Bomb_Card",
+      "Description": "보통 유틸",
+      "RPSLink": "RPSImage\/rock"
+    },
+    {
+      "ID": 305,
+      "Name": "nu_P",
+      "Attribute": "Paper",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 4,
+      "ImageLink": "CardImage\/Draw_Card",
+      "Description": "보통 유틸",
+      "RPSLink": "RPSImage\/paper"
+    },
+    {
+      "ID": 306,
+      "Name": "nu_S",
+      "Attribute": "Sissors",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 4,
+      "ImageLink": "CardImage\/Draw2_Card",
+      "Description": "보통 유틸",
+      "RPSLink": "RPSImage\/sissors"
+    },
+    {
+      "ID": 401,
+      "Name": "ela",
+      "Attribute": "None",
+      "Type": "Attack",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 402,
+      "Name": "ena",
+      "Attribute": "None",
+      "Type": "Attack",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 403,
+      "Name": "eld",
+      "Attribute": "None",
+      "Type": "Defense",
+      "Cost": 1,
+      "Power": 1,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 404,
+      "Name": "end",
+      "Attribute": "None",
+      "Type": "Defense",
+      "Cost": 2,
+      "Power": 2,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 405,
+      "Name": "elu",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 3,
+      "Power": 3,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 406,
+      "Name": "enu",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 4,
+      "ImageLink": "None",
+      "Description": "None",
+      "RPSLink": "None"
+    }
+  ]
+}
