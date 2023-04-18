@@ -25,19 +25,14 @@ namespace AllCharacter
             InitCost(5);
             //방어력 초기화
             Defense_Figures = 0;
-            //Hp 슬라이더 MaxValue 설정
-            hpBar.maxValue = Hp;
+            //Hp 슬라이더 MaxValue 초기화
+            hpBar.maxValue = this.MaxHp;
         }
 
         private void Update()
         {
-            //Hp 슬라이더 value 설정
+            //Hp 슬라이더 value 초기화
             hpBar.value = Hp;
-            
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                Hp -= 1;
-            }
         }
 
         public void DataInit(GameData data)
@@ -47,7 +42,9 @@ namespace AllCharacter
 
         public void UpdateDisplay(int pHp, int eHp, int pDf, int eDf)
         {
-            this.hpText.text = pHp.ToString();
+            //현재 체력과 최대 체력 텍스트 출력
+            this.hpText.text = $"{pHp:F0}/{this.MaxHp:F0}";
+            //방어력 텍스트 출력
             this.dfText.text = pDf.ToString();
         }
     }

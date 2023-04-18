@@ -18,6 +18,7 @@ public class Display : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Player player;
+
     /// <summary>
     /// 적 데이터
     /// </summary>
