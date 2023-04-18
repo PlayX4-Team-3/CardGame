@@ -9,6 +9,7 @@ TagManager:
   - Cost
   - Canvas
   - Hand
+  - DummyCard
   layers:
   - Default
   - TransparentFX
