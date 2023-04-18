@@ -31,13 +31,19 @@ public class JsonGameManager : Singleton<JsonGameManager>
     private int enemyActionIndex;
     public Text enemyActionText;
 
-    public bool canEAttack = false; 
+    public bool canEAttack = false;
+
+    public GameObject dummy;
+    public bool isClick = false;
 
     private void Start()
     {
         jcm = JsonCardManager.Instance;
         tm = TurnManager.Instance;
         ca = CardAbility.Instance;
+
+        dummy = GameObject.FindWithTag("DummyCard").gameObject;
+
 
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);

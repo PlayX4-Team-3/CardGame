@@ -33,7 +33,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         magnifiedCardScale = new Vector2(0.8f, 0.8f);
         restoredCardScale = new Vector2(0.6f, 0.6f);
 
-        thisChildIndex = this.transform.GetSiblingIndex();
+        //thisChildIndex = this.transform.GetSiblingIndex();
 
         card = JsonCardManager.Instance.cardDeck[int.Parse(this.name)];
     }
@@ -50,6 +50,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position + offset;
+
+        Debug.Log(thisChildIndex);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -58,11 +60,15 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         if (hit.collider != null && hit.collider.CompareTag("DropArea") && jgm.player.Cost >= card.Cost)
         {
+            jgm.dummy.transform.SetParent(canvasT);
+            jgm.dummy.SetActive(false);
+
             jgm.player.Cost -= card.Cost;
             
             jgm.UseCard(card);
             JsonCardManager.Instance.HandToGrave(this.gameObject);
         }
+
         else
         {
             this.transform.SetParent(previousParentT);
@@ -72,11 +78,32 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        this.transform.localScale = magnifiedCardScale;
+        if (!jgm.isClick)
+        {
+            jgm.isClick = true;
+            thisChildIndex = this.transform.GetSiblingIndex();
+
+            this.transform.localScale = magnifiedCardScale;
+            this.transform.SetParent(canvasT);
+
+            jgm.dummy.SetActive(true);
+            jgm.dummy.transform.SetParent(previousParentT);
+            jgm.dummy.transform.SetSiblingIndex(thisChildIndex);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.transform.localScale = restoredCardScale;
+        if (jgm.isClick)
+        {
+            jgm.dummy.transform.SetParent(canvasT);
+            jgm.dummy.SetActive(false);
+
+            this.transform.localScale = restoredCardScale;
+            this.transform.SetParent(previousParentT);
+            this.transform.SetSiblingIndex(thisChildIndex);
+
+            jgm.isClick = false;
+        }
     }
 }
