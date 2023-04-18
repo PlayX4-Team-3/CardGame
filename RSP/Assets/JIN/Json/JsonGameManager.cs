@@ -191,14 +191,16 @@ public class JsonGameManager : Singleton<JsonGameManager>
         }
     }
 
-    public void UseCard(GameObject card)
+    public void UseCard(Card card)
     {
         if (gs != GameState.Playing)
         {
             Debug.Log("게임 종료 상태입니다.");
             return;
         }
-        
+
+        CardAbility.Instance.UseCard(card);
+
         //int cost = card.cc;
         //int cardAttribute = (int)card.ca;
         //int cardType = (int)card.ct;

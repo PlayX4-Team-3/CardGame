@@ -63,7 +63,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             for (int i = jgm.player.MaxCost - 1; i >= jgm.player.Cost; i--)
                 jgm.playerCostImg[i].gameObject.SetActive(false);
 
-            CardAbility.Instance.UseCard(card);
+            jgm.UseCard(card);
             JsonCardManager.Instance.HandToGrave(this.gameObject);
         }
         else
