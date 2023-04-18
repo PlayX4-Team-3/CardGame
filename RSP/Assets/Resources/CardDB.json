@@ -8,7 +8,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/Weapon9_Card",
-      "Description": "약한 공격",
+      "Description": "적에게 1의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -19,7 +19,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/Weapon12_Card",
-      "Description": "약한 공격",
+      "Description": "적에게 1의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -30,7 +30,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/Weapon15_Card",
-      "Description": "약한 공격",
+      "Description": "적에게 1의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {
@@ -41,7 +41,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/Weapon18_Card",
-      "Description": "보통 공격",
+      "Description": "적에게 2의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -52,7 +52,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/Weapon19_Card",
-      "Description": "보통 공격",
+      "Description": "적에게 2의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -63,7 +63,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/Weapon13_Card",
-      "Description": "보통 공격",
+      "Description": "적에게 2의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {
@@ -74,7 +74,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/LeatherArmor_Card",
-      "Description": "약한 방어",
+      "Description": "1의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -85,7 +85,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/RoundShield_Card",
-      "Description": "약한 방어",
+      "Description": "1의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -96,7 +96,7 @@
       "Cost": 1,
       "Power": 1,
       "ImageLink": "CardImage\/ChainArmor_Card",
-      "Description": "약한 방어",
+      "Description": "1의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {
@@ -107,7 +107,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/GoldMetalArmor_Card",
-      "Description": "보통 방어",
+      "Description": "2의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -118,7 +118,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/LongShield_Card",
-      "Description": "보통 방어",
+      "Description": "2의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -129,7 +129,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/MetalArmor_Card",
-      "Description": "보통 방어",
+      "Description": "2의 피해를 방어합니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {
@@ -137,10 +137,10 @@
       "Name": "lu_R",
       "Attribute": "Rock",
       "Type": "Utility",
-      "Cost": 2,
+      "Cost": 1,
       "Power": 2,
       "ImageLink": "CardImage\/ManaPortion_Card",
-      "Description": "약한 유틸",
+      "Description": "마나를 1 회복합니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -149,9 +149,9 @@
       "Attribute": "Paper",
       "Type": "Utility",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/FireBall_Card",
-      "Description": "약한 유틸",
+      "Description": "불덩이를 날려 3의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -162,7 +162,7 @@
       "Cost": 2,
       "Power": 2,
       "ImageLink": "CardImage\/Bind_Card",
-      "Description": "약한 유틸",
+      "Description": "적의 공격을 1회 무효화 합니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {
@@ -171,9 +171,9 @@
       "Attribute": "Rock",
       "Type": "Utility",
       "Cost": 4,
-      "Power": 4,
+      "Power": 6,
       "ImageLink": "CardImage\/Bomb_Card",
-      "Description": "보통 유틸",
+      "Description": "폭탄을 던져 적에게 6의 피해를 입힙니다.",
       "RPSLink": "RPSImage\/rock"
     },
     {
@@ -181,10 +181,10 @@
       "Name": "nu_P",
       "Attribute": "Paper",
       "Type": "Utility",
-      "Cost": 4,
-      "Power": 4,
+      "Cost": 2,
+      "Power": 2,
       "ImageLink": "CardImage\/Draw_Card",
-      "Description": "보통 유틸",
+      "Description": "카드를 덱에서 2장 드로우 합니다.",
       "RPSLink": "RPSImage\/paper"
     },
     {
@@ -195,7 +195,7 @@
       "Cost": 4,
       "Power": 4,
       "ImageLink": "CardImage\/Draw2_Card",
-      "Description": "보통 유틸",
+      "Description": "카드를 덱에서 4장 드로우 합니다.",
       "RPSLink": "RPSImage\/sissors"
     },
     {

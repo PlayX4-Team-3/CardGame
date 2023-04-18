@@ -6,7 +6,6 @@ using AllCharacter;
 
 public class CardAbility : Singleton<CardAbility>
 {
-
     private Player player;
     private Enemy enemy;
 
@@ -24,9 +23,6 @@ public class CardAbility : Singleton<CardAbility>
         int typeNum = card.ID / 100;
         int detailTypeNum = card.ID % 100;
 
-        Debug.Log(typeNum);
-        Debug.Log(detailTypeNum);
-
         switch(typeNum)
         {
             case 1:
@@ -38,7 +34,7 @@ public class CardAbility : Singleton<CardAbility>
                 break;
 
             case 3:
-                Utility(detailTypeNum);
+                Utility(card, detailTypeNum);
                 break;
 
             case 4:
@@ -73,9 +69,34 @@ public class CardAbility : Singleton<CardAbility>
         player.Defense_Figures += dfigure;
     }
 
-    private void Utility(int key)
+    private void Utility(Card card, int key)
     {
-        Debug.Log("Utility!");
+        switch(key)
+        {
+            case 1:
+                // 코스트 회복
+                player.Cost += card.Power;
+
+                for (int i = 0; i < player.Cost; i++)
+                    JsonGameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
+                break;
+            case 2:
+                Attack(card.Power);
+                break;
+            case 3:
+                // 적 공격 무효화
+                JsonGameManager.Instance.canEAttack = false;
+                break;
+            case 4:
+                Attack(card.Power);
+                break;
+            case 5:
+            case 6:
+                // 드로우
+                JsonCardManager.Instance.DrawCard(card.Power);
+                break;
+
+        }
     }
 
 }

@@ -29,7 +29,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
 
     private void Awake()
     {
-        font = Resources.Load<Font>("CookieRunFont_TTF/CookieRun Regular");
+        font = Resources.Load<Font>("MaplestoryFont_TTF/Maplestory Light");
 
         LoadCardsFromJson();
         CreateCardSprite();
@@ -103,12 +103,15 @@ public class JsonCardManager : Singleton<JsonCardManager>
         dtxt.text = description;
         dtxt.font = font;
         dtxt.fontSize = 30;
-        dtxt.verticalOverflow = VerticalWrapMode.Overflow;
+        
+        // 텍스트 크기 자동으로 조절
+        dtxt.resizeTextForBestFit = true;
 
         drt.anchoredPosition = new Vector2(0f, -135f);
         drt.localScale = new Vector2(1f, 1f);
-        drt.sizeDelta = new Vector2(225f, 80f);
+        drt.sizeDelta = new Vector2(215f, 80f);
 
+        
         // Card Name part
         GameObject nameTextObject = new GameObject();
         RectTransform nrt = nameTextObject.AddComponent<RectTransform>();
