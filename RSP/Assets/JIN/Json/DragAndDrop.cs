@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -35,7 +36,9 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         //thisChildIndex = this.transform.GetSiblingIndex();
 
-        card = JsonCardManager.Instance.cardDeck[int.Parse(this.name)];
+        card = jcm.cardDeck[int.Parse(this.name)];
+
+        DOTween.Init(false, true, LogBehaviour.Default);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -66,7 +69,10 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             jgm.player.Cost -= card.Cost;
             
             jgm.UseCard(card);
-            JsonCardManager.Instance.HandToGrave(this.gameObject);
+            jcm.HandToGrave(this.gameObject);
+
+            this.transform.DOMove(jcm.graveArea.transform.position, 1f);
+            this.transform.DOScale(Vector3.zero, 1f);
         }
 
         else
@@ -83,7 +89,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             jgm.isClick = true;
             thisChildIndex = this.transform.GetSiblingIndex();
 
-            this.transform.localScale = magnifiedCardScale;
+            //this.transform.localScale = magnifiedCardScale;
+            this.transform.DOScale(magnifiedCardScale, 0.3f);
             this.transform.SetParent(canvasT);
 
             jgm.dummy.SetActive(true);
@@ -99,11 +106,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             jgm.dummy.transform.SetParent(canvasT);
             jgm.dummy.SetActive(false);
 
-            this.transform.localScale = restoredCardScale;
+            //this.transform.localScale = restoredCardScale;
+            this.transform.DOScale(restoredCardScale, 0.3f);
             this.transform.SetParent(previousParentT);
             this.transform.SetSiblingIndex(thisChildIndex);
 
             jgm.isClick = false;
         }
     }
+
+
 }

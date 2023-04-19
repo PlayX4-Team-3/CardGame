@@ -65,6 +65,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
                 Image img = go.AddComponent<Image>();
                 string sprite = card.ImageLink;
                 img.sprite = Resources.Load<Sprite>(sprite);
+                img.SetNativeSize();
 
                 go.transform.SetParent(deckArea, false);
 
@@ -198,7 +199,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
 
         useCard.transform.SetParent(graveArea);
 
-        useCard.SetActive(false);
+        //useCard.SetActive(false);
     }
 
     public void GraveToDeck()
