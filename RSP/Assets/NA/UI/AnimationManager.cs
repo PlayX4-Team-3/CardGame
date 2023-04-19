@@ -1,39 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using AllCharacter;
 
 namespace manager
 {
     public class AnimationManager : MonoBehaviour
     {
+        public UnityEvent animationEvent;
         private Character character;
-        public Animator animator;
+        public Animator[] animator = new Animator[2];
         Material material;
-
-        private void Awake()
-        {
-            animator = GetComponent<Animator>();
-        }
 
         public void PlayerAttack()
         {
-            animator.SetBool("isAttack", true);
+            animator[0].SetTrigger("PisAttack"); 
         }
+
+        public void PlayerHit()
+        {
+            animator[0].SetTrigger("PisHit");
+        }
+
         public void EnemyAttack()
         {
-            animator.SetBool("isAttack", true);
+            animator[1].SetTrigger("EisAttack");
         }
 
-        public IEnumerator OnDamage()
+        public void EnemyHit()
         {
-            material.color = Color.red;
-            yield return new WaitForSeconds(0.2f);
-
-            if (character.Hp > 0)
-            {
-                material.color = new Color(1, 1, 1);
-            }
+            animator[1].SetTrigger("EisHit");
         }
     }
 }

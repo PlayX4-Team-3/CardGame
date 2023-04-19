@@ -17,8 +17,12 @@ namespace AllCharacter
 
         private GameData data;
 
+        private Animator animator;
+
         private void Awake()
         {
+            animator = GetComponent<Animator>();
+
             //체력 초기화
             InitHp(10);
             //코스트 초기화
@@ -46,6 +50,14 @@ namespace AllCharacter
             this.hpText.text = $"{pHp:F0}/{this.MaxHp:F0}";
             //방어력 텍스트 출력
             this.dfText.text = pDf.ToString();
+        }
+
+        /// <summary>
+        /// Attack animation next Slash animation on
+        /// </summary>
+        public void PlayerSlash()
+        {
+            animator.SetTrigger("PisSlash");
         }
     }
 }
