@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class JsonCardManager : Singleton<JsonCardManager>
 {
@@ -25,7 +26,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
     [SerializeField]
     public List<GameObject> graveList = new List<GameObject>();
 
-    private Vector2 originSize = new Vector2(0.6f, 0.6f);
+    private Vector2 originSize = new Vector3(0.6f, 0.6f, 1f);
 
     private void Awake()
     {
@@ -178,19 +179,34 @@ public class JsonCardManager : Singleton<JsonCardManager>
             for (int i = 0; i < n; i++)
             {
                 GameObject go = deckList[deckList.Count - 1].gameObject;
-                handList.Add(go);
-                deckList.Remove(go);
 
-                go.SetActive(true);
-                //go.transform.parent = handArea;
-                go.transform.SetParent(handArea);
-                go.GetComponent<Image>().SetNativeSize();
-                go.transform.localScale = originSize;
+                GameObject dummy = JsonGameManager.Instance.dummy.gameObject;
+
+                if (handList.Count >= 9)
+                {
+                    Debug.Log("카드가 너무 많습니다." + go.name);
+                    graveList.Add(go);
+                    deckList.Remove(go);
+
+                    go.transform.SetParent(graveArea);
+                }
+                else
+                {
+                    handList.Add(go);
+                    deckList.Remove(go);
+
+                    go.SetActive(true);
+
+                    go.transform.SetParent(handArea);
+                    go.GetComponent<Image>().SetNativeSize();
+                    go.transform.localScale = originSize;
+                }
             }
         }
         else
             GraveToDeck();
     }
+
 
     public void HandToGrave(GameObject useCard)
     {
@@ -199,7 +215,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
 
         useCard.transform.SetParent(graveArea);
 
-        //useCard.SetActive(false);
+        useCard.SetActive(false);
     }
 
     public void GraveToDeck()

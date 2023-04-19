@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
+
 using manager;
 using AllCharacter;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum GameState
 {
@@ -31,10 +33,10 @@ public class JsonGameManager : Singleton<JsonGameManager>
     private int enemyActionIndex;
     public Text enemyActionText;
 
+    // 적 공격 무효화 카드때문에 만듦
     public bool canEAttack = false;
 
     public GameObject dummy;
-    public bool isClick = false;
 
     public AnimationManager animationManager;
 
@@ -45,7 +47,6 @@ public class JsonGameManager : Singleton<JsonGameManager>
         ca = CardAbility.Instance;
 
         dummy = GameObject.FindWithTag("DummyCard").gameObject;
-
 
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
@@ -137,8 +138,8 @@ public class JsonGameManager : Singleton<JsonGameManager>
                 if (canEAttack)
                 {
                     EnemyAttack();
-                    animationManager.PlayerHit();
-                    animationManager.EnemyAttack();
+                    //animationManager.PlayerHit();
+                    //animationManager.EnemyAttack();
                 }
                 break;
 
@@ -220,11 +221,11 @@ public class JsonGameManager : Singleton<JsonGameManager>
             return;
         }
 
-        if (card.Type == "Attack")
-        {
-            animationManager.PlayerAttack();
-            animationManager.EnemyHit();
-        }
+        //if (card.Type == "Attack")
+        //{
+        //    animationManager.PlayerAttack();
+        //    animationManager.EnemyHit();
+        //}
 
         // 카드 능력이 발동되는 곳
         CardAbility.Instance.UseCard(card);
