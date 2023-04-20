@@ -44,4 +44,9 @@ public class SceneChange : Singleton<SceneChange>
 
         SceneManager.LoadScene(currentSceneIndex);
     }
+
+    private void Update()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 }

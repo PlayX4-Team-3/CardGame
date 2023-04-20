@@ -51,8 +51,9 @@ public class GameManager : Singleton<GameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        cm.DeckInit();
-        cm.DrawCard(5);
+        //cm.DeckInit();
+        //cm.DrawCard(3);
+        StartCoroutine(StartDelay());
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
@@ -60,6 +61,14 @@ public class GameManager : Singleton<GameManager>
         EnemyAction();
 
         canEAttack = true;
+    }
+
+    private IEnumerator StartDelay()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+
+        cm.DeckInit();
+        cm.DrawCard(3);
     }
 
     private void Update()

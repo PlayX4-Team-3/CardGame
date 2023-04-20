@@ -126,7 +126,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             thisChildIndex = this.transform.GetSiblingIndex();
 
-            tweenScale = this.transform.DOScale(magnifiedCardScale, 0.15f);
+            tweenScale = this.transform.DOScale(magnifiedCardScale, 0.25f);
             this.transform.SetParent(canvasT);
 
             gm.dummy.SetActive(true);
@@ -146,7 +146,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             this.transform.SetParent(previousParentT);
             this.transform.SetSiblingIndex(thisChildIndex);
 
-            tweenScale = this.transform.DOScale(restoredCardScale, 0.15f);
+            tweenScale = this.transform.DOScale(restoredCardScale, 0.25f);
         }
     }
 }

@@ -172,37 +172,40 @@ public class CardManager : Singleton<CardManager>
         }
     }
 
+    private IEnumerator DrawDelay(int n, int cnt = 0)
+    {
+        if (handList.Count < 7)
+        {
+            GameObject go = deckList[deckList.Count - 1].gameObject;
+
+            handList.Add(go);
+            deckList.Remove(go);
+
+            go.SetActive(true);
+
+            go.transform.SetParent(handArea);
+            go.GetComponent<Image>().SetNativeSize();
+            go.transform.localScale = originSize;
+
+            go.transform.position = deckArea.position;
+
+            go.transform.DOMove(handArea.transform.position, 2f);
+        }
+        else
+            StopCoroutine("DrawDelay");
+        cnt++;
+        yield return new WaitForSeconds(0.4f);
+
+        if (cnt < n)
+            StartCoroutine(DrawDelay(n, cnt));
+        else
+            StopCoroutine("DrawDelay");
+    }
+
     public void DrawCard(int n = 1)
     {
         if (deckList.Count > 0)
-        {
-            for (int i = 0; i < n; i++)
-            {
-                GameObject go = deckList[deckList.Count - 1].gameObject;
-
-                GameObject dummy = GameManager.Instance.dummy.gameObject;
-
-                if (handList.Count >= 9)
-                {
-                    Debug.Log("카드가 너무 많습니다." + go.name);
-                    graveList.Add(go);
-                    deckList.Remove(go);
-
-                    go.transform.SetParent(graveArea);
-                }
-                else
-                {
-                    handList.Add(go);
-                    deckList.Remove(go);
-
-                    go.SetActive(true);
-
-                    go.transform.SetParent(handArea);
-                    go.GetComponent<Image>().SetNativeSize();
-                    go.transform.localScale = originSize;
-                }
-            }
-        }
+            StartCoroutine(DrawDelay(n));
         else
             GraveToDeck();
     }
