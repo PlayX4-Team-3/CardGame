@@ -12,9 +12,9 @@ public enum GameState
     GameEnd
 }
 
-public class JsonGameManager : Singleton<JsonGameManager>
+public class GameManager : Singleton<GameManager>
 {
-    private JsonCardManager jcm;
+    private CardManager cm;
     private TurnManager tm;
     private CardAbility ca;
 
@@ -42,7 +42,7 @@ public class JsonGameManager : Singleton<JsonGameManager>
 
     private void Start()
     {
-        jcm = JsonCardManager.Instance;
+        cm = CardManager.Instance;
         tm = TurnManager.Instance;
         ca = CardAbility.Instance;
 
@@ -51,8 +51,8 @@ public class JsonGameManager : Singleton<JsonGameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        jcm.DeckInit();
-        jcm.DrawCard(5);
+        cm.DeckInit();
+        cm.DrawCard(5);
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
@@ -65,7 +65,7 @@ public class JsonGameManager : Singleton<JsonGameManager>
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            jcm.DrawCard();
+            cm.DrawCard();
     }
 
     public void OnTurnEnd(PlayerID nextPlayer)
@@ -81,7 +81,7 @@ public class JsonGameManager : Singleton<JsonGameManager>
         // 플레이어 턴일때만 턴 종료 버튼 활성화
         if (nextPlayer == PlayerID.Player)
         {
-            jcm.DrawCard();
+            cm.DrawCard();
 
             BtnTurnEnd.interactable = true;
 
