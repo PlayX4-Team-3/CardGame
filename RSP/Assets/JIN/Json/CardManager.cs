@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class JsonCardManager : Singleton<JsonCardManager>
+public class CardManager : Singleton<CardManager>
 {
     public TextAsset textJson;
     
@@ -180,7 +180,7 @@ public class JsonCardManager : Singleton<JsonCardManager>
             {
                 GameObject go = deckList[deckList.Count - 1].gameObject;
 
-                GameObject dummy = JsonGameManager.Instance.dummy.gameObject;
+                GameObject dummy = GameManager.Instance.dummy.gameObject;
 
                 if (handList.Count >= 9)
                 {

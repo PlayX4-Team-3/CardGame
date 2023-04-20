@@ -78,14 +78,14 @@ public class CardAbility : Singleton<CardAbility>
                 player.Cost += card.Power;
 
                 for (int i = 0; i < player.Cost; i++)
-                    JsonGameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
+                    GameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
                 break;
             case 2:
                 Attack(card.Power);
                 break;
             case 3:
                 // 적 공격 무효화
-                JsonGameManager.Instance.canEAttack = false;
+                GameManager.Instance.canEAttack = false;
                 break;
             case 4:
                 Attack(card.Power);
@@ -93,7 +93,7 @@ public class CardAbility : Singleton<CardAbility>
             case 5:
             case 6:
                 // 드로우
-                JsonCardManager.Instance.DrawCard(card.Power);
+                CardManager.Instance.DrawCard(card.Power);
                 break;
 
         }
