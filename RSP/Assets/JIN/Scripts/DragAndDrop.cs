@@ -42,7 +42,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         DOTween.Init(false, true, LogBehaviour.Default);
     }
 
-    // 카드가 사용되고 난 뒤에 오브젝트가 비활성화 될 때
+    // ?????? ???????? ?? ???? ?????????? ???????? ?? ??
     private void OnDisable()
     {
         isUsed = false;
@@ -79,14 +79,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.zero);
 
-            // 카드가 사용 구역에서 사용되었을 때
+            // ?????? ???? ???????? ?????????? ??
             if (hit.collider != null && hit.collider.CompareTag("DropArea") && gm.player.Cost >= card.Cost)
             {
                 isUsed = true;
 
                 gm.player.Cost -= card.Cost;
 
-                //// 사용한 Cost 만큼 이미지 비활성화
+                //// ?????? Cost ???? ?????? ????????
                 //for (int i = jgm.player.MaxCost - 1; i >= jgm.player.Cost; i--)
                 //    jgm.playerCostImg[i].gameObject.SetActive(false);
 
@@ -101,7 +101,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 });
             }
 
-            // 카드가 사용 구역에서 사용되지 않았을 때
+            // ?????? ???? ???????? ???????? ?????? ??
             else
             {
                 isUsed = true;
@@ -137,7 +137,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // 카드가 사용되지 않았을 때만 실행
+        // ?????? ???????? ?????? ???? ????
         if (!isUsed)
         {
             gm.dummy.transform.SetParent(canvasT);
