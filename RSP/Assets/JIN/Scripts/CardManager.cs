@@ -151,7 +151,7 @@ public class CardManager : Singleton<CardManager>
         crt.sizeDelta = new Vector2(225f, 80f);
     }
     #endregion
-
+    
     #region ???? ????
     public void DeckInit()
     {
@@ -189,7 +189,7 @@ public class CardManager : Singleton<CardManager>
 
             go.transform.position = deckArea.position;
 
-            go.transform.DOMove(handArea.transform.position, 0.5f).OnComplete(() =>
+            go.transform.DOMove(handArea.parent.transform.position, 0.5f).OnComplete(() =>
             {
                 SetHandCardPosition();
             });
