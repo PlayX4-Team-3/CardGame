@@ -98,6 +98,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     cm.HandToGrave(this.gameObject);
 
                     gm.dummy.transform.SetParent(canvasT);
+
+                    cm.SetHandCardPosition();
                 });
             }
 
@@ -115,6 +117,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     gm.dummy.transform.SetParent(canvasT);
 
                     isUsed = false;
+
+                    cm.SetHandCardPosition();
                 });
             }
         }

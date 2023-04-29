@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>
     private int enemyActionIndex;
     public Text enemyActionText;
 
-    // 적 공격 무효화 카드때문에 만듦
+    // ?? ???? ?????? ?????????? ????
     public bool canEAttack = false;
 
     public GameObject dummy;
@@ -53,7 +53,9 @@ public class GameManager : Singleton<GameManager>
 
         //cm.DeckInit();
         //cm.DrawCard(3);
-        StartCoroutine(StartDelay());
+        //StartCoroutine(StartDelay());
+
+        Invoke("StartDelay", 1f);
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
@@ -63,10 +65,8 @@ public class GameManager : Singleton<GameManager>
         canEAttack = true;
     }
 
-    private IEnumerator StartDelay()
-    {
-        yield return new WaitForSecondsRealtime(2f);
-
+    private void StartDelay()
+    { 
         cm.DeckInit();
         cm.DrawCard(3);
     }
@@ -81,13 +81,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (gs != GameState.Playing)
         {
-            Debug.Log("게임 종료");
+            Debug.Log("???? ????");
             return;
         }
 
         tm.StartTurn(nextPlayer);
 
-        // 플레이어 턴일때만 턴 종료 버튼 활성화
+        // ???????? ???????? ?? ???? ???? ??????
         if (nextPlayer == PlayerID.Player)
         {
             cm.DrawCard();
@@ -116,17 +116,17 @@ public class GameManager : Singleton<GameManager>
 
         enemyActionRate = Random.Range(0, 1000);
 
-        if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% 공격확률
+        if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% ????????
         {
             enemyActionIndex = 0;
             enemyActionText.text = "Attack";
         }
-        else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% 방어확률
+        else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% ????????
         {
             enemyActionIndex = 1;
             enemyActionText.text = "Defense";
         }
-        else if (enemyActionRate >= 800) // 20% 유틸확률
+        else if (enemyActionRate >= 800) // 20% ????????
         {
             enemyActionIndex = 2;
             enemyActionText.text = "Utility";
@@ -135,10 +135,10 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyTurn()
     {
-        // 적 턴 시작 시 적 방어력 0으로 초기화
+        // ?? ?? ???? ?? ?? ?????? 0???? ??????
         enemy.Defense_Figures = 0;
 
-        // 적 행동 패턴 랜덤으로 선택
+        // ?? ???? ???? ???????? ????
         //int action = Random.Range(0, 3);
 
         switch (enemyActionIndex)
@@ -161,7 +161,7 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
 
-        // 적 턴 동안 딜레이를 줘 행동하는 듯한 느낌을 줌
+        // ?? ?? ???? ???????? ?? ???????? ???? ?????? ??
         StartCoroutine(EnemyTurnEndDelay());
     }
 
@@ -175,7 +175,7 @@ public class GameManager : Singleton<GameManager>
         OnTurnEnd(PlayerID.Player);
     }
 
-    // 적 공격 패턴
+    // ?? ???? ????
     private void EnemyAttack()
     {
         int randomDamage = Random.Range(3, 6);
@@ -200,13 +200,13 @@ public class GameManager : Singleton<GameManager>
             GameEnd(tm.currentPlayer);
     }
 
-    // 적 방어 패턴
+    // ?? ???? ????
     private void EnemyDefense()
     {
         enemy.Defense_Figures += 2;
     }
 
-    // 적 유틸 패턴
+    // ?? ???? ????
     private void EnemyUtility()
     {
         int rand = Random.Range(0, 3);
@@ -226,7 +226,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (gs != GameState.Playing)
         {
-            Debug.Log("게임 종료 상태입니다.");
+            Debug.Log("???? ???? ??????????.");
             return;
         }
 
@@ -236,17 +236,17 @@ public class GameManager : Singleton<GameManager>
         //    animationManager.EnemyHit();
         //}
 
-        // 카드 능력이 발동되는 곳
+        // ???? ?????? ???????? ??
         CardAbility.Instance.UseCard(card);
 
-        // 사용한 Cost 만큼 이미지 비활성화
+        // ?????? Cost ???? ?????? ????????
         for (int i = player.MaxCost - 1; i >= player.Cost; i--)
             playerCostImg[i].gameObject.SetActive(false);
 
-        // 체력, 방어 상태 업데이트
+        // ????, ???? ???? ????????
         display.UpdateCharacterState();
 
-        // 적 체력이 0이 되면 게임 승리 판정
+        // ?? ?????? 0?? ???? ???? ???? ????
         if (enemy.Hp == 0)
             GameEnd(tm.currentPlayer);
     }
