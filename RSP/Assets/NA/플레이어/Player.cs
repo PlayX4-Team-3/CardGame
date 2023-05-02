@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using ObserverPattern;
-using DG.Tweening;
+//using DG.Tweening;
 
 namespace AllCharacter
 {
@@ -59,22 +59,32 @@ namespace AllCharacter
             animator.SetTrigger("PisSlash");
         }
 
-        // Animation part
-        public void AttackAnim(GameObject target, float duration)
-        {
-            target.gameObject.transform.DOShakePosition(duration);
+        //////////// Animation part
+        //////////public void AttackAnim(GameObject target, float duration)
+        //////////{
+        //////////    target.gameObject.transform.DOShakePosition(duration);
 
-            // Camera Shake
-            //GameObject.FindWithTag("BG").transform.DOShakePosition(2f);
+        //////////    // Camera Shake
+        //////////    //GameObject.FindWithTag("BG").transform.DOShakePosition(2f);
+        //////////}
+
+        //////////public void DefenseAnim()
+        //////////{
+        //////////    this.gameObject.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() =>
+        //////////    {
+        //////////        this.gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f);
+        //////////    }
+        //////////    );
+        //////////}
+
+        public void CheckBuff()
+        {
+            Debug.Log("Buff Check");
         }
 
-        public void DefenseAnim()
+        public void CheckDebuff()
         {
-            this.gameObject.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() =>
-            {
-                this.gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f);
-            }
-            );
+            Debug.Log("Check Debuff");
         }
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using ObserverPattern;
-using DG.Tweening;
+//using DG.Tweening;
 
 namespace AllCharacter
 {
@@ -21,6 +21,8 @@ namespace AllCharacter
 
         public bool is109Debuff = false;
         public int duration109 = 0;
+
+        public bool is307Debuff = false;
 
 
         private void Awake()
@@ -50,26 +52,33 @@ namespace AllCharacter
         }
 
 
-        // Animation part
-        public void AttackAnim(GameObject target, float duration)
-        {
-            target.gameObject.transform.DOShakePosition(duration);
-        }
+        ////////////// Animation part
+        ////////////public void AttackAnim(GameObject target, float duration)
+        ////////////{
+        ////////////    target.gameObject.transform.DOShakePosition(duration);
+        ////////////}
 
-        public void DefenseAnim()
+        ////////////public void DefenseAnim()
+        ////////////{
+        ////////////    this.gameObject.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() =>
+        ////////////    {
+        ////////////        this.gameObject.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f);
+        ////////////    }
+        ////////////    );
+        ////////////}
+
+        public void CheckBuff()
         {
-            this.gameObject.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() =>
-            {
-                this.gameObject.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f);
-            }
-            );
+            Debug.Log("Check Enemy Buff");
         }
 
         public void CheckDebuff()
         {
+            Debug.Log("Check Enemy Debuff");
+
             if (is109Debuff)
             {
-                AttackAnim(this.gameObject, 0.2f);
+                ////////////////AttackAnim(this.gameObject, 0.2f);
 
                 Hp--;
                 duration109++;
@@ -79,6 +88,11 @@ namespace AllCharacter
                     is109Debuff = false;
                     duration109 = 0;
                 }
+            }
+
+            if(is307Debuff)
+            {
+
             }
         }
 

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
-using DG.Tweening;
+//using DG.Tweening;
 
 public class CardManager : Singleton<CardManager>
 {
+    private DotweenManager dotM;
+
     public TextAsset textJson;
     
     public Transform deckArea;
@@ -36,8 +38,13 @@ public class CardManager : Singleton<CardManager>
         CreateCardSprite();
     }
 
-    #region ???? ????
-    // Json ???? ????????
+    private void Start()
+    {
+        dotM = DotweenManager.Instance;
+    }
+
+    #region Card Init
+    // Json to Card Load
     private void LoadCardsFromJson()
     {
         cardList = JsonUtility.FromJson<CardList>(textJson.text);
@@ -46,7 +53,7 @@ public class CardManager : Singleton<CardManager>
             cardDeck.Add(card.ID, card);
     }
 
-    // ?????? ???????? ???? ???? ??????
+    // Card Make
     private void CreateCardSprite()
     {
         foreach (Card card in cardList.CardDB)
@@ -57,10 +64,10 @@ public class CardManager : Singleton<CardManager>
             string cardDescription = card.Description;
             int cardCost = card.Cost;
 
-            // Enemy Card?? ???? ????
+            // Enemy Card 제외하고 생성
             if (cardMainIndex != 4)
             {
-                // ???? ?????? ????
+                // 카드 틀 생성
                 GameObject go = new GameObject(card.ID.ToString());
 
                 Image img = go.AddComponent<Image>();
@@ -70,7 +77,7 @@ public class CardManager : Singleton<CardManager>
 
                 go.transform.SetParent(deckArea, false);
 
-                // ?????? ?????? ????
+                // 카드 속성이 None이 아닌것들 생성
                 if (card.Attribute != "None")
                 {
                     GameObject go2 = new GameObject();
@@ -94,7 +101,7 @@ public class CardManager : Singleton<CardManager>
         }
     }
 
-    // ???? ????, ????, ?????? ???? ?????? ???????? ????
+    // 카드 생성
     private void CreateCardDescription(GameObject go, string description, string name, int cost)
     {
         // Card Description part
@@ -109,7 +116,7 @@ public class CardManager : Singleton<CardManager>
         dtxt.font = font;
         dtxt.fontSize = 30;
         
-        // ?????? ???? ???????? ????
+        // 카드 설명 부분
         dtxt.resizeTextForBestFit = true;
 
         drt.anchoredPosition = new Vector2(0f, -135f);
@@ -155,7 +162,7 @@ public class CardManager : Singleton<CardManager>
     }
     #endregion
     
-    #region ???? ????
+    #region 카드 이동
     public void DeckInit()
     {
         DeckShuffle(deckList);
@@ -177,7 +184,7 @@ public class CardManager : Singleton<CardManager>
 
     private IEnumerator DrawDelay(int n, int cnt = 0)
     {
-        if (handList.Count < 7)
+        if (handList.Count < 9)
         {
             GameObject go = deckList[deckList.Count - 1].gameObject;
 
@@ -192,10 +199,7 @@ public class CardManager : Singleton<CardManager>
 
             go.transform.position = deckArea.position;
 
-            go.transform.DOMove(handArea.parent.transform.position, 0.5f).OnComplete(() =>
-            {
-                SetHandCardPosition();
-            });
+            dotM.DrawCardAnimation(go, handArea.transform, 0.3f);
         }
         else
             StopCoroutine("DrawDelay");
@@ -225,6 +229,7 @@ public class CardManager : Singleton<CardManager>
         useCard.transform.SetParent(graveArea);
 
         useCard.SetActive(false);
+        SetHandCardPosition();
     }
 
     public void GraveToDeck()
@@ -238,57 +243,13 @@ public class CardManager : Singleton<CardManager>
             DrawCard();
         }
         else
-            Debug.Log("?????? ?????? ????????.");
+            Debug.Log("묘지에 카드가 없습니다.");
 
     }
 
     public void SetHandCardPosition()
     {
-        switch(handList.Count)
-        {
-            case 1:
-                handList[0].gameObject.transform.DOMove(handArea.transform.position, 0.2f);
-                break;
-            case 2:
-                handList[1].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 0.5f), 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 0.5f), 0.2f);
-                break;
-            case 3:
-                handList[2].gameObject.transform.DOMove(handArea.transform.position - (Vector3.left * 124f), 0.2f);
-                handList[1].gameObject.transform.DOMove(handArea.transform.position, 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + (Vector3.left * 124f), 0.2f);
-                break;                           
-            case 4:                              
-                handList[3].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 1.5f), 0.2f);
-                handList[2].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 0.5f), 0.2f);
-                handList[1].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 0.5f), 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 1.5f), 0.2f);
-                break;                           
-            case 5:                              
-                handList[4].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 2f), 0.2f);
-                handList[3].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 1f), 0.2f);
-                handList[2].gameObject.transform.DOMove(handArea.transform.position, 0.2f);
-                handList[1].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 1f), 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 2f), 0.2f);
-                break;                        
-            case 6:                           
-                handList[5].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 2.5f), 0.2f);
-                handList[4].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 1.5f), 0.2f);
-                handList[3].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 0.5f), 0.2f);
-                handList[2].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 0.5f), 0.2f);
-                handList[1].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 1.5f), 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 2.5f), 0.2f);
-                break;                          
-            case 7:                             
-                handList[6].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 3f), 0.2f);
-                handList[5].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 2f), 0.2f);
-                handList[4].gameObject.transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * 1f), 0.2f);
-                handList[3].gameObject.transform.DOMove(handArea.transform.position, 0.2f);
-                handList[2].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 1f), 0.2f);
-                handList[1].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 2f), 0.2f);
-                handList[0].gameObject.transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * 3f), 0.2f);
-                break;
-        }
+        dotM.SetHandCardPositionAnimation(handList, handArea.transform);
     }
     #endregion
 }

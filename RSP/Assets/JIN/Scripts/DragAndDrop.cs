@@ -1,16 +1,17 @@
-using DG.Tweening;
+//using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    GameManager gm;
-    CardManager cm;
+    private GameManager gm;
+    private CardManager cm;
+    private DotweenManager dotM;
 
     private Transform canvasT;
     private Transform previousParentT;
 
-    private Vector2 startPos;
+    private Vector2 previousPos;
     private Vector2 offset;
 
     private Vector2 magnifiedCardScale;
@@ -22,14 +23,11 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private bool isUsed;
 
-    private Tween tweenMove;
-    private Tween tweenScale;
-    private Tween tweenRotate;
-
     private void Start()
     {
         gm = GameManager.Instance;
         cm = CardManager.Instance;
+        dotM = DotweenManager.Instance;
 
         canvasT = GameObject.FindWithTag("Canvas").transform;
         previousParentT = GameObject.FindWithTag("Hand").transform;
@@ -39,17 +37,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         card = cm.cardDeck[int.Parse(this.name)];
 
-        DOTween.Init(false, true, LogBehaviour.Default);
+        isUsed = false;
     }
 
-    // ?????? ???????? ?? ???? ?????????? ???????? ?? ??
+    // 카드 비활성화시 초기화
     private void OnDisable()
     {
         isUsed = false;
-
-        tweenMove.Kill();
-        tweenScale.Kill();
-        tweenRotate.Kill();
 
         this.transform.localScale = restoredCardScale;
         this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -57,13 +51,15 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (TurnManager.Instance.currentPlayer == PlayerID.Player)
+        if (TurnManager.Instance.currentPlayer == PlayerID.Player && isUsed == false)
         {
-            startPos = this.transform.position;
-            offset = startPos - eventData.position;
+            previousPos = this.transform.position;
+            offset = previousPos - eventData.position;
 
             this.transform.SetParent(canvasT);
             this.transform.SetAsLastSibling();
+
+            isUsed = true;
         }
     }
 
@@ -82,71 +78,64 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             // Card in DropArea
             if (hit.collider != null && hit.collider.CompareTag("DropArea") && gm.player.Cost >= card.Cost)
             {
-                isUsed = true;
-
                 gm.player.Cost -= card.Cost;
 
-                tweenScale = this.transform.DOScale(Vector3.zero, 1f);
-                tweenRotate = this.transform.DORotate(new Vector3(0f, 0f, -360f), 0.25f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
-                tweenMove = this.transform.DOMove(cm.graveArea.transform.position, 1f).OnComplete(() =>
-                {
-                    gm.UseCard(card);
-                    cm.HandToGrave(this.gameObject);
+                dotM.UseCardAnimation(this.gameObject, card);
+                //////////////tweenScale = this.transform.DOScale(Vector3.zero, 1f);
+                //////////////tweenRotate = this.transform.DORotate(new Vector3(0f, 0f, -360f), 0.25f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+                //////////////tweenMove = this.transform.DOMove(cm.graveArea.transform.position, 1f).OnComplete(() =>
+                //////////////{
+                //////////////    gm.UseCard(card);
+                //////////////    cm.HandToGrave(this.gameObject);
 
-                    gm.dummy.transform.SetParent(canvasT);
-
-                    cm.SetHandCardPosition();
-                });
+                //gm.dummy.transform.SetParent(canvasT);
+                //dotM.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
+                //////////////    cm.SetHandCardPosition();
+                //////////////});
             }
 
             // Card Not in DropArea
             else
             {
-                isUsed = true;
+                if (isUsed)
+                    dotM.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
 
-                tweenScale = this.transform.DOScale(restoredCardScale, 0.15f);
-                tweenMove = this.transform.DOMove(startPos, 0.15f).OnComplete(() =>
-                {
-                    gm.dummy.transform.SetParent(canvasT);
-                    gm.dummy.SetActive(false);
+                ////////tweenScale = this.transform.DOScale(restoredCardScale, 0.15f);
+                ////////tweenMove = this.transform.DOMove(startPos, 0.15f).OnComplete(() =>
+                ////////{
+                ////////    gm.dummy.transform.SetParent(canvasT);
+                ////////    gm.dummy.SetActive(false);
 
-                    this.transform.SetParent(previousParentT);
-                    this.transform.SetSiblingIndex(thisChildIndex);
-
-                    isUsed = false;
-                });
+                ////////    this.transform.SetParent(previousParentT);
+                ////////    this.transform.SetSiblingIndex(thisChildIndex);
+                ////////    isUsed = false;
+                ////////});
             }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isUsed)
-        {
-            thisChildIndex = this.transform.GetSiblingIndex();
+        thisChildIndex = this.transform.GetSiblingIndex();
 
-            tweenScale = this.transform.DOScale(magnifiedCardScale, 0.25f);
+        dotM.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
 
-            this.transform.SetParent(canvasT);
+        this.transform.SetParent(canvasT);
 
-            gm.dummy.SetActive(true);
-            gm.dummy.transform.SetParent(previousParentT);
-            gm.dummy.transform.SetSiblingIndex(thisChildIndex);
-        }
+        gm.dummy.SetActive(true);
+        gm.dummy.transform.SetParent(previousParentT);
+        gm.dummy.transform.SetSiblingIndex(thisChildIndex);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // Card Not Used
-        if (!isUsed)
-        {
-            gm.dummy.transform.SetParent(canvasT);
-            gm.dummy.SetActive(false);
+        gm.dummy.transform.SetParent(canvasT);
+        gm.dummy.SetActive(false);
 
-            this.transform.SetParent(previousParentT);
-            this.transform.SetSiblingIndex(thisChildIndex);
+        this.transform.SetParent(previousParentT);
+        this.transform.SetSiblingIndex(thisChildIndex);
 
-            tweenScale = this.transform.DOScale(restoredCardScale, 0.25f);
-        }
+        dotM.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using manager;
 using AllCharacter;
 using UnityEngine.UI;
-using DG.Tweening;
+//using DG.Tweening;
 
 public enum GameState
 {
@@ -79,7 +79,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (gs != GameState.Playing)
         {
-            Debug.Log("???? ????");
+            Debug.Log("게임 중이 아닙니다.");
             return;
         }
 
@@ -88,6 +88,9 @@ public class GameManager : Singleton<GameManager>
         // player turn init
         if (nextPlayer == PlayerID.Player)
         {
+            player.CheckBuff();
+            player.CheckDebuff();
+
             cm.DrawCard();
 
             BtnTurnEnd.interactable = true;
@@ -103,8 +106,12 @@ public class GameManager : Singleton<GameManager>
         // enemy turn init
         else
         {
-            EnemyTurn();
             BtnTurnEnd.interactable = false;
+
+            EnemyTurn();
+
+            enemy.CheckBuff();
+            enemy.CheckDebuff();
         }
     }
 
@@ -134,10 +141,9 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyTurn()
     {
-        enemy.CheckDebuff();
-
-        // turn start delay
-        StartCoroutine(EnemyTurnStartDelay());
+        if (!enemy.is307Debuff)
+            // turn start delay
+            StartCoroutine(EnemyTurnStartDelay());
 
         // turn end delay
         StartCoroutine(EnemyTurnEndDelay());
@@ -158,13 +164,13 @@ public class GameManager : Singleton<GameManager>
                     EnemyAttack();
                     //animationManager.PlayerHit();
                     //animationManager.EnemyAttack();
-                    enemy.AttackAnim(player.gameObject, 0.5f);
+                    /////////////////////////enemy.AttackAnim(player.gameObject, 0.5f);
                 }
                 break;
 
             case 1:
                 EnemyDefense();
-                enemy.DefenseAnim();
+                /////////////////////////enemy.DefenseAnim();
                 break;
 
             case 2:
@@ -177,13 +183,23 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(2f);
 
+        if (enemy.is307Debuff)
+        {
+            ////////////////////SpellImageMaker.Instance.spells[9].transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            ////////////////////{
+                ////////////////////SpellImageMaker.Instance.spells[9].transform.localScale = Vector3.one;
+                ////////////////////SpellImageMaker.Instance.spells[9].SetActive(false);
+
+                ////////////////////enemy.is307Debuff = false;
+            ////////////////////});
+        }
+
         player.Defense_Figures = 0;
         display.UpdateCharacterState();
 
         OnTurnEnd(PlayerID.Player);
     }
 
-    // ?? ???? ????
     private void EnemyAttack()
     {
         int randomDamage = Random.Range(3, 6);
@@ -208,13 +224,11 @@ public class GameManager : Singleton<GameManager>
             GameEnd(tm.currentPlayer);
     }
 
-    // ?? ???? ????
     private void EnemyDefense()
     {
         enemy.Defense_Figures += 2;
     }
 
-    // ?? ???? ????
     private void EnemyUtility()
     {
         int rand = Random.Range(0, 3);
@@ -234,7 +248,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (gs != GameState.Playing)
         {
-            Debug.Log("???? ???? ??????????.");
+            Debug.Log("게임 중이 아닙니다.");
             return;
         }
 
@@ -244,17 +258,17 @@ public class GameManager : Singleton<GameManager>
         //    animationManager.EnemyHit();
         //}
 
-        // ???? ?????? ???????? ??
+        // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card);
 
-        // ?????? Cost ???? ?????? ????????
+        // 사용한 플레이어 cost 이미지 끄기
         for (int i = player.MaxCost - 1; i >= player.Cost; i--)
             playerCostImg[i].gameObject.SetActive(false);
 
-        // ????, ???? ???? ????????
+        // 체력, 방어력 UI 업데이트
         display.UpdateCharacterState();
 
-        // ?? ?????? 0?? ???? ???? ???? ????
+        // 적의 체력이 0이 되면 게임 종료
         if (enemy.Hp == 0)
             GameEnd(tm.currentPlayer);
     }
