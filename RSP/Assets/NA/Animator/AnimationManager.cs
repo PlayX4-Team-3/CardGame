@@ -8,7 +8,6 @@ namespace manager
 {
     public class AnimationManager : MonoBehaviour
     {
-        public UnityEvent animationEvent;
         private Character character;
         public Animator[] animator = new Animator[2];
         Material material;

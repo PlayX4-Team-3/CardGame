@@ -46,6 +46,9 @@ namespace AllCharacter
             this.hpText.text = $"{eHp:F0}/{this.MaxHp:F0}";
             //방어력 텍스트 출력
             this.dfText.text = eDf.ToString();
+
+            //HP 슬라이더 Value 초기화
+            hpBar.value = Hp;
         }
     }
 }

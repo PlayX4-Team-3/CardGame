@@ -33,12 +33,6 @@ namespace AllCharacter
             hpBar.maxValue = this.MaxHp;
         }
 
-        private void Update()
-        {
-            //Hp 슬라이더 value 초기화
-            hpBar.value = Hp;
-        }
-
         public void DataInit(GameData data)
         {
             this.data = data;
@@ -50,6 +44,9 @@ namespace AllCharacter
             this.hpText.text = $"{pHp:F0}/{this.MaxHp:F0}";
             //방어력 텍스트 출력
             this.dfText.text = pDf.ToString();
+
+            //Hp 슬라이더 value 초기화
+            hpBar.value = Hp;
         }
 
         /// <summary>
