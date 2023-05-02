@@ -67,6 +67,39 @@
       "RPSLink": "RPSImage\/sissors"
     },
     {
+      "ID": 107,
+      "Name": "FireBall",
+      "Attribute": "None",
+      "Type": "Attack",
+      "Cost": 2,
+      "Power": 3,
+      "ImageLink": "CardImage\/FireBall_Card",
+      "Description": "불덩이를 날려 3의 피해를 입힙니다.",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 108,
+      "Name": "Bomb",
+      "Attribute": "None",
+      "Type": "Attack",
+      "Cost": 4,
+      "Power": 6,
+      "ImageLink": "CardImage\/Bomb_Card",
+      "Description": "폭탄을 던져 적에게 6의 피해를 입힙니다.",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 109,
+      "Name": "PoisonBall",
+      "Attribute": "None",
+      "Type": "Attack",
+      "Cost": 3,
+      "Power": 2,
+      "ImageLink": "CardImage\/PoisonBall_Card",
+      "Description": "독의 구슬을 던져 적에게 2의 피해를 입해고,\n 매 턴 1의 피해를 줍니다. (3턴 지속)",
+      "RPSLink": "None"
+    },
+    {
       "ID": 201,
       "Name": "ld_R",
       "Attribute": "Rock",
@@ -133,70 +166,103 @@
       "RPSLink": "RPSImage\/sissors"
     },
     {
+      "ID": 207,
+      "Name": "Reflect",
+      "Attribute": "None",
+      "Type": "Defense",
+      "Cost": 4,
+      "Power": 0,
+      "ImageLink": "CardImage\/Portal_Card",
+      "Description": "적의 공격을 1회 반사합니다.",
+      "RPSLink": "None"
+    },
+    {
       "ID": 301,
-      "Name": "lu_R",
-      "Attribute": "Rock",
+      "Name": "Mana Up",
+      "Attribute": "None",
       "Type": "Utility",
       "Cost": 1,
       "Power": 2,
       "ImageLink": "CardImage\/ManaPortion_Card",
       "Description": "마나를 2 회복합니다.",
-      "RPSLink": "RPSImage\/rock"
+      "RPSLink": "None"
     },
     {
       "ID": 302,
-      "Name": "lu_P",
-      "Attribute": "Paper",
+      "Name": "Bind",
+      "Attribute": "None",
       "Type": "Utility",
       "Cost": 2,
-      "Power": 3,
-      "ImageLink": "CardImage\/FireBall_Card",
-      "Description": "불덩이를 날려 3의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/paper"
+      "Power": 0,
+      "ImageLink": "CardImage\/Bind_Card",
+      "Description": "적의 공격을 1회 무효화 합니다.",
+      "RPSLink": "None"
     },
     {
       "ID": 303,
-      "Name": "lu_S",
-      "Attribute": "Sissors",
+      "Name": "Draw1",
+      "Attribute": "None",
       "Type": "Utility",
-      "Cost": 2,
-      "Power": 2,
-      "ImageLink": "CardImage\/Bind_Card",
-      "Description": "적의 공격을 1회 무효화 합니다.",
-      "RPSLink": "RPSImage\/sissors"
-    },
-    {
-      "ID": 304,
-      "Name": "nu_R",
-      "Attribute": "Rock",
-      "Type": "Utility",
-      "Cost": 4,
-      "Power": 6,
-      "ImageLink": "CardImage\/Bomb_Card",
-      "Description": "폭탄을 던져 적에게 6의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/rock"
-    },
-    {
-      "ID": 305,
-      "Name": "nu_P",
-      "Attribute": "Paper",
-      "Type": "Utility",
-      "Cost": 2,
+      "Cost": 3,
       "Power": 2,
       "ImageLink": "CardImage\/Draw_Card",
       "Description": "카드를 덱에서 2장 드로우 합니다.",
-      "RPSLink": "RPSImage\/paper"
+      "RPSLink": "None"
     },
     {
-      "ID": 306,
-      "Name": "nu_S",
-      "Attribute": "Sissors",
+      "ID": 304,
+      "Name": "Draw2",
+      "Attribute": "None",
       "Type": "Utility",
-      "Cost": 4,
+      "Cost": 5,
       "Power": 4,
       "ImageLink": "CardImage\/Draw2_Card",
       "Description": "카드를 덱에서 4장 드로우 합니다.",
-      "RPSLink": "RPSImage\/sissors"
+      "RPSLink": "None"
+    },
+    {
+      "ID": 305,
+      "Name": "Heal",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 3,
+      "Power": 3,
+      "ImageLink": "CardImage\/Heal_Card",
+      "Description": "체력을 3 회복합니다.",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 306,
+      "Name": "Lazer",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 3,
+      "Power": 0,
+      "ImageLink": "CardImage\/Lazer_Card",
+      "Description": "적의 방어도를 0으로 만듭니다.",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 307,
+      "Name": "Icicle",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 0,
+      "ImageLink": "CardImage\/Icicle_Card",
+      "Description": "적을 얼려 적을 행동불능으로 만듭니다.",
+      "RPSLink": "None"
+    },
+    {
+      "ID": 308,
+      "Name": "ShieldMagic",
+      "Attribute": "None",
+      "Type": "Utility",
+      "Cost": 4,
+      "Power": 0,
+      "ImageLink": "CardImage\/ShieldMagic_Card",
+      "Description": "적의 공격을 2회 절반의 피해만 \n받는 방어막을 두릅니다.",
+      "RPSLink": "None"
     },
     {
       "ID": 401,

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
 using ObserverPattern;
+using DG.Tweening;
 
 namespace AllCharacter
 {
@@ -17,6 +19,10 @@ namespace AllCharacter
 
         private GameData data;
 
+        public bool is109Debuff = false;
+        public int duration109 = 0;
+
+
         private void Awake()
         {
             //체력 초기화
@@ -27,13 +33,6 @@ namespace AllCharacter
             //HP 슬라이더 MaxValue 초기화
             hpBar.maxValue = this.MaxHp;
         }
-
-        private void Update()
-        {
-            //HP 슬라이더 Value 초기화
-            hpBar.value = Hp;
-        }
-
 
         public void DataInit(GameData data)
         {
@@ -47,10 +46,41 @@ namespace AllCharacter
             //방어력 텍스트 출력
             this.dfText.text = eDf.ToString();
 
-            //HP 슬라이더 Value 초기화
             hpBar.value = Hp;
         }
+
+
+        // Animation part
+        public void AttackAnim(GameObject target, float duration)
+        {
+            target.gameObject.transform.DOShakePosition(duration);
+        }
+
+        public void DefenseAnim()
+        {
+            this.gameObject.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() =>
+            {
+                this.gameObject.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f);
+            }
+            );
+        }
+
+        public void CheckDebuff()
+        {
+            if (is109Debuff)
+            {
+                AttackAnim(this.gameObject, 0.2f);
+
+                Hp--;
+                duration109++;
+
+                if (duration109 == 3)
+                {
+                    is109Debuff = false;
+                    duration109 = 0;
+                }
+            }
+        }
+
     }
 }
-
-
