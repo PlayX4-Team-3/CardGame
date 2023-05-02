@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
 using ObserverPattern;
+using DG.Tweening;
 
 namespace AllCharacter
 {
@@ -33,12 +35,6 @@ namespace AllCharacter
             hpBar.maxValue = this.MaxHp;
         }
 
-        private void Update()
-        {
-            //Hp 슬라이더 value 초기화
-            hpBar.value = Hp;
-        }
-
         public void DataInit(GameData data)
         {
             this.data = data;
@@ -50,6 +46,9 @@ namespace AllCharacter
             this.hpText.text = $"{pHp:F0}/{this.MaxHp:F0}";
             //방어력 텍스트 출력
             this.dfText.text = pDf.ToString();
+
+            //Hp 슬라이더 value 초기화
+            hpBar.value = Hp;
         }
 
         /// <summary>
@@ -59,5 +58,24 @@ namespace AllCharacter
         {
             animator.SetTrigger("PisSlash");
         }
+
+        // Animation part
+        public void AttackAnim(GameObject target, float duration)
+        {
+            target.gameObject.transform.DOShakePosition(duration);
+
+            // Camera Shake
+            //GameObject.FindWithTag("BG").transform.DOShakePosition(2f);
+        }
+
+        public void DefenseAnim()
+        {
+            this.gameObject.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() =>
+            {
+                this.gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f);
+            }
+            );
+        }
+
     }
 }

@@ -79,16 +79,12 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.zero);
 
-            // ?????? ???? ???????? ?????????? ??
+            // Card in DropArea
             if (hit.collider != null && hit.collider.CompareTag("DropArea") && gm.player.Cost >= card.Cost)
             {
                 isUsed = true;
 
                 gm.player.Cost -= card.Cost;
-
-                //// ?????? Cost ???? ?????? ????????
-                //for (int i = jgm.player.MaxCost - 1; i >= jgm.player.Cost; i--)
-                //    jgm.playerCostImg[i].gameObject.SetActive(false);
 
                 tweenScale = this.transform.DOScale(Vector3.zero, 1f);
                 tweenRotate = this.transform.DORotate(new Vector3(0f, 0f, -360f), 0.25f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
@@ -103,22 +99,21 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 });
             }
 
-            // ?????? ???? ???????? ???????? ?????? ??
+            // Card Not in DropArea
             else
             {
                 isUsed = true;
 
                 tweenScale = this.transform.DOScale(restoredCardScale, 0.15f);
-                tweenMove = this.transform.DOMove(gm.dummy.transform.position, 0.15f).OnComplete(() =>
+                tweenMove = this.transform.DOMove(startPos, 0.15f).OnComplete(() =>
                 {
+                    gm.dummy.transform.SetParent(canvasT);
+                    gm.dummy.SetActive(false);
+
                     this.transform.SetParent(previousParentT);
                     this.transform.SetSiblingIndex(thisChildIndex);
-                 
-                    gm.dummy.transform.SetParent(canvasT);
 
                     isUsed = false;
-
-                    cm.SetHandCardPosition();
                 });
             }
         }
@@ -131,6 +126,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             thisChildIndex = this.transform.GetSiblingIndex();
 
             tweenScale = this.transform.DOScale(magnifiedCardScale, 0.25f);
+
             this.transform.SetParent(canvasT);
 
             gm.dummy.SetActive(true);
@@ -141,7 +137,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // ?????? ???????? ?????? ???? ????
+        // Card Not Used
         if (!isUsed)
         {
             gm.dummy.transform.SetParent(canvasT);

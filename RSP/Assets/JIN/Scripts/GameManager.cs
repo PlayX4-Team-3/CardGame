@@ -33,8 +33,8 @@ public class GameManager : Singleton<GameManager>
     private int enemyActionIndex;
     public Text enemyActionText;
 
-    // ?? ???? ?????? ?????????? ????
-    public bool canEAttack = false;
+    // enemy Debuff
+    public bool canEAttack = true;
 
     public GameObject dummy;
 
@@ -55,14 +55,12 @@ public class GameManager : Singleton<GameManager>
         //cm.DrawCard(3);
         //StartCoroutine(StartDelay());
 
-        Invoke("StartDelay", 1f);
+        Invoke("StartDelay", 0.5f);
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
 
         EnemyAction();
-
-        canEAttack = true;
     }
 
     private void StartDelay()
@@ -87,7 +85,7 @@ public class GameManager : Singleton<GameManager>
 
         tm.StartTurn(nextPlayer);
 
-        // ???????? ???????? ?? ???? ???? ??????
+        // player turn init
         if (nextPlayer == PlayerID.Player)
         {
             cm.DrawCard();
@@ -102,6 +100,7 @@ public class GameManager : Singleton<GameManager>
             EnemyAction();
         }
 
+        // enemy turn init
         else
         {
             EnemyTurn();
@@ -116,17 +115,17 @@ public class GameManager : Singleton<GameManager>
 
         enemyActionRate = Random.Range(0, 1000);
 
-        if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% ????????
+        if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% Attack rate
         {
             enemyActionIndex = 0;
             enemyActionText.text = "Attack";
         }
-        else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% ????????
+        else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% Defense rate
         {
             enemyActionIndex = 1;
             enemyActionText.text = "Defense";
         }
-        else if (enemyActionRate >= 800) // 20% ????????
+        else if (enemyActionRate >= 800) // 20% Utility rate
         {
             enemyActionIndex = 2;
             enemyActionText.text = "Utility";
@@ -135,11 +134,21 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyTurn()
     {
-        // ?? ?? ???? ?? ?? ?????? 0???? ??????
-        enemy.Defense_Figures = 0;
+        enemy.CheckDebuff();
 
-        // ?? ???? ???? ???????? ????
-        //int action = Random.Range(0, 3);
+        // turn start delay
+        StartCoroutine(EnemyTurnStartDelay());
+
+        // turn end delay
+        StartCoroutine(EnemyTurnEndDelay());
+    }
+
+    private IEnumerator EnemyTurnStartDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
+        // enemy defense init
+        enemy.Defense_Figures = 0;
 
         switch (enemyActionIndex)
         {
@@ -149,20 +158,19 @@ public class GameManager : Singleton<GameManager>
                     EnemyAttack();
                     //animationManager.PlayerHit();
                     //animationManager.EnemyAttack();
+                    enemy.AttackAnim(player.gameObject, 0.5f);
                 }
                 break;
 
             case 1:
                 EnemyDefense();
+                enemy.DefenseAnim();
                 break;
 
             case 2:
                 EnemyUtility();
                 break;
         }
-
-        // ?? ?? ???? ???????? ?? ???????? ???? ?????? ??
-        StartCoroutine(EnemyTurnEndDelay());
     }
 
     private IEnumerator EnemyTurnEndDelay()
