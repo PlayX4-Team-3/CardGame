@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using AllCharacter;
+using DG.Tweening;
 
 public class CardAbility : Singleton<CardAbility>
 {
@@ -26,11 +27,11 @@ public class CardAbility : Singleton<CardAbility>
         switch(typeNum)
         {
             case 1:
-                Attack(card.Power);
+                Attack(card.ID, card.Power);
                 break;
 
             case 2:
-                Defense(card.Power);
+                Defense(card.ID, card.Power);
                 break;
 
             case 3:
@@ -47,12 +48,12 @@ public class CardAbility : Singleton<CardAbility>
         }
     }
 
-    private void Attack(int damage)
+    private void Attack(int id, int damage)
     {
         if (enemy.Defense_Figures > 0)
         {
             enemy.Defense_Figures -= damage;
-        
+
             if (enemy.Defense_Figures <= 0)
             {
                 enemy.Hp = enemy.Hp + enemy.Defense_Figures;
@@ -62,11 +63,25 @@ public class CardAbility : Singleton<CardAbility>
 
         else
             enemy.Hp -= damage;
+
+        // 독구슬 109번 만들어줘야함
+        if ((id % 100) == 9)
+        {
+            enemy.is109Debuff = true;
+        }
+
+        player.AttackAnim(enemy.gameObject, 0.5f);
     }
 
-    private void Defense(int dfigure)
+    private void Defense(int id, int dfigure)
     {
         player.Defense_Figures += dfigure;
+
+        // 반사 207번 만들어야함
+        if ((id % 100) == 7)
+            Debug.Log("Reflect");
+
+        player.DefenseAnim();
     }
 
     private void Utility(Card card, int key)
@@ -81,22 +96,31 @@ public class CardAbility : Singleton<CardAbility>
                     GameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
                 break;
             case 2:
-                Attack(card.Power);
-                break;
-            case 3:
                 // 적 공격 무효화
                 GameManager.Instance.canEAttack = false;
                 break;
-            case 4:
-                Attack(card.Power);
-                break;
-            case 5:
-            case 6:
+            case 3:
                 // 드로우
                 CardManager.Instance.DrawCard(card.Power);
                 break;
-
+            case 4:
+                // 드로우
+                CardManager.Instance.DrawCard(card.Power);
+                break;
+            case 5:
+                // 힐
+                player.Hp += card.Power;
+                break;
+            case 6:
+                // 적 방어도 파괴
+                enemy.Defense_Figures = 0;
+                break;
+            case 7:
+                // 적 행동 봉인
+                break;
+            case 8:
+                // 받는 피해 감소 2회 버프
+                break;
         }
     }
-
 }

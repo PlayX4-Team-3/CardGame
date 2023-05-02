@@ -175,7 +175,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4210157123753652}
   - component: {fileID: 95898481864777010}
-  - component: {fileID: 1453916217}
   m_Layer: 0
   m_Name: sword_man
   m_TagString: Player
@@ -221,26 +220,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &1453916217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290715225530138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21b008e5475504439f32c05eb738a3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHp: 0
-  maxHp: 3
-  remainingCost: 0
-  maxCost: 0
-  defense_Figures: 0
-  hpText: {fileID: 0}
-  dfText: {fileID: 0}
-  hpBar: {fileID: 0}
 --- !u!1 &1315759352830414
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,15 +71,18 @@ public class CardManager : Singleton<CardManager>
                 go.transform.SetParent(deckArea, false);
 
                 // ?????? ?????? ????
-                GameObject go2 = new GameObject();
-                go2.transform.SetParent(go.transform);
-                go2.transform.localPosition = new Vector2(125f, 195f);
-                go2.transform.localScale = new Vector2(0.06f, 0.06f);
+                if (card.Attribute != "None")
+                {
+                    GameObject go2 = new GameObject();
+                    go2.transform.SetParent(go.transform);
+                    go2.transform.localPosition = new Vector2(125f, 195f);
+                    go2.transform.localScale = new Vector2(0.06f, 0.06f);
 
-                Image img2 = go2.AddComponent<Image>();
-                string sprite2 = card.RPSLink;
-                img2.sprite = Resources.Load<Sprite>(sprite2);
-                img2.SetNativeSize();
+                    Image img2 = go2.AddComponent<Image>();
+                    string sprite2 = card.RPSLink;
+                    img2.sprite = Resources.Load<Sprite>(sprite2);
+                    img2.SetNativeSize();
+                }
 
                 CreateCardDescription(go, cardDescription, cardName, cardCost);
 
