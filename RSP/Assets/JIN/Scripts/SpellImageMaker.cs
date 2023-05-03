@@ -9,6 +9,8 @@ public class SpellImageMaker : Singleton<SpellImageMaker>
     private Sprite[] sprites;
     public List<GameObject> spells;
 
+    private Vector3 tempV;
+
     void Start()
     {
         sprites = Resources.LoadAll<Sprite>("Spells");
@@ -25,14 +27,16 @@ public class SpellImageMaker : Singleton<SpellImageMaker>
 
             go.SetActive(false);
         }
+
+        tempV = Vector3.zero;
     }
 
-    public void SetSpell(GameObject target, GameObject spell)
+    public void SetSpell(GameObject target, GameObject spell, float plusVector = 0f)
     {
         spell.SetActive(true);
 
         spell.transform.SetParent(target.gameObject.transform);
-        spell.transform.position = target.transform.position;
+        spell.transform.position = target.transform.position + new Vector3(plusVector, 0f, 0f);
         spell.transform.localScale = Vector3.zero;
     }
 }

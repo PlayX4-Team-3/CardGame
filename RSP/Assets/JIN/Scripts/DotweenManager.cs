@@ -4,9 +4,82 @@ using UnityEngine;
 
 public class DotweenManager : Singleton<DotweenManager>
 {
+    private SpellImageMaker sm;
+    private GameManager gm;
+
+    private void Start()
+    {
+        sm = SpellImageMaker.Instance;
+        gm = GameManager.Instance;
+    }
 
 
     // Character Animation Part
+    public void AttackAnim(GameObject target, float duration)
+    {
+        target.gameObject.transform.DOShakePosition(duration);
+    }
+
+    public void DefenseAnim(GameObject target)
+    {
+        if (target.name == "Player")
+            target.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() => target.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f));
+
+        else
+            target.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() => target.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f));
+    }
+
+
+    // Spell Animation Part
+    public void MagicBallAnimaition(GameObject target, GameObject spellObj)
+    {
+        spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
+        {
+            spellObj.transform.DOMove(target.transform.position, 0.5f).OnComplete(() =>
+            {
+                spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                {
+                    Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
+                    color.a = 1;
+
+                    spellObj.GetComponent<SpriteRenderer>().material.color = color;
+                    spellObj.SetActive(false);
+                });
+
+                AttackAnim(target, 0.5f);
+            });
+        });
+    }
+        
+    public void IcicleAnimation(GameObject spellObj, int tmp = 0) // 0 : 내가 공격했을 때 애니메이션, 1 : 카드 효과가 끝날 때 애니메이션
+    {
+        if(tmp == 0)
+            spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
+
+        else
+        {
+            sm.spells[9].transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                sm.spells[9].transform.localScale = Vector3.one;
+                sm.spells[9].SetActive(false);
+            });
+        }
+    }
+
+    public void HealAnimation(GameObject spellObj, GameObject target)
+    {
+        spellObj.transform.localScale = Vector3.one;
+        spellObj.transform.DOMove(target.gameObject.transform.position + (Vector3.up * 2f), 2f);
+        spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 2f).OnComplete(() =>
+        {
+            Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
+            color.a = 1;
+
+            spellObj.GetComponent<SpriteRenderer>().material.color = color;
+            spellObj.SetActive(false);
+        });
+    }    
+
 
     // Card Animation Part
     public void UseCardAnimation(GameObject go, Card card)
@@ -18,6 +91,8 @@ public class DotweenManager : Singleton<DotweenManager>
         go.transform.DOMove(CardManager.Instance.graveArea.transform.position, 1f).OnComplete(() =>
         {
             CardManager.Instance.HandToGrave(go);
+
+            go.transform.DOKill();
         });
     }
 
@@ -30,48 +105,37 @@ public class DotweenManager : Singleton<DotweenManager>
     {
         go.transform.DOMove(handArea.parent.transform.position, duration).OnComplete(() =>
         {
+            go.transform.DOKill();
             CardManager.Instance.SetHandCardPosition();
         });
     }
 
     public void SetHandCardPositionAnimation(List<GameObject> handList, Transform handArea, float duration = 0.2f)
     {
-        Sequence sequence = DOTween.Sequence();
-        Tween[] tweens = new Tween[handList.Count];
-        
         int mid = handList.Count / 2;
 
         for (int i = 0; i < handList.Count; i++)
         {
             if (handList.Count == 1)
-            {
-                tweens[i] = handList[i].transform.DOMove(handArea.position, duration);
-                sequence.Insert(0f, tweens[i]);
-            }
+                handList[i].transform.DOMove(handArea.position, duration);
 
             else if (handList.Count % 2 == 1)
             {
                 if (i < mid)
-                    tweens[i] = handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
+                    handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
                 else if (i == mid)
-                    tweens[i] = handList[i].transform.DOMove(handArea.transform.position, duration);
+                    handList[i].transform.DOMove(handArea.transform.position, duration);
                 else
-                    tweens[i] = handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
-
-                sequence.Insert(0f, tweens[i]);
+                    handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
             }
 
             else
             {
                 if (i < mid)
-                    tweens[i] = handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
+                    handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
                 else
-                    tweens[i] = handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
-
-                sequence.Insert(0f, tweens[i]);
+                    handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
             }
         }
-        
-        sequence.Play();
     }
 }

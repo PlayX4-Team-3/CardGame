@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using AllCharacter;
-//using DG.Tweening;
+using DG.Tweening;
 
 public class CardAbility : Singleton<CardAbility>
 {
+    private SpellImageMaker sm;
+    private DotweenManager dm;
+
     private Player player;
     private Enemy enemy;
 
@@ -14,6 +17,9 @@ public class CardAbility : Singleton<CardAbility>
 
     private void Start()
     {
+        sm = SpellImageMaker.Instance;
+        dm = DotweenManager.Instance;
+
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
@@ -53,8 +59,7 @@ public class CardAbility : Singleton<CardAbility>
     private void Attack(int id, int damage)
     {
         bool isSpell = (id % 100) > 6 ? true : false;
-
-        //Debug.Log(isSpell);
+        int spellNum = id % 100;
 
         if (spellObj != null)
             spellObj = null;
@@ -73,62 +78,31 @@ public class CardAbility : Singleton<CardAbility>
         else
             enemy.Hp -= damage;
 
-        // 불덩이
-        if((id % 100) == 7)
+        if (isSpell)
         {
-            spellObj = SpellImageMaker.Instance.spells[1];
+            // 불덩이
+            if (spellNum == 7)
+            {
+                spellObj = sm.spells[1];
 
-            SpellImageMaker.Instance.SetSpell(player.gameObject, spellObj);
+                sm.SetSpell(player.gameObject, spellObj, 0.5f);
+            }
 
-            spellObj.transform.position += Vector3.right;
-            //////////////////////spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.1f).OnComplete(() =>
-            //////////////////////{
-            //////////////////////    spellObj.transform.DOMove(enemy.transform.position, 0.4f).OnComplete(() =>
-            //////////////////////    {
-            //////////////////////        spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
-            //////////////////////        {
-            //////////////////////            Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
-            //////////////////////            color.a = 1;
+            // 독구슬
+            if (spellNum == 9)
+            {
+                spellObj = sm.spells[14];
 
-            //////////////////////            spellObj.GetComponent<SpriteRenderer>().material.color = color;
-            //////////////////////            spellObj.SetActive(false);
-            //////////////////////        });
+                sm.SetSpell(player.gameObject, spellObj, 0.5f);
 
-            //////////////////////        player.AttackAnim(enemy.gameObject, 0.5f);
-            //////////////////////    });
-            //////////////////////});
+                enemy.is109Debuff = true;
+            }
+
+            dm.MagicBallAnimaition(enemy.gameObject, spellObj);
         }
 
-        // 독구슬 109번 만들어줘야함
-        if ((id % 100) == 9)
-        {
-            spellObj = SpellImageMaker.Instance.spells[14];
-
-            SpellImageMaker.Instance.SetSpell(player.gameObject, spellObj);
-
-            spellObj.transform.position += Vector3.right * 0.5f;
-            ////////////////////spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
-            ////////////////////{
-            ////////////////////    spellObj.transform.DOMove(enemy.transform.position, 0.5f).OnComplete(() =>
-            ////////////////////    {
-            ////////////////////        spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
-            ////////////////////        {
-            ////////////////////            Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
-            ////////////////////            color.a = 1;
-
-            ////////////////////            spellObj.GetComponent<SpriteRenderer>().material.color = color;
-            ////////////////////            spellObj.SetActive(false);
-            ////////////////////        });
-
-            ////////////////////        player.AttackAnim(enemy.gameObject, 0.5f);
-            ////////////////////    });
-            ////////////////////});
-
-            enemy.is109Debuff = true;
-        }
-
-        //if (!isSpell)
-            ////////////////////player.AttackAnim(enemy.gameObject, 0.5f);
+        if (!isSpell)
+           dm.AttackAnim(enemy.gameObject, 0.5f);
     }
 
     private void Defense(int id, int dfigure)
@@ -139,7 +113,7 @@ public class CardAbility : Singleton<CardAbility>
         if ((id % 100) == 7)
             Debug.Log("Reflect");
 
-        ////////////////player.DefenseAnim();
+        dm.DefenseAnim(player.gameObject);
     }
 
     private void Utility(Card card, int key)
@@ -161,9 +135,6 @@ public class CardAbility : Singleton<CardAbility>
                 GameManager.Instance.canEAttack = false;
                 break;
             case 3:
-                // 드로우
-                CardManager.Instance.DrawCard(card.Power);
-                break;
             case 4:
                 // 드로우
                 CardManager.Instance.DrawCard(card.Power);
@@ -172,19 +143,10 @@ public class CardAbility : Singleton<CardAbility>
                 // 힐
                 player.Hp += card.Power;
 
-                spellObj = SpellImageMaker.Instance.spells[12];
+                spellObj = sm.spells[12];
 
-                SpellImageMaker.Instance.SetSpell(player.gameObject, spellObj);
-                spellObj.transform.localScale = Vector3.one;
-                ////////////////spellObj.transform.DOMove(player.gameObject.transform.position + (Vector3.up * 2f), 2f);
-                ////////////////spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 2f).OnComplete(() =>
-                ////////////////{
-                ////////////////    Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
-                ////////////////    color.a = 1;
-                
-                ////////////////    spellObj.GetComponent<SpriteRenderer>().material.color = color;
-                ////////////////    spellObj.SetActive(false);
-                ////////////////});
+                sm.SetSpell(player.gameObject, spellObj);
+                dm.HealAnimation(spellObj, player.gameObject);
 
                 break;
             case 6:
@@ -194,11 +156,11 @@ public class CardAbility : Singleton<CardAbility>
             case 7:
                 // 적 행동 봉인
                 enemy.is307Debuff = true;
-                spellObj = SpellImageMaker.Instance.spells[9];
+                spellObj = sm.spells[9];
 
-                SpellImageMaker.Instance.SetSpell(enemy.gameObject, spellObj);
+                sm.SetSpell(enemy.gameObject, spellObj);
 
-                //////////////////spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
+                spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
                 break;
             case 8:
                 // 받는 피해 감소 2회 버프

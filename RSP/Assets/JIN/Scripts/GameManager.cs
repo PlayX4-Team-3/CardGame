@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     private CardManager cm;
     private TurnManager tm;
     private CardAbility ca;
+    private DotweenManager dm;
 
     public Player player;
     public Enemy enemy;
@@ -45,6 +46,7 @@ public class GameManager : Singleton<GameManager>
         cm = CardManager.Instance;
         tm = TurnManager.Instance;
         ca = CardAbility.Instance;
+        dm = DotweenManager.Instance;
 
         dummy = GameObject.FindWithTag("DummyCard").gameObject;
 
@@ -164,13 +166,13 @@ public class GameManager : Singleton<GameManager>
                     EnemyAttack();
                     //animationManager.PlayerHit();
                     //animationManager.EnemyAttack();
-                    /////////////////////////enemy.AttackAnim(player.gameObject, 0.5f);
+                    dm.AttackAnim(player.gameObject, 0.5f);
                 }
                 break;
 
             case 1:
                 EnemyDefense();
-                /////////////////////////enemy.DefenseAnim();
+                dm.DefenseAnim(enemy.gameObject);
                 break;
 
             case 2:
@@ -185,13 +187,8 @@ public class GameManager : Singleton<GameManager>
 
         if (enemy.is307Debuff)
         {
-            ////////////////////SpellImageMaker.Instance.spells[9].transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
-            ////////////////////{
-                ////////////////////SpellImageMaker.Instance.spells[9].transform.localScale = Vector3.one;
-                ////////////////////SpellImageMaker.Instance.spells[9].SetActive(false);
-
-                ////////////////////enemy.is307Debuff = false;
-            ////////////////////});
+            DotweenManager.Instance.IcicleAnimation(SpellImageMaker.Instance.spells[9], 1);
+            enemy.is307Debuff = false;
         }
 
         player.Defense_Figures = 0;
@@ -207,6 +204,7 @@ public class GameManager : Singleton<GameManager>
         if (player.Defense_Figures > 0)
         {
             player.Defense_Figures -= randomDamage;
+
             if (player.Defense_Figures <= 0)
             {
                 player.Hp = player.Hp + player.Defense_Figures;

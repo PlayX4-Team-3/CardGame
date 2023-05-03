@@ -59,23 +59,7 @@ namespace AllCharacter
             animator.SetTrigger("PisSlash");
         }
 
-        //////////// Animation part
-        //////////public void AttackAnim(GameObject target, float duration)
-        //////////{
-        //////////    target.gameObject.transform.DOShakePosition(duration);
-
-        //////////    // Camera Shake
-        //////////    //GameObject.FindWithTag("BG").transform.DOShakePosition(2f);
-        //////////}
-
-        //////////public void DefenseAnim()
-        //////////{
-        //////////    this.gameObject.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() =>
-        //////////    {
-        //////////        this.gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f);
-        //////////    }
-        //////////    );
-        //////////}
+        
 
         public void CheckBuff()
         {

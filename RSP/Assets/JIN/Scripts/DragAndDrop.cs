@@ -6,7 +6,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 {
     private GameManager gm;
     private CardManager cm;
-    private DotweenManager dotM;
+    private DotweenManager dm;
 
     private Transform canvasT;
     private Transform previousParentT;
@@ -27,7 +27,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         gm = GameManager.Instance;
         cm = CardManager.Instance;
-        dotM = DotweenManager.Instance;
+        dm = DotweenManager.Instance;
 
         canvasT = GameObject.FindWithTag("Canvas").transform;
         previousParentT = GameObject.FindWithTag("Hand").transform;
@@ -80,36 +80,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             {
                 gm.player.Cost -= card.Cost;
 
-                dotM.UseCardAnimation(this.gameObject, card);
-                //////////////tweenScale = this.transform.DOScale(Vector3.zero, 1f);
-                //////////////tweenRotate = this.transform.DORotate(new Vector3(0f, 0f, -360f), 0.25f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
-                //////////////tweenMove = this.transform.DOMove(cm.graveArea.transform.position, 1f).OnComplete(() =>
-                //////////////{
-                //////////////    gm.UseCard(card);
-                //////////////    cm.HandToGrave(this.gameObject);
-
-                //gm.dummy.transform.SetParent(canvasT);
-                //dotM.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
-                //////////////    cm.SetHandCardPosition();
-                //////////////});
+                dm.UseCardAnimation(this.gameObject, card);
             }
 
             // Card Not in DropArea
             else
             {
                 if (isUsed)
-                    dotM.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
-
-                ////////tweenScale = this.transform.DOScale(restoredCardScale, 0.15f);
-                ////////tweenMove = this.transform.DOMove(startPos, 0.15f).OnComplete(() =>
-                ////////{
-                ////////    gm.dummy.transform.SetParent(canvasT);
-                ////////    gm.dummy.SetActive(false);
-
-                ////////    this.transform.SetParent(previousParentT);
-                ////////    this.transform.SetSiblingIndex(thisChildIndex);
-                ////////    isUsed = false;
-                ////////});
+                    dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
             }
         }
     }
@@ -118,7 +96,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         thisChildIndex = this.transform.GetSiblingIndex();
 
-        dotM.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
+        dm.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
 
         this.transform.SetParent(canvasT);
 
@@ -136,6 +114,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         this.transform.SetParent(previousParentT);
         this.transform.SetSiblingIndex(thisChildIndex);
 
-        dotM.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
+        dm.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
     }
 }
