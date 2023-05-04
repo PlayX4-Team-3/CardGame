@@ -24,11 +24,13 @@ namespace AllCharacter
 
         public bool is307Debuff = false;
 
+        public bool isbind = false;
+
 
         private void Awake()
         {
             //체력 초기화
-            InitHp(30);
+            InitHp(1);
             //방어력 초기화
             Defense_Figures = 0;
 
@@ -59,6 +61,8 @@ namespace AllCharacter
         {
             if (is109Debuff)
             {
+                DotweenManager.Instance.AttackAnim(this.gameObject, 0.25f);
+                
                 Hp--;
                 duration109++;
 
@@ -68,6 +72,11 @@ namespace AllCharacter
                     duration109 = 0;
                 }
             }
+
+            //if(isbind)
+            //{
+            //    DotweenManager.Instance.EndBind(this.gameObject);
+            //}
         }
 
     }

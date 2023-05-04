@@ -4,31 +4,13 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class RoundManager : Singleton<RoundManager>
+public class RoundManager : MonoBehaviour
 {
-    private static RoundManager _instance;
-
     public Button quarterFinal;
     public Button semiFinal;
     public Button final;
 
-    public int roundIndex = 0;
-
-    void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this as RoundManager;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnEnable()
+    private void Start()
     {
         quarterFinal = GameObject.Find("First").GetComponent<Button>();
         semiFinal = GameObject.Find("Second").GetComponent<Button>();
@@ -37,22 +19,16 @@ public class RoundManager : Singleton<RoundManager>
         SetRoundIndex();
     }
 
-    void OnDestroy()
-    {
-        if (_instance == this)
-            _instance = null;
-    }
-
     private void SetRoundIndex()
     {
         quarterFinal.interactable = false;
         semiFinal.interactable = false;
         final.interactable = false;
 
-        roundIndex = roundIndex % 3;
-        Debug.Log(roundIndex);
+        SceneChange.Instance.roundIndex = SceneChange.Instance.roundIndex % 3;
+        Debug.Log(SceneChange.Instance.roundIndex);
 
-        switch(roundIndex)
+        switch(SceneChange.Instance.roundIndex)
         {
             case 0:
                 quarterFinal.interactable = true;
@@ -68,7 +44,7 @@ public class RoundManager : Singleton<RoundManager>
                 break;
         }
 
-        roundIndex++;
+        SceneChange.Instance.roundIndex++;
 
         this.gameObject.SetActive(false);
     }

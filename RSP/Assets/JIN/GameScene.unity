@@ -2315,7 +2315,6 @@ MonoBehaviour:
   - {fileID: 1958277014}
   display: {fileID: 737165041}
   enemyActionText: {fileID: 2115336002}
-  canEAttack: 0
   dummy: {fileID: 0}
   isEnemyAttackMode: 0
 --- !u!4 &1529364994
@@ -2733,6 +2732,7 @@ MonoBehaviour:
   is109Debuff: 0
   duration109: 0
   is307Debuff: 0
+  isbind: 0
 --- !u!1 &1958277012
 GameObject:
   m_ObjectHideFlags: 0

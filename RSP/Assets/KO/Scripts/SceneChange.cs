@@ -7,6 +7,7 @@ public class SceneChange : Singleton<SceneChange>
 
     [HideInInspector]
     public int winnerIndex = 0;
+    public int roundIndex = 0;
 
     void Awake()
     {

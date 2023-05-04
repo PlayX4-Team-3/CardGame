@@ -4,7 +4,6 @@ using UnityEngine;
 using manager;
 using AllCharacter;
 using UnityEngine.UI;
-//using DG.Tweening;
 
 public enum GameState
 {
@@ -35,7 +34,7 @@ public class GameManager : Singleton<GameManager>
     public Text enemyActionText;
 
     // enemy Debuff
-    public bool canEAttack = true;
+    //public bool canEAttack = true;
 
     public GameObject dummy;
 
@@ -87,7 +86,6 @@ public class GameManager : Singleton<GameManager>
             for (int i = 0; i < player.MaxCost; i++)
                 playerCostImg[i].gameObject.SetActive(true);
         }
-
     }
 
         public void OnTurnEnd(PlayerID nextPlayer)
@@ -123,10 +121,13 @@ public class GameManager : Singleton<GameManager>
         {
             BtnTurnEnd.interactable = false;
 
+            enemy.Defense_Figures = 0;
+
             enemy.CheckBuff();
             enemy.CheckDebuff();
-            EnemyTurn();
+            display.UpdateCharacterState();
 
+            EnemyTurn();
         }
     }
 
@@ -158,8 +159,6 @@ public class GameManager : Singleton<GameManager>
             enemyActionIndex = 0;
             enemyActionText.text = "AttackMode";
         }
-
-
     }
 
     private void EnemyTurn()
@@ -176,20 +175,11 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(1f);
 
-        // enemy defense init
-        enemy.Defense_Figures = 0;
-
         switch (enemyActionIndex)
         {
             case 0:
-                if (canEAttack)
+                if(enemy.isbind == false)
                     EnemyAttack();
-                else
-                {
-                    canEAttack = true;
-                    dm.EndBind(enemy.gameObject);
-                    dm.AttackAnim(enemy.gameObject, 0.3f);
-                }
                 break;
 
             case 1:
@@ -208,6 +198,12 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator EnemyTurnEndDelay()
     {
         yield return new WaitForSeconds(2f);
+
+        if (enemy.isbind == true)
+        {
+            enemy.isbind = false;
+            dm.EndBind(enemy.gameObject);
+        }
 
         if (enemy.is307Debuff)
         {
@@ -366,7 +362,6 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(1f);
 
         SceneChange.Instance.winnerIndex = (int)player;
-        //SceneChange.Instance.GoResultScene();
         SceneChange.Instance.GoNextScene();
     }
 }

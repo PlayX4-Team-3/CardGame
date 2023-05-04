@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CardManager : Singleton<CardManager>
 {
-    private DotweenManager dotM;
+    private DotweenManager dm;
 
     public TextAsset textJson;
     
@@ -42,7 +42,7 @@ public class CardManager : Singleton<CardManager>
 
     private void Start()
     {
-        dotM = DotweenManager.Instance;
+        dm = DotweenManager.Instance;
     }
 
     #region Card Init
@@ -192,7 +192,7 @@ public class CardManager : Singleton<CardManager>
 
             handList.Add(go);
             deckList.Remove(go);
-
+            
             go.SetActive(true);
 
             go.transform.SetParent(handArea);
@@ -201,7 +201,7 @@ public class CardManager : Singleton<CardManager>
 
             go.transform.position = deckArea.position;
 
-            dotM.DrawCardAnimation(go, handArea.transform, 0.3f);
+            dm.DrawCardAnimation(go, handArea.transform, 0.3f);
         }
         else
             StopCoroutine("DrawDelay");
@@ -251,7 +251,7 @@ public class CardManager : Singleton<CardManager>
 
     public void SetHandCardPosition()
     {
-        dotM.SetHandCardPositionAnimation(handList, handArea.transform);
+        dm.SetHandCardPositionAnimation(handList, handArea.transform);
     }
 
     public void WantCardDraw()

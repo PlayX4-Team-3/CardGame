@@ -2,6 +2,8 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
+using AllCharacter;
+
 public class DotweenManager : Singleton<DotweenManager>
 {
     private SpellImageMaker sm;
@@ -11,6 +13,8 @@ public class DotweenManager : Singleton<DotweenManager>
     {
         sm = SpellImageMaker.Instance;
         gm = GameManager.Instance;
+
+        DOTween.SetTweensCapacity(1000, 50);
     }
 
 
@@ -162,16 +166,29 @@ public class DotweenManager : Singleton<DotweenManager>
 
 
     // Card Animation Part
-    public void UseCardAnimation(GameObject go, Card card)
+    private void LookAtTarget(Transform self, Transform target, int drawing = -1)
+    {
+        Vector3 targetPosition = target.position;
+        targetPosition.z = self.position.z; // 타겟과 같은 z축으로 이동
+        Vector3 direction = (targetPosition - self.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Z축만 회전하도록 Quaternion.Euler 함수에 Z축값만 전달합니다.
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+
+        // DORotate 함수를 사용하여 Z축만 회전하도록 합니다.
+        self.DORotate(targetRotation.eulerAngles * drawing, 0.5f);
+    }
+
+    public void UseCardAnimation(GameObject go, Card card, Transform target)
     {
         GameManager.Instance.UseCard(card);
 
-        go.transform.DOScale(Vector3.zero, 1f);
-        go.transform.DORotate(new Vector3(0f, 0f, -360f), 0.25f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+        go.transform.DOScale(Vector3.zero, 1f).OnUpdate(() => LookAtTarget(go.transform, target));
         go.transform.DOMove(CardManager.Instance.graveArea.transform.position, 1f).OnComplete(() =>
         {
             CardManager.Instance.HandToGrave(go);
-
+            go.transform.localRotation = Quaternion.identity;
             go.transform.DOKill();
         });
     }
@@ -183,9 +200,10 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void DrawCardAnimation(GameObject go, Transform handArea, float duration)
     {
-        go.transform.DOMove(handArea.parent.transform.position, duration).OnComplete(() =>
+        go.transform.DOMove(handArea.parent.transform.position, duration).OnUpdate(() => LookAtTarget(go.transform, handArea.parent, -1)).OnComplete(() =>
         {
             go.transform.DOKill();
+            go.transform.DORotate(Vector3.one, 0.2f);
             CardManager.Instance.SetHandCardPosition();
         });
     }

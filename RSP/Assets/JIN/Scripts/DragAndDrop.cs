@@ -80,7 +80,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             {
                 gm.player.Cost -= card.Cost;
 
-                dm.UseCardAnimation(this.gameObject, card);
+                dm.UseCardAnimation(this.gameObject, card, cm.graveArea);
             }
 
             // Card Not in DropArea
