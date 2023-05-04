@@ -71,18 +71,26 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
             cm.DrawCard();
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.W))
             cm.WantCardDraw();
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.E))
             isEnemyAttackMode = !isEnemyAttackMode;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.Cost = player.MaxCost;
+
+            for (int i = 0; i < player.MaxCost; i++)
+                playerCostImg[i].gameObject.SetActive(true);
+        }
 
     }
 
-    public void OnTurnEnd(PlayerID nextPlayer)
+        public void OnTurnEnd(PlayerID nextPlayer)
     {
         if (gs != GameState.Playing)
         {

@@ -15,6 +15,10 @@ public class CardAbility : Singleton<CardAbility>
 
     private GameObject spellObj;
 
+    public GameObject Att1;
+    public GameObject Att2;
+    public GameObject Def1;
+
     private void Start()
     {
         sm = SpellImageMaker.Instance;
@@ -60,23 +64,51 @@ public class CardAbility : Singleton<CardAbility>
     {
         bool isSpell = (id % 100) > 6 ? true : false;
         int spellNum = id % 100;
+        GameObject spell;
 
         if (spellObj != null)
             spellObj = null;
 
-        if (enemy.Defense_Figures > 0)
+        if (!isSpell)
         {
-            enemy.Defense_Figures -= damage;
+            if (spellNum <= 3)
+                spell = Instantiate(Att2);
+            else
+                spell = Instantiate(Att1);
 
-            if (enemy.Defense_Figures <= 0)
+            spell.transform.SetParent(player.gameObject.transform);
+            spell.transform.position = player.transform.position + Vector3.right;
+
+            spell.transform.DOScale(Vector3.one * 0.6f, 0.2f).OnComplete(() =>
             {
-                enemy.Hp = enemy.Hp + enemy.Defense_Figures;
-                enemy.Defense_Figures = 0;
-            }
-        }
+                spell.transform.DOMove(enemy.gameObject.transform.position, 0.5f).OnComplete(() =>
+                {
+                    dm.AttackAnim(enemy.gameObject, 0.5f);
+                    spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                    {
+                        Color color = spell.GetComponent<SpriteRenderer>().material.color;
+                        color.a = 1;
 
-        else
-            enemy.Hp -= damage;
+                        spell.GetComponent<SpriteRenderer>().material.color = color;
+                        Destroy(spell);
+
+                        if (enemy.Defense_Figures > 0)
+                        {
+                            enemy.Defense_Figures -= damage;
+
+                            if (enemy.Defense_Figures <= 0)
+                            {
+                                enemy.Hp = enemy.Hp + enemy.Defense_Figures;
+                                enemy.Defense_Figures = 0;
+                            }
+                        }
+
+                        else
+                            enemy.Hp -= damage;
+                    });
+                });
+            });
+        }
 
         if (isSpell)
         {
@@ -112,21 +144,40 @@ public class CardAbility : Singleton<CardAbility>
             }
         }
 
-        if (!isSpell)
-           dm.AttackAnim(enemy.gameObject, 0.5f);
+           
     }
 
     private void Defense(int id, int dfigure)
     {
         bool isSpell = (id % 100) > 6 ? true : false;
         int spellNum = id % 100;
-
+        GameObject spell;
         if (spellObj != null)
             spellObj = null;
 
-        // 일반 방어 카드
-        player.Defense_Figures += dfigure;
+        if (!isSpell)
+        {// 일반 방어 카드
+            dm.DefenseAnim(player.gameObject);
 
+            spell = Instantiate(Def1);
+            spell.transform.SetParent(player.gameObject.transform);
+            spell.transform.position = player.transform.position + Vector3.right;
+
+            spell.transform.DOScale(Vector3.one * 1f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            {
+                    spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                    {
+                        Color color = spell.GetComponent<SpriteRenderer>().material.color;
+                        color.a = 1;
+
+                        spell.GetComponent<SpriteRenderer>().material.color = color;
+                        Destroy(spell);
+
+
+                        player.Defense_Figures += dfigure;
+                    });
+            });
+        }
         // 반사 207번
         if (spellNum == 7)
         {
