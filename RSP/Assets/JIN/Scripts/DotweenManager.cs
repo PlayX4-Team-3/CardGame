@@ -31,6 +31,28 @@ public class DotweenManager : Singleton<DotweenManager>
 
 
     // Spell Animation Part
+    public void BindAttack(GameObject spellObj, GameObject target, int attacker = 1)
+    {
+        spellObj.transform.localScale = Vector3.right;
+        spellObj.transform.localPosition = new Vector3(0f, -0.5f * attacker, 0f);
+        spellObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 33f, 0f));
+
+        spellObj.transform.DOScaleY(1f, 1f);
+    }
+
+    public void EndBind(GameObject target)
+    {
+        GameObject spell = target.transform.Find("15").gameObject;
+        GameObject papa = target.gameObject;
+        spell.transform.SetParent(papa.transform.parent);
+
+        spell.transform.DOScaleY(0f, 1f).OnComplete(() =>
+        {
+            spell.transform.SetParent(papa.transform);
+            spell.SetActive(false);
+        });
+    }
+
     public void HalfLifeDamage(GameObject spellObj)
     {
         spellObj.transform.position = new Vector3(-4f, 0.3f, 0f);

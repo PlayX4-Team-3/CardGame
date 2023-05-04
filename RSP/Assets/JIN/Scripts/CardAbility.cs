@@ -162,6 +162,10 @@ public class CardAbility : Singleton<CardAbility>
             case 2:
                 // 적 공격 무효화
                 GameManager.Instance.canEAttack = false;
+                spellObj = sm.spells[15];
+
+                sm.SetSpell(enemy.gameObject, spellObj);
+                dm.BindAttack(spellObj, enemy.gameObject);
                 break;
             case 3:
             case 4:

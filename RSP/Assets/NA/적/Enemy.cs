@@ -28,7 +28,7 @@ namespace AllCharacter
         private void Awake()
         {
             //체력 초기화
-            InitHp(40);
+            InitHp(30);
             //방어력 초기화
             Defense_Figures = 0;
 
@@ -53,17 +53,12 @@ namespace AllCharacter
 
         public void CheckBuff()
         {
-            Debug.Log("Check Enemy Buff");
         }
 
         public void CheckDebuff()
         {
-            Debug.Log("Check Enemy Debuff");
-
             if (is109Debuff)
             {
-                ////////////////AttackAnim(this.gameObject, 0.2f);
-
                 Hp--;
                 duration109++;
 
@@ -72,11 +67,6 @@ namespace AllCharacter
                     is109Debuff = false;
                     duration109 = 0;
                 }
-            }
-
-            if(is307Debuff)
-            {
-
             }
         }
 

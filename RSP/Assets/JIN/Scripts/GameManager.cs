@@ -39,7 +39,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject dummy;
 
-    //public AnimationManager animationManager;
+    public bool isEnemyAttackMode;
 
     private void Start()
     {
@@ -53,16 +53,14 @@ public class GameManager : Singleton<GameManager>
         tm.onTurnEnd.AddListener(OnTurnEnd);
         tm.StartTurn(PlayerID.Player);
 
-        //cm.DeckInit();
-        //cm.DrawCard(3);
-        //StartCoroutine(StartDelay());
-
         Invoke("StartDelay", 0.5f);
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
 
         EnemyAction();
+
+        isEnemyAttackMode = false;
     }
 
     private void StartDelay()
@@ -75,6 +73,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
             cm.DrawCard();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            cm.WantCardDraw();
+
+        if (Input.GetKeyDown(KeyCode.W))
+            isEnemyAttackMode = !isEnemyAttackMode;
+
     }
 
     public void OnTurnEnd(PlayerID nextPlayer)
@@ -119,26 +124,34 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyAction()
     {
-        if (!canEAttack)
-            canEAttack = true;
-
         enemyActionRate = Random.Range(0, 1000);
 
-        if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% Attack rate
+        if (isEnemyAttackMode == false)
+        {
+            if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% Attack rate
+            {
+                enemyActionIndex = 0;
+                enemyActionText.text = "Attack";
+            }
+            else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% Defense rate
+            {
+                enemyActionIndex = 1;
+                enemyActionText.text = "Defense";
+            }
+            else if (enemyActionRate >= 800) // 20% Utility rate
+            {
+                enemyActionIndex = 2;
+                enemyActionText.text = "Utility";
+            }
+        }
+
+        else
         {
             enemyActionIndex = 0;
-            enemyActionText.text = "Attack";
+            enemyActionText.text = "AttackMode";
         }
-        else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% Defense rate
-        {
-            enemyActionIndex = 1;
-            enemyActionText.text = "Defense";
-        }
-        else if (enemyActionRate >= 800) // 20% Utility rate
-        {
-            enemyActionIndex = 2;
-            enemyActionText.text = "Utility";
-        }
+
+
     }
 
     private void EnemyTurn()
@@ -163,7 +176,12 @@ public class GameManager : Singleton<GameManager>
             case 0:
                 if (canEAttack)
                     EnemyAttack();
-
+                else
+                {
+                    canEAttack = true;
+                    dm.EndBind(enemy.gameObject);
+                    dm.AttackAnim(enemy.gameObject, 0.3f);
+                }
                 break;
 
             case 1:
@@ -199,12 +217,9 @@ public class GameManager : Singleton<GameManager>
     {
         int randomDamage = Random.Range(2, 5);
 
-        Debug.Log(randomDamage);
-
         // 데미지 반감
         if (player.have308buff == true && player.have207buff == false)
         {
-            Debug.Log("308");
             GameObject spell = player.gameObject.transform.Find("17").gameObject;
             spell.SetActive(true);
             dm.HalfLifeDamage(spell);
@@ -236,7 +251,6 @@ public class GameManager : Singleton<GameManager>
         // 공격 반사
         else if (player.have207buff == true)
         {
-            Debug.Log("207");
             GameObject spell = player.gameObject.transform.Find("04").gameObject;
             spell.SetActive(true);
             dm.ReflectBuff(spell);
@@ -265,7 +279,6 @@ public class GameManager : Singleton<GameManager>
         // 일반적인 상황
         else
         {
-            Debug.Log("dlfdsafd");
             if (player.Defense_Figures > 0)
             {
                 player.Defense_Figures -= randomDamage;

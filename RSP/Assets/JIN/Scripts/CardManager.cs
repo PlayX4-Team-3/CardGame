@@ -30,6 +30,8 @@ public class CardManager : Singleton<CardManager>
 
     private Vector2 originSize = new Vector3(0.6f, 0.6f, 1f);
 
+    public int wantedCardID;
+
     private void Awake()
     {
         font = Resources.Load<Font>("MaplestoryFont_TTF/Maplestory Light");
@@ -250,6 +252,34 @@ public class CardManager : Singleton<CardManager>
     public void SetHandCardPosition()
     {
         dotM.SetHandCardPositionAnimation(handList, handArea.transform);
+    }
+
+    public void WantCardDraw()
+    {
+        for(int i = 0; i < graveList.Count; i++)
+        {
+            if(graveList[i].name == wantedCardID.ToString())
+            {
+                graveList[i].SetActive(true);
+                graveList[i].transform.SetParent(handArea);
+                graveList[i].transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+
+                handList.Add(graveList[i]);
+                graveList.Remove(graveList[i]);
+            }
+        }
+
+        for (int i = 0; i < deckList.Count; i++)
+        {
+            if (deckList[i].name == wantedCardID.ToString())
+            {
+                GameObject temp = deckList[deckList.Count - 1];
+                deckList[deckList.Count - 1] = deckList[i];
+                deckList[i] = temp;
+            }
+        }
+
+        DrawCard();
     }
     #endregion
 }
