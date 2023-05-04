@@ -30,7 +30,13 @@ namespace AllCharacter
         private void Awake()
         {
             //체력 초기화
-            InitHp(1);
+            if (SceneChange.Instance.roundIndex == 0)
+                InitHp(30);
+            else if (SceneChange.Instance.roundIndex == 1)
+                InitHp(45);
+            else
+                InitHp(60);
+            
             //방어력 초기화
             Defense_Figures = 0;
 
