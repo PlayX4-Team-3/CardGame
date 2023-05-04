@@ -39,7 +39,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject dummy;
 
-    public AnimationManager animationManager;
+    //public AnimationManager animationManager;
 
     private void Start()
     {
@@ -110,10 +110,10 @@ public class GameManager : Singleton<GameManager>
         {
             BtnTurnEnd.interactable = false;
 
-            EnemyTurn();
-
             enemy.CheckBuff();
             enemy.CheckDebuff();
+            EnemyTurn();
+
         }
     }
 
@@ -162,21 +162,19 @@ public class GameManager : Singleton<GameManager>
         {
             case 0:
                 if (canEAttack)
-                {
                     EnemyAttack();
-                    //animationManager.PlayerHit();
-                    //animationManager.EnemyAttack();
-                    dm.AttackAnim(player.gameObject, 0.5f);
-                }
+
                 break;
 
             case 1:
                 EnemyDefense();
                 dm.DefenseAnim(enemy.gameObject);
+                
                 break;
 
             case 2:
                 EnemyUtility();
+                
                 break;
         }
     }
@@ -199,22 +197,90 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyAttack()
     {
-        int randomDamage = Random.Range(3, 6);
+        int randomDamage = Random.Range(2, 5);
 
-        if (player.Defense_Figures > 0)
+        Debug.Log(randomDamage);
+
+        // 데미지 반감
+        if (player.have308buff == true && player.have207buff == false)
         {
-            player.Defense_Figures -= randomDamage;
+            Debug.Log("308");
+            GameObject spell = player.gameObject.transform.Find("17").gameObject;
+            spell.SetActive(true);
+            dm.HalfLifeDamage(spell);
 
-            if (player.Defense_Figures <= 0)
+            if (player.Defense_Figures > 0)
             {
-                player.Hp = player.Hp + player.Defense_Figures;
-                player.Defense_Figures = 0;
+                player.Defense_Figures -= (randomDamage / 2);
+
+                if (player.Defense_Figures <= 0)
+                {
+                    player.Hp = player.Hp + player.Defense_Figures;
+                    player.Defense_Figures = 0;
+                }
+            }
+            else
+                player.Hp -= (randomDamage / 2);
+
+            dm.AttackAnim(player.gameObject);
+
+            player.duration308++;
+            if (player.duration308 == 2)
+            {
+                player.have308buff = false;
+                player.duration308 = 0;
             }
 
         }
 
+        // 공격 반사
+        else if (player.have207buff == true)
+        {
+            Debug.Log("207");
+            GameObject spell = player.gameObject.transform.Find("04").gameObject;
+            spell.SetActive(true);
+            dm.ReflectBuff(spell);
+
+            if (enemy.Defense_Figures > 0)
+            {
+                enemy.Defense_Figures -= randomDamage;
+
+                if (enemy.Defense_Figures <= 0)
+                {
+                    enemy.Hp = enemy.Hp + enemy.Defense_Figures;
+                    enemy.Defense_Figures = 0;
+                }
+            }
+
+            else
+            {
+                enemy.Hp -= randomDamage;
+                dm.AttackAnim(enemy.gameObject);
+            }
+
+            player.have207buff = false;
+        }
+
+
+        // 일반적인 상황
         else
-            player.Hp -= randomDamage;
+        {
+            Debug.Log("dlfdsafd");
+            if (player.Defense_Figures > 0)
+            {
+                player.Defense_Figures -= randomDamage;
+
+                if (player.Defense_Figures <= 0)
+                {
+                    player.Hp = player.Hp + player.Defense_Figures;
+                    player.Defense_Figures = 0;
+                }
+            }
+            else
+                player.Hp -= randomDamage;
+
+            dm.AttackAnim(player.gameObject);
+        }
 
         display.UpdateCharacterState();
 
@@ -249,12 +315,6 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("게임 중이 아닙니다.");
             return;
         }
-
-        //if (card.Type == "Attack")
-        //{
-        //    animationManager.PlayerAttack();
-        //    animationManager.EnemyHit();
-        //}
 
         // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card);

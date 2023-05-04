@@ -51,22 +51,6 @@ namespace AllCharacter
             hpBar.value = Hp;
         }
 
-
-        ////////////// Animation part
-        ////////////public void AttackAnim(GameObject target, float duration)
-        ////////////{
-        ////////////    target.gameObject.transform.DOShakePosition(duration);
-        ////////////}
-
-        ////////////public void DefenseAnim()
-        ////////////{
-        ////////////    this.gameObject.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() =>
-        ////////////    {
-        ////////////        this.gameObject.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f);
-        ////////////    }
-        ////////////    );
-        ////////////}
-
         public void CheckBuff()
         {
             Debug.Log("Check Enemy Buff");

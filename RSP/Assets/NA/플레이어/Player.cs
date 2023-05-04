@@ -21,6 +21,11 @@ namespace AllCharacter
 
         private Animator animator;
 
+        public bool have207buff = false;
+
+        public bool have308buff = false;
+        public int duration308;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -33,6 +38,11 @@ namespace AllCharacter
             Defense_Figures = 0;
             //Hp 슬라이더 MaxValue 초기화
             hpBar.maxValue = this.MaxHp;
+
+            have207buff = false;
+            have308buff = false;
+
+            duration308 = 0;
         }
 
         public void DataInit(GameData data)
@@ -58,8 +68,6 @@ namespace AllCharacter
         {
             animator.SetTrigger("PisSlash");
         }
-
-        
 
         public void CheckBuff()
         {

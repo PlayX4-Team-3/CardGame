@@ -15,7 +15,7 @@ public class DotweenManager : Singleton<DotweenManager>
 
 
     // Character Animation Part
-    public void AttackAnim(GameObject target, float duration)
+    public void AttackAnim(GameObject target, float duration = 0.5f)
     {
         target.gameObject.transform.DOShakePosition(duration);
     }
@@ -31,29 +31,87 @@ public class DotweenManager : Singleton<DotweenManager>
 
 
     // Spell Animation Part
-    public void MagicBallAnimaition(GameObject target, GameObject spellObj)
+    public void HalfLifeDamage(GameObject spellObj)
     {
-        spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
+        spellObj.transform.position = new Vector3(-4f, 0.3f, 0f);
+        spellObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 66f, 0f));
+
+        spellObj.transform.DOScale(Vector3.one, 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() => spellObj.SetActive(false));
+    }
+
+    public void BreakDefense(GameObject spellObj, GameObject target)
+    {
+        spellObj.transform.localScale = new Vector3(0f, 1f, 1f);
+
+        AttackAnim(target, 0.5f);
+        spellObj.transform.DOScaleX(15f, 0.8f).OnComplete(() =>
         {
-            spellObj.transform.DOMove(target.transform.position, 0.5f).OnComplete(() =>
+            spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.8f).OnComplete(() =>
             {
-                spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
-                {
-                    Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
-                    color.a = 1;
+                Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
+                color.a = 1;
 
-                    spellObj.GetComponent<SpriteRenderer>().material.color = color;
-                    spellObj.SetActive(false);
-                });
-
-                AttackAnim(target, 0.5f);
+                spellObj.GetComponent<SpriteRenderer>().material.color = color;
+                spellObj.SetActive(false);
             });
         });
     }
-        
+
+    public void ReflectBuff(GameObject spellObj)
+    {
+        spellObj.transform.position += new Vector3(1f, 0.3f, 0f);
+        spellObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 66f, 0f));
+
+        spellObj.transform.DOScale(Vector3.one, 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() => spellObj.SetActive(false));
+    }
+
+    public void MagicBallAnimaition(GameObject target, GameObject spellObj, int spellType = 0)
+    {
+        if (spellType == 0)
+        {
+            spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
+          {
+              spellObj.transform.DOMove(target.transform.position, 0.5f).OnComplete(() =>
+              {
+                  spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                  {
+                      Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
+                      color.a = 1;
+
+                      spellObj.GetComponent<SpriteRenderer>().material.color = color;
+                      spellObj.SetActive(false);
+                  });
+
+                  AttackAnim(target, 0.5f);
+              });
+          });
+        }
+
+        if (spellType == 1)
+        {
+            spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
+            {
+                spellObj.transform.DOMoveY(target.transform.position.y + 3f, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => { spellObj.transform.DOMoveY(target.transform.position.y, 0.25f).SetEase(Ease.InQuad); });
+                spellObj.transform.DOMoveX(target.transform.position.x, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                    {
+                        Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
+                        color.a = 1;
+
+                        spellObj.GetComponent<SpriteRenderer>().material.color = color;
+                        spellObj.SetActive(false);
+                    });
+
+                    AttackAnim(target, 0.5f);
+                });
+            });
+        }
+    }
+
     public void IcicleAnimation(GameObject spellObj, int tmp = 0) // 0 : 내가 공격했을 때 애니메이션, 1 : 카드 효과가 끝날 때 애니메이션
     {
-        if(tmp == 0)
+        if (tmp == 0)
             spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
 
         else
@@ -66,7 +124,7 @@ public class DotweenManager : Singleton<DotweenManager>
         }
     }
 
-    public void HealAnimation(GameObject spellObj, GameObject target)
+    public void HealNManaAnimation(GameObject spellObj, GameObject target)
     {
         spellObj.transform.localScale = Vector3.one;
         spellObj.transform.DOMove(target.gameObject.transform.position + (Vector3.up * 2f), 2f);
@@ -78,7 +136,7 @@ public class DotweenManager : Singleton<DotweenManager>
             spellObj.GetComponent<SpriteRenderer>().material.color = color;
             spellObj.SetActive(false);
         });
-    }    
+    }
 
 
     // Card Animation Part

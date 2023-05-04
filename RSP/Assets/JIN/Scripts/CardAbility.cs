@@ -85,7 +85,9 @@ public class CardAbility : Singleton<CardAbility>
             {
                 spellObj = sm.spells[1];
 
-                sm.SetSpell(player.gameObject, spellObj, 0.5f);
+                sm.SetSpell(player.gameObject, spellObj, 1.25f);
+
+                dm.MagicBallAnimaition(enemy.gameObject, spellObj);
             }
 
             // 독구슬
@@ -93,12 +95,21 @@ public class CardAbility : Singleton<CardAbility>
             {
                 spellObj = sm.spells[14];
 
-                sm.SetSpell(player.gameObject, spellObj, 0.5f);
+                sm.SetSpell(player.gameObject, spellObj, 1.25f);
 
+                dm.MagicBallAnimaition(enemy.gameObject, spellObj);
                 enemy.is109Debuff = true;
             }
 
-            dm.MagicBallAnimaition(enemy.gameObject, spellObj);
+            // 폭탄
+            if(spellNum == 8)
+            {
+                spellObj = sm.spells[20];
+
+                sm.SetSpell(player.gameObject, spellObj, 1.25f);
+
+                dm.MagicBallAnimaition(enemy.gameObject, spellObj, 1);
+            }
         }
 
         if (!isSpell)
@@ -107,13 +118,26 @@ public class CardAbility : Singleton<CardAbility>
 
     private void Defense(int id, int dfigure)
     {
+        bool isSpell = (id % 100) > 6 ? true : false;
+        int spellNum = id % 100;
+
+        if (spellObj != null)
+            spellObj = null;
+
+        // 일반 방어 카드
         player.Defense_Figures += dfigure;
 
-        // 반사 207번 만들어야함
-        if ((id % 100) == 7)
-            Debug.Log("Reflect");
+        // 반사 207번
+        if (spellNum == 7)
+        {
+            spellObj = sm.spells[4];
 
-        dm.DefenseAnim(player.gameObject);
+            sm.SetSpell(player.gameObject, spellObj);
+            player.have207buff = true;
+        }
+
+        if (!spellObj)
+            dm.DefenseAnim(player.gameObject);
     }
 
     private void Utility(Card card, int key)
@@ -129,6 +153,11 @@ public class CardAbility : Singleton<CardAbility>
 
                 for (int i = 0; i < player.Cost; i++)
                     GameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
+
+                spellObj = sm.spells[21];
+
+                sm.SetSpell(player.gameObject, spellObj);
+                dm.HealNManaAnimation(spellObj, player.gameObject);
                 break;
             case 2:
                 // 적 공격 무효화
@@ -146,12 +175,16 @@ public class CardAbility : Singleton<CardAbility>
                 spellObj = sm.spells[12];
 
                 sm.SetSpell(player.gameObject, spellObj);
-                dm.HealAnimation(spellObj, player.gameObject);
+                dm.HealNManaAnimation(spellObj, player.gameObject);
 
                 break;
             case 6:
                 // 적 방어도 파괴
                 enemy.Defense_Figures = 0;
+                spellObj = sm.spells[8];
+
+                sm.SetSpell(player.gameObject, spellObj);
+                dm.BreakDefense(spellObj, enemy.gameObject);
                 break;
             case 7:
                 // 적 행동 봉인
@@ -164,6 +197,12 @@ public class CardAbility : Singleton<CardAbility>
                 break;
             case 8:
                 // 받는 피해 감소 2회 버프
+                player.have308buff = true;
+                spellObj = sm.spells[17];
+
+                sm.SetSpell(player.gameObject, spellObj);
+
+                dm.HalfLifeDamage(spellObj);
                 break;
         }
     }
