@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
-using manager;
 using AllCharacter;
 using UnityEngine.UI;
 
