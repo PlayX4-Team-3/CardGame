@@ -32,6 +32,8 @@ public class CardManager : Singleton<CardManager>
 
     public int wantedCardID;
 
+    private string[] rpsName = { "Rock", "Sissors", "Paper" };
+
     private void Awake()
     {
         font = Resources.Load<Font>("MaplestoryFont_TTF/Maplestory Light");
@@ -82,7 +84,7 @@ public class CardManager : Singleton<CardManager>
                 // 카드 속성이 None이 아닌것들 생성
                 if (card.Attribute != "None")
                 {
-                    GameObject go2 = new GameObject();
+                    GameObject go2 = new GameObject(card.Attribute.ToString());
                     go2.transform.SetParent(go.transform);
                     go2.transform.localPosition = new Vector2(125f, 195f);
                     go2.transform.localScale = new Vector2(0.06f, 0.06f);
@@ -91,6 +93,43 @@ public class CardManager : Singleton<CardManager>
                     string sprite2 = card.RPSLink;
                     img2.sprite = Resources.Load<Sprite>(sprite2);
                     img2.SetNativeSize();
+                }
+
+                else
+                {
+                    GameObject attParent = new GameObject("attributeParent");
+                    attParent.transform.SetParent(go.transform);
+                    attParent.transform.localPosition = new Vector2(125f, 195f);
+
+                    string rLink = "RPSImage\\rock";
+                    string sLink = "RPSImage\\sissors";
+                    string pLink = "RPSImage\\paper";
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        GameObject rps = new GameObject(rpsName[i].ToString());
+                        rps.transform.SetParent(attParent.transform);
+                        rps.transform.localPosition = Vector3.zero;
+                        rps.transform.localScale = new Vector2(0.03f, 0.03f);
+                        Image rpsImg = rps.AddComponent<Image>();
+
+                        switch (i)
+                        {
+                            case 0:
+                                rpsImg.sprite = Resources.Load<Sprite>(rLink);
+                                rpsImg.SetNativeSize();
+                                break;
+                            case 1:
+                                rpsImg.sprite = Resources.Load<Sprite>(sLink);
+                                rpsImg.SetNativeSize();
+                                break;
+                            case 2:
+                                rpsImg.sprite = Resources.Load<Sprite>(pLink);
+                                rpsImg.SetNativeSize();
+                                break;
+                        }
+                        rpsImg.gameObject.SetActive(false);
+                    }
                 }
 
                 CreateCardDescription(go, cardDescription, cardName, cardCost);
@@ -107,7 +146,7 @@ public class CardManager : Singleton<CardManager>
     private void CreateCardDescription(GameObject go, string description, string name, int cost)
     {
         // Card Description part
-        GameObject descriptionTextObject = new GameObject();
+        GameObject descriptionTextObject = new GameObject("Description");
         RectTransform drt = descriptionTextObject.AddComponent<RectTransform>();
         Text dtxt = descriptionTextObject.AddComponent<Text>();
 
@@ -127,7 +166,7 @@ public class CardManager : Singleton<CardManager>
 
         
         // Card Name part
-        GameObject nameTextObject = new GameObject();
+        GameObject nameTextObject = new GameObject("Name");
         RectTransform nrt = nameTextObject.AddComponent<RectTransform>();
         Text ntxt = nameTextObject.AddComponent<Text>();
 
@@ -145,7 +184,7 @@ public class CardManager : Singleton<CardManager>
         nrt.sizeDelta = new Vector2(225f, 80f);
 
         // Card Cost part
-        GameObject costTextObject = new GameObject();
+        GameObject costTextObject = new GameObject("Cost");
         RectTransform crt = costTextObject.AddComponent<RectTransform>();
         Text ctxt = costTextObject.AddComponent<Text>();
 

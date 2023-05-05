@@ -330,7 +330,7 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("게임 중이 아닙니다.");
             return;
         }
-
+        int rpsResult = RPSSystem(card);
         // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card);
 
@@ -361,5 +361,24 @@ public class GameManager : Singleton<GameManager>
 
         SceneChange.Instance.winnerIndex = (int)player;
         SceneChange.Instance.GoNextScene();
+    }
+
+    public int RPSSystem(Card card)
+    {
+        string playerRps = card.Attribute.ToString();
+        player.rps = playerRps.ToString();
+        int n = 0;
+
+
+        if(enemy.rps == RPS.None)
+        {
+            int rps = Random.Range(1, 4);
+
+            enemy.rps = (RPS)rps;
+        }
+
+
+
+        return n;
     }
 }
