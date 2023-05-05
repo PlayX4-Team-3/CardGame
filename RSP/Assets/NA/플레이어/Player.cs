@@ -26,6 +26,8 @@ namespace AllCharacter
         public bool have308buff = false;
         public int duration308;
 
+        public RPS rps;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -43,6 +45,8 @@ namespace AllCharacter
             have308buff = false;
 
             duration308 = 0;
+
+            rps = RPS.None;
         }
 
         public void DataInit(GameData data)
