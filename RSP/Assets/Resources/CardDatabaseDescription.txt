@@ -33,6 +33,7 @@ Utility
       "ImageLink": "CardImage/ImageName",
       "Description": "CardDescription"
       "RPSLink": "RPSImage/rps"
+      "BuffOrDebuff": "None"
 }
 --------------------------------------------------------
 --------------------------------------------------------

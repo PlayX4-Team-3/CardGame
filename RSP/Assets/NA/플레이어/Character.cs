@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RPS
-{
-    None = 0,
-    Rock = 1,
-    Sissors = 2,
-    Paper = 3
-}
-
-
 namespace AllCharacter
 {
     public abstract class Character : MonoBehaviour, ICharacter

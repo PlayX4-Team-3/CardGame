@@ -16,7 +16,9 @@ public class GameManager : Singleton<GameManager>
     private CardAbility ca;
     private DotweenManager dm;
 
+    [HideInInspector]
     public Player player;
+    [HideInInspector]
     public Enemy enemy;
 
     public Button BtnTurnEnd;
@@ -27,12 +29,11 @@ public class GameManager : Singleton<GameManager>
 
     public Display display;
 
+    public GameObject[] EnemyActionsRPS;
+
     private int enemyActionRate;
     private int enemyActionIndex;
     public Text enemyActionText;
-
-    // enemy Debuff
-    //public bool canEAttack = true;
 
     public GameObject dummy;
 
@@ -54,6 +55,12 @@ public class GameManager : Singleton<GameManager>
 
         gs = GameState.Playing;
         display.UpdateCharacterState();
+
+        foreach (GameObject go in EnemyActionsRPS)
+            go.SetActive(false);
+
+        int rand = Random.Range(0, EnemyActionsRPS.Length);
+        EnemyActionsRPS[rand].SetActive(true);
 
         EnemyAction();
 
@@ -86,7 +93,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-        public void OnTurnEnd(PlayerID nextPlayer)
+    public void OnTurnEnd(PlayerID nextPlayer)
     {
         if (gs != GameState.Playing)
         {
@@ -99,9 +106,6 @@ public class GameManager : Singleton<GameManager>
         // player turn init
         if (nextPlayer == PlayerID.Player)
         {
-            player.CheckBuff();
-            player.CheckDebuff();
-
             cm.DrawCard();
 
             BtnTurnEnd.interactable = true;
@@ -135,20 +139,20 @@ public class GameManager : Singleton<GameManager>
 
         if (isEnemyAttackMode == false)
         {
-            if (enemyActionRate >= 0 && enemyActionRate < 400) // 40% Attack rate
+            if (enemyActionRate >= 0 && enemyActionRate < 600) // 60% Attack rate
             {
                 enemyActionIndex = 0;
                 enemyActionText.text = "Attack";
             }
-            else if (enemyActionRate >= 400 && enemyActionRate < 800) // 40% Defense rate
+            else if (enemyActionRate >= 600 && enemyActionRate < 900) // 30% Defense rate
             {
                 enemyActionIndex = 1;
                 enemyActionText.text = "Defense";
             }
-            else if (enemyActionRate >= 800) // 20% Utility rate
+            else if (enemyActionRate >= 900) // 10% Utility rate
             {
                 enemyActionIndex = 2;
-                enemyActionText.text = "Utility";
+                enemyActionText.text = "Heal";
             }
         }
 
@@ -219,6 +223,8 @@ public class GameManager : Singleton<GameManager>
     {
         int randomDamage = Random.Range(2, 5);
 
+        Debug.Log(randomDamage);
+
         // 데미지 반감
         if (player.have308buff == true && player.have207buff == false)
         {
@@ -247,7 +253,6 @@ public class GameManager : Singleton<GameManager>
                 player.have308buff = false;
                 player.duration308 = 0;
             }
-
         }
 
         // 공격 반사
@@ -310,17 +315,7 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyUtility()
     {
-        int rand = Random.Range(0, 3);
-
-        switch (rand)
-        {
-            case 0:
-                enemy.Hp += 3;
-                break;
-            default:
-                enemy.Defense_Figures += 5;
-                break;
-        }
+        enemy.Hp += 3;
     }
 
     public void UseCard(Card card)
@@ -330,9 +325,37 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("게임 중이 아닙니다.");
             return;
         }
-        int rpsResult = RPSSystem(card);
+
+        string enemyRPS=  "asdf";
+        foreach (GameObject go in EnemyActionsRPS)
+            if (go.activeInHierarchy)
+            {
+                enemyRPS = go.tag;
+                go.GetComponent<RPSMoving>().UseRPS();
+            }
+
+        int rpsWin = 0;
+
+        if (card.Attribute.ToString() == enemyRPS)
+            rpsWin = 2;
+        else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Paper")
+            rpsWin = 1;
+        else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Sissors")
+            rpsWin = 0;
+        else if (card.Attribute.ToString() == "Paper" && enemyRPS == "Rock")
+            rpsWin = 0;
+        else if (card.Attribute.ToString() == "Paper" && enemyRPS == "Sissors")
+            rpsWin = 1;
+        else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Rock")
+            rpsWin = 1;
+        else
+            rpsWin = 0;
+
         // 카드 능력 발동 부분
-        CardAbility.Instance.UseCard(card);
+        CardAbility.Instance.UseCard(card, rpsWin);
+
+        int rand = Random.Range(0, EnemyActionsRPS.Length);
+        EnemyActionsRPS[rand].SetActive(true);
 
         // 사용한 플레이어 cost 이미지 끄기
         for (int i = player.MaxCost - 1; i >= player.Cost; i--)
@@ -361,24 +384,5 @@ public class GameManager : Singleton<GameManager>
 
         SceneChange.Instance.winnerIndex = (int)player;
         SceneChange.Instance.GoNextScene();
-    }
-
-    public int RPSSystem(Card card)
-    {
-        string playerRps = card.Attribute.ToString();
-        //player.rps = playerRps.ToString();
-        int n = 0;
-
-
-        if(enemy.rps == RPS.None)
-        {
-            int rps = Random.Range(1, 4);
-
-            enemy.rps = (RPS)rps;
-        }
-
-
-
-        return n;
     }
 }

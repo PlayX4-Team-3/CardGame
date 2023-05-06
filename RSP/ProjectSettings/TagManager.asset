@@ -11,6 +11,9 @@ TagManager:
   - Hand
   - DummyCard
   - BG
+  - Paper
+  - Rock
+  - Sissors
   layers:
   - Default
   - TransparentFX

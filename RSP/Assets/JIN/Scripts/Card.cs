@@ -14,6 +14,7 @@ public class Card
     public string ImageLink;
     public string Description;
     public string RPSLink;
+    public string BuffOrDebuff;
 }
 
 [System.Serializable]

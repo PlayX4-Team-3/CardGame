@@ -6,10 +6,11 @@
       "Attribute": "Rock",
       "Type": "Attack",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/Weapon9_Card",
-      "Description": "적에게 1의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/rock"
+      "Description": "적에게 2의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/rock",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 102,
@@ -17,10 +18,11 @@
       "Attribute": "Paper",
       "Type": "Attack",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/Weapon12_Card",
-      "Description": "적에게 1의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/paper"
+      "Description": "적에게 2의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/paper",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 103,
@@ -28,10 +30,11 @@
       "Attribute": "Sissors",
       "Type": "Attack",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/Weapon15_Card",
-      "Description": "적에게 1의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/sissors"
+      "Description": "적에게 2의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/sissors",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 104,
@@ -39,10 +42,11 @@
       "Attribute": "Rock",
       "Type": "Attack",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/Weapon18_Card",
-      "Description": "적에게 2의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/rock"
+      "Description": "적에게 3의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/rock",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 105,
@@ -50,10 +54,11 @@
       "Attribute": "Paper",
       "Type": "Attack",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/Weapon19_Card",
-      "Description": "적에게 2의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/paper"
+      "Description": "적에게 3의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/paper",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 106,
@@ -61,21 +66,23 @@
       "Attribute": "Sissors",
       "Type": "Attack",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/Weapon13_Card",
-      "Description": "적에게 2의 피해를 입힙니다.",
-      "RPSLink": "RPSImage\/sissors"
+      "Description": "적에게 3의 피해를 입힙니다.",
+      "RPSLink": "RPSImage\/sissors",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 107,
       "Name": "FireBall",
       "Attribute": "None",
       "Type": "Attack",
-      "Cost": 2,
-      "Power": 3,
+      "Cost": 3,
+      "Power": 5,
       "ImageLink": "CardImage\/FireBall_Card",
-      "Description": "불덩이를 날려 3의 피해를 입힙니다.",
-      "RPSLink": "None"
+      "Description": "불덩이를 날려 5의 피해를 입힙니다.",
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 108,
@@ -86,7 +93,8 @@
       "Power": 6,
       "ImageLink": "CardImage\/Bomb_Card",
       "Description": "폭탄을 던져 적에게 6의 피해를 입힙니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 109,
@@ -97,7 +105,8 @@
       "Power": 2,
       "ImageLink": "CardImage\/PoisonBall_Card",
       "Description": "독의 구슬을 던져 적에게 2의 피해를 입해고,\n 매 턴 1의 피해를 줍니다. (3턴 지속)",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 201,
@@ -105,10 +114,11 @@
       "Attribute": "Rock",
       "Type": "Defense",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/LeatherArmor_Card",
-      "Description": "1의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/rock"
+      "Description": "2의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/rock",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 202,
@@ -116,10 +126,11 @@
       "Attribute": "Paper",
       "Type": "Defense",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/RoundShield_Card",
-      "Description": "1의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/paper"
+      "Description": "2의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/paper",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 203,
@@ -127,10 +138,11 @@
       "Attribute": "Sissors",
       "Type": "Defense",
       "Cost": 1,
-      "Power": 1,
+      "Power": 2,
       "ImageLink": "CardImage\/ChainArmor_Card",
-      "Description": "1의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/sissors"
+      "Description": "2의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/sissors",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 204,
@@ -138,10 +150,11 @@
       "Attribute": "Rock",
       "Type": "Defense",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/GoldMetalArmor_Card",
-      "Description": "2의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/rock"
+      "Description": "3의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/rock",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 205,
@@ -149,10 +162,11 @@
       "Attribute": "Paper",
       "Type": "Defense",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/LongShield_Card",
-      "Description": "2의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/paper"
+      "Description": "3의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/paper",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 206,
@@ -160,10 +174,11 @@
       "Attribute": "Sissors",
       "Type": "Defense",
       "Cost": 2,
-      "Power": 2,
+      "Power": 3,
       "ImageLink": "CardImage\/MetalArmor_Card",
-      "Description": "2의 피해를 방어합니다.",
-      "RPSLink": "RPSImage\/sissors"
+      "Description": "3의 피해를 방어합니다.",
+      "RPSLink": "RPSImage\/sissors",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 207,
@@ -174,7 +189,8 @@
       "Power": 0,
       "ImageLink": "CardImage\/Portal_Card",
       "Description": "적의 공격을 1회 반사합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 301,
@@ -185,7 +201,8 @@
       "Power": 2,
       "ImageLink": "CardImage\/ManaPortion_Card",
       "Description": "마나를 2 회복합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 302,
@@ -196,7 +213,8 @@
       "Power": 0,
       "ImageLink": "CardImage\/Bind_Card",
       "Description": "적의 공격을 1회 무효화 합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 303,
@@ -207,7 +225,8 @@
       "Power": 2,
       "ImageLink": "CardImage\/Draw_Card",
       "Description": "카드를 덱에서 2장 드로우 합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 304,
@@ -218,18 +237,20 @@
       "Power": 4,
       "ImageLink": "CardImage\/Draw2_Card",
       "Description": "카드를 덱에서 4장 드로우 합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 305,
       "Name": "Heal",
       "Attribute": "None",
       "Type": "Utility",
-      "Cost": 3,
+      "Cost": 4,
       "Power": 3,
       "ImageLink": "CardImage\/Heal_Card",
       "Description": "체력을 3 회복합니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 306,
@@ -240,18 +261,20 @@
       "Power": 0,
       "ImageLink": "CardImage\/Lazer_Card",
       "Description": "적의 방어도를 0으로 만듭니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 307,
       "Name": "Icicle",
       "Attribute": "None",
       "Type": "Utility",
-      "Cost": 4,
+      "Cost": 5,
       "Power": 0,
       "ImageLink": "CardImage\/Icicle_Card",
       "Description": "적을 얼려 적을 행동불능으로 만듭니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 308,
@@ -262,7 +285,8 @@
       "Power": 0,
       "ImageLink": "CardImage\/ShieldMagic_Card",
       "Description": "적의 공격을 2회 절반의 피해만 \n받는 방어막을 두릅니다.",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 401,
@@ -273,7 +297,8 @@
       "Power": 1,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 402,
@@ -284,7 +309,8 @@
       "Power": 2,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 403,
@@ -295,7 +321,8 @@
       "Power": 1,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 404,
@@ -306,7 +333,8 @@
       "Power": 2,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 405,
@@ -317,7 +345,8 @@
       "Power": 3,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     },
     {
       "ID": 406,
@@ -328,7 +357,8 @@
       "Power": 4,
       "ImageLink": "None",
       "Description": "None",
-      "RPSLink": "None"
+      "RPSLink": "None",
+      "BuffOrDebuff": "None"
     }
   ]
 }

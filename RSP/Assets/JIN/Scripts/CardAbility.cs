@@ -25,10 +25,8 @@ public class CardAbility : Singleton<CardAbility>
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
 
-    public void UseCard(Card card)
+    public void UseCard(Card card, int rpsWin)  // 0 : ÀÌ±è, 1 : Áü, 2 : ºñ±è
     {
-        
-
         string type = card.Type;
         string attribute = card.Attribute;
 
@@ -38,15 +36,15 @@ public class CardAbility : Singleton<CardAbility>
         switch (typeNum)
         {
             case 1:
-                Attack(card.ID, card.Power);
+                Attack(card.ID, card.Power, rpsWin);
                 break;
 
             case 2:
-                Defense(card.ID, card.Power);
+                Defense(card.ID, card.Power, rpsWin);
                 break;
 
             case 3:
-                Utility(card, detailTypeNum);
+                Utility(card, detailTypeNum, rpsWin);
                 break;
 
             case 4:
@@ -59,10 +57,16 @@ public class CardAbility : Singleton<CardAbility>
         }
     }
 
-    private void Attack(int id, int damage)
+    private void Attack(int id, int damage, int rpsResult)
     {
         bool isSpell = (id % 100) > 6 ? true : false;
         int spellNum = id % 100;
+
+        if (rpsResult == 0)
+            damage += 1;
+        else if (rpsResult == 1)
+            damage -= 1;
+
         GameObject spell;
 
         if (spellObj != null)
@@ -145,11 +149,18 @@ public class CardAbility : Singleton<CardAbility>
         }
     }
 
-    private void Defense(int id, int dfigure)
+    private void Defense(int id, int dfigure, int rpsResult)
     {
         bool isSpell = (id % 100) > 6 ? true : false;
         int spellNum = id % 100;
+
+        if (rpsResult == 0)
+            dfigure += 1;
+        else if (rpsResult == 1)
+            dfigure -= 1;
+
         GameObject spell;
+
         if (spellObj != null)
             spellObj = null;
 
@@ -186,7 +197,7 @@ public class CardAbility : Singleton<CardAbility>
         dm.DefenseAnim(player.gameObject);
     }
 
-    private void Utility(Card card, int key)
+    private void Utility(Card card, int key, int rpsResult)
     {
         if (spellObj != null)
             spellObj = null;
@@ -195,7 +206,12 @@ public class CardAbility : Singleton<CardAbility>
         {
             case 1:
                 // ÄÚ½ºÆ® È¸º¹
-                player.Cost += card.Power;
+                if (rpsResult == 0)
+                    player.Cost += card.Power + 1;
+                else if (rpsResult == 1)
+                    player.Cost += card.Power - 1;
+                else
+                    player.Cost += card.Power;
 
                 for (int i = 0; i < player.Cost; i++)
                     GameManager.Instance.playerCostImg[i].gameObject.SetActive(true);
@@ -216,11 +232,21 @@ public class CardAbility : Singleton<CardAbility>
             case 3:
             case 4:
                 // µå·Î¿ì
+                if (rpsResult == 0)
+                    card.Power++;
+                else if (rpsResult == 1)
+                    card.Power--;
+
                 CardManager.Instance.DrawCard(card.Power);
                 break;
             case 5:
                 // Èú
-                player.Hp += card.Power;
+                if (rpsResult == 0)
+                    player.Hp += card.Power + 1;
+                else if (rpsResult == 1)
+                    player.Hp += card.Power - 1;
+                else
+                    player.Hp += card.Power;
 
                 spellObj = sm.spells[12];
 
@@ -230,7 +256,16 @@ public class CardAbility : Singleton<CardAbility>
                 break;
             case 6:
                 // Àû ¹æ¾îµµ ÆÄ±«
-                enemy.Defense_Figures = 0;
+                if (rpsResult == 0)
+                {
+                    enemy.Defense_Figures = 0;
+                    enemy.Hp--;
+                }
+                else if (rpsResult == 1)
+                    enemy.Defense_Figures = 1;
+                else
+                    player.Hp += card.Power;
+
                 spellObj = sm.spells[8];
 
                 sm.SetSpell(player.gameObject, spellObj);

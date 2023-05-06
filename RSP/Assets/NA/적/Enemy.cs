@@ -26,31 +26,26 @@ namespace AllCharacter
 
         public bool isbind = false;
 
-        public RPS rps;
-
-
         private void Awake()
         {
             //체력 초기화
             if (SceneChange.Instance != null)
             {
                 if (SceneChange.Instance.roundIndex == 0)
-                    InitHp(30);
+                    InitHp(40);
                 else if (SceneChange.Instance.roundIndex == 1)
-                    InitHp(45);
+                    InitHp(50);
                 else
-                    InitHp(60);
+                    InitHp(65);
             }
             else
-                InitHp(30);
+                InitHp(40);
             
             //방어력 초기화
             Defense_Figures = 0;
 
             //HP 슬라이더 MaxValue 초기화
             hpBar.maxValue = this.MaxHp;
-
-            rps = RPS.None;
         }
 
         public void DataInit(GameData data)

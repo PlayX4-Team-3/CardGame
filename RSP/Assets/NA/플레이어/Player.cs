@@ -4,7 +4,6 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using ObserverPattern;
-//using DG.Tweening;
 
 namespace AllCharacter
 {
@@ -26,14 +25,12 @@ namespace AllCharacter
         public bool have308buff = false;
         public int duration308;
 
-        public RPS rps;
-
         private void Awake()
         {
             animator = GetComponent<Animator>();
 
             //체력 초기화
-            InitHp(10);
+            InitHp(20);
             //코스트 초기화
             InitCost(5);
             //방어력 초기화
@@ -45,8 +42,6 @@ namespace AllCharacter
             have308buff = false;
 
             duration308 = 0;
-
-            rps = RPS.None;
         }
 
         public void DataInit(GameData data)
@@ -64,24 +59,5 @@ namespace AllCharacter
             //Hp 슬라이더 value 초기화
             hpBar.value = Hp;
         }
-
-        /// <summary>
-        /// Attack animation next Slash animation on
-        /// </summary>
-        public void PlayerSlash()
-        {
-            animator.SetTrigger("PisSlash");
-        }
-
-        public void CheckBuff()
-        {
-            Debug.Log("Buff Check");
-        }
-
-        public void CheckDebuff()
-        {
-            Debug.Log("Check Debuff");
-        }
-
     }
 }

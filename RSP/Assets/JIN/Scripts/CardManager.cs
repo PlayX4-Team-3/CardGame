@@ -234,6 +234,29 @@ public class CardManager : Singleton<CardManager>
             
             go.SetActive(true);
 
+            Card card = cardDeck[int.Parse(go.name)];
+
+            if (card.Attribute == "None")
+            {
+                int rand = Random.Range(0, 3);
+
+                switch (rand)
+                {
+                    case 0:
+                        card.Attribute = "Rock";
+                        break;
+                    case 1:
+                        card.Attribute = "Sissors";
+                        break;
+                    case 2:
+                        card.Attribute = "Paper";
+                        break;
+                }
+
+                GameObject rsp = go.transform.GetChild(0).transform.Find(card.Attribute.ToString()).gameObject;
+                rsp.SetActive(true);
+            }
+
             go.transform.SetParent(handArea);
             go.GetComponent<Image>().SetNativeSize();
             go.transform.localScale = originSize;
@@ -266,6 +289,14 @@ public class CardManager : Singleton<CardManager>
     {
         handList.Remove(useCard);
         graveList.Add(useCard);
+
+        Card card = cardDeck[int.Parse(useCard.name)];
+
+        if(useCard.transform.GetChild(0).name == "attributeParent")
+        {
+            useCard.transform.GetChild(0).Find(card.Attribute).gameObject.SetActive(false);
+            card.Attribute = "None";
+        }
 
         useCard.transform.SetParent(graveArea);
 
@@ -304,6 +335,29 @@ public class CardManager : Singleton<CardManager>
                     graveList[i].SetActive(true);
                     graveList[i].transform.SetParent(handArea);
                     graveList[i].transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+
+                    Card card = cardDeck[int.Parse(graveList[i].name)];
+
+                    if (card.Attribute == "None")
+                    {
+                        int rand = Random.Range(0, 3);
+
+                        switch (rand)
+                        {
+                            case 0:
+                                card.Attribute = "Rock";
+                                break;
+                            case 1:
+                                card.Attribute = "Sissors";
+                                break;
+                            case 2:
+                                card.Attribute = "Paper";
+                                break;
+                        }
+
+                        GameObject rsp = graveList[i].transform.GetChild(0).transform.Find(card.Attribute.ToString()).gameObject;
+                        rsp.SetActive(true);
+                    }
 
                     handList.Add(graveList[i]);
                     graveList.Remove(graveList[i]);
