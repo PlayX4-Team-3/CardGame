@@ -366,7 +366,7 @@ public class GameManager : Singleton<GameManager>
     public int RPSSystem(Card card)
     {
         string playerRps = card.Attribute.ToString();
-        player.rps = playerRps.ToString();
+        //player.rps = playerRps.ToString();
         int n = 0;
 
 
