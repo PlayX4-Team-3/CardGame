@@ -235,25 +235,25 @@ public class DotweenManager : Singleton<DotweenManager>
 
         for (int i = 0; i < handList.Count; i++)
         {
-            if (handList.Count == 1)
-                handList[i].transform.DOMove(handArea.position, duration);
+            //if (handList.Count == 1)
+            //    handList[i].transform.DOMove(handArea.position, duration);
 
-            else if (handList.Count % 2 == 1)
+            if (handList.Count % 2 == 1)
             {
                 if (i < mid)
-                    handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
+                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
                 else if (i == mid)
-                    handList[i].transform.DOMove(handArea.transform.position, duration);
+                    handList[i].transform.DOMove(handArea.position, duration);
                 else
-                    handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
+                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
             }
 
             else
             {
                 if (i < mid)
-                    handList[i].transform.DOMove(handArea.transform.position + ((Vector3.left * 124f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
+                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
                 else
-                    handList[i].transform.DOMove(handArea.transform.position - ((Vector3.left * 124f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
+                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
             }
         }
     }

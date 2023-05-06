@@ -21,8 +21,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private Card card;
 
-    private bool isUsed;
-
     private void Start()
     {
         gm = GameManager.Instance;
@@ -36,30 +34,24 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         restoredCardScale = new Vector2(0.6f, 0.6f);
 
         card = cm.cardDeck[int.Parse(this.name)];
-
-        isUsed = false;
     }
 
     // 카드 비활성화시 초기화
     private void OnDisable()
     {
-        isUsed = false;
-
         this.transform.localScale = restoredCardScale;
         this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (TurnManager.Instance.currentPlayer == PlayerID.Player && isUsed == false)
+        if (TurnManager.Instance.currentPlayer == PlayerID.Player)
         {
             previousPos = this.transform.position;
             offset = previousPos - eventData.position;
 
             this.transform.SetParent(canvasT);
             this.transform.SetAsLastSibling();
-
-            isUsed = true;
         }
     }
 
@@ -84,12 +76,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             }
 
             // Card Not in DropArea
-            else
-            {
-                if (isUsed)
-                    dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
-            }
+            //else
+            //{
+            //    if (isUsed)
+            //        dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
+            //}
         }
+        dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

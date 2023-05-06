@@ -16,7 +16,6 @@ public class RPSMoving : MonoBehaviour
 
     public void UseRPS()
     {
-        RectTransform rectTransform = this.GetComponent<RectTransform>();
         DotweenManager.Instance.RPSUse(this.gameObject);
     }
 }
