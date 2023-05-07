@@ -38,10 +38,29 @@ public class SceneChange : Singleton<SceneChange>
 #endif
     }
 
+    public void GoAccordingToResultScene()
+    {
+        // Game Scene 이 끝날때 모든 tween 제거
+        DG.Tweening.DOTween.KillAll();
+
+        int nextSceneIndex;
+        // 이겼을 때
+        if (roundIndex != 0)
+            nextSceneIndex = 1;
+        // 졌을 때
+        else
+            nextSceneIndex = 3;
+
+        if (roundIndex != 3)
+            SceneManager.LoadScene(nextSceneIndex);
+        else
+            GoNextScene();
+    }
+
     public void GoNextScene()
     {
         int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1) % 4;
-            
+
         SceneManager.LoadScene(nextSceneIndex);
     }
 

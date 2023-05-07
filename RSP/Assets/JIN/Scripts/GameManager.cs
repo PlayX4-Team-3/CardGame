@@ -91,6 +91,18 @@ public class GameManager : Singleton<GameManager>
             for (int i = 0; i < player.MaxCost; i++)
                 playerCostImg[i].gameObject.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            enemy.Hp = 1;
+            display.UpdateCharacterState();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            player.Hp = 1;
+            display.UpdateCharacterState();
+        }
     }
 
     public void OnTurnEnd(PlayerID nextPlayer)
@@ -373,6 +385,11 @@ public class GameManager : Singleton<GameManager>
     {
         PlayerID winnerPlayer = currentPlayer;
 
+        if (winnerPlayer == PlayerID.Player)
+            SceneChange.Instance.roundIndex++;
+        else
+            SceneChange.Instance.roundIndex = 0;
+
         gs = GameState.GameEnd;
 
         StartCoroutine(GameEndDelay(currentPlayer));
@@ -383,6 +400,6 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(1f);
 
         SceneChange.Instance.winnerIndex = (int)player;
-        SceneChange.Instance.GoNextScene();
+        SceneChange.Instance.GoAccordingToResultScene();
     }
 }

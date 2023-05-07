@@ -26,7 +26,6 @@ public class RoundManager : MonoBehaviour
         final.interactable = false;
 
         SceneChange.Instance.roundIndex = SceneChange.Instance.roundIndex % 3;
-        Debug.Log(SceneChange.Instance.roundIndex);
 
         switch(SceneChange.Instance.roundIndex)
         {
@@ -43,8 +42,6 @@ public class RoundManager : MonoBehaviour
                 SetRoundIndex();
                 break;
         }
-
-        SceneChange.Instance.roundIndex++;
 
         this.gameObject.SetActive(false);
     }
