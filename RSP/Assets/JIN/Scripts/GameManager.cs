@@ -39,6 +39,8 @@ public class GameManager : Singleton<GameManager>
 
     public bool isEnemyAttackMode;
 
+    public GameObject[] buffIcons;
+
     private void Start()
     {
         cm = CardManager.Instance;
@@ -57,6 +59,9 @@ public class GameManager : Singleton<GameManager>
         display.UpdateCharacterState();
 
         foreach (GameObject go in EnemyActionsRPS)
+            go.SetActive(false);
+
+        foreach (GameObject go in buffIcons)
             go.SetActive(false);
 
         int rand = Random.Range(0, EnemyActionsRPS.Length);
@@ -118,9 +123,20 @@ public class GameManager : Singleton<GameManager>
         // player turn init
         if (nextPlayer == PlayerID.Player)
         {
-            cm.DrawCard();
-
             BtnTurnEnd.interactable = true;
+
+            string enemyRPS = "";
+            foreach (GameObject go in EnemyActionsRPS)
+                if (go.activeInHierarchy)
+                {
+                    enemyRPS = go.tag;
+                    go.GetComponent<RPSMoving>().UseRPS();
+                }
+
+            int rand = Random.Range(0, EnemyActionsRPS.Length);
+            EnemyActionsRPS[rand].SetActive(true);
+
+            cm.DrawCard();
 
             player.Cost = player.MaxCost;
 
@@ -198,13 +214,11 @@ public class GameManager : Singleton<GameManager>
 
             case 1:
                 EnemyDefense();
-                dm.DefenseAnim(enemy.gameObject);
-                
+
                 break;
 
             case 2:
                 EnemyUtility();
-                
                 break;
         }
     }
@@ -217,12 +231,15 @@ public class GameManager : Singleton<GameManager>
         {
             enemy.isbind = false;
             dm.EndBind(enemy.gameObject);
+            buffIcons[3].SetActive(false);
         }
 
         if (enemy.is307Debuff)
         {
             DotweenManager.Instance.IcicleAnimation(SpellImageMaker.Instance.spells[9], 1);
             enemy.is307Debuff = false;
+
+            buffIcons[4].SetActive(false);
         }
 
         player.Defense_Figures = 0;
@@ -264,6 +281,7 @@ public class GameManager : Singleton<GameManager>
             {
                 player.have308buff = false;
                 player.duration308 = 0;
+                buffIcons[1].SetActive(false);
             }
         }
 
@@ -273,6 +291,7 @@ public class GameManager : Singleton<GameManager>
             GameObject spell = player.gameObject.transform.Find("04").gameObject;
             spell.SetActive(true);
             dm.ReflectBuff(spell);
+            buffIcons[0].SetActive(false);
 
             if (enemy.Defense_Figures > 0)
             {
@@ -323,11 +342,17 @@ public class GameManager : Singleton<GameManager>
     private void EnemyDefense()
     {
         enemy.Defense_Figures += 2;
+        dm.DefenseAnim(enemy.gameObject);
     }
 
     private void EnemyUtility()
     {
         enemy.Hp += 3;
+
+        GameObject spellObj = SpellImageMaker.Instance.spells[12];
+
+        SpellImageMaker.Instance.SetSpell(enemy.gameObject, spellObj);
+        dm.HealNManaAnimation(spellObj, enemy.gameObject);
     }
 
     public void UseCard(Card card)
@@ -338,7 +363,7 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        string enemyRPS=  "asdf";
+        string enemyRPS=  "";
         foreach (GameObject go in EnemyActionsRPS)
             if (go.activeInHierarchy)
             {

@@ -212,7 +212,7 @@
       "Cost": 2,
       "Power": 0,
       "ImageLink": "CardImage\/Bind_Card",
-      "Description": "적의 공격을 1회 무효화 합니다.",
+      "Description": "다음 턴의 적의 공격을 1회 무효화 합니다.",
       "RPSLink": "None",
       "BuffOrDebuff": "None"
     },

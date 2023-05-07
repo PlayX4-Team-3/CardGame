@@ -227,6 +227,9 @@ public class CardManager : Singleton<CardManager>
     {
         if (handList.Count < 9)
         {
+            if (deckList.Count == 0)
+                GraveToDeck();
+
             GameObject go = deckList[deckList.Count - 1].gameObject;
 
             handList.Add(go);
@@ -279,10 +282,7 @@ public class CardManager : Singleton<CardManager>
 
     public void DrawCard(int n = 1)
     {
-        if (deckList.Count > 0)
-            StartCoroutine(DrawDelay(n));
-        else
-            GraveToDeck();
+        StartCoroutine(DrawDelay(n));
     }
 
     public void HandToGrave(GameObject useCard)

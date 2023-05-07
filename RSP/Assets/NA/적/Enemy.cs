@@ -80,13 +80,9 @@ namespace AllCharacter
                 {
                     is109Debuff = false;
                     duration109 = 0;
+                    GameManager.Instance.buffIcons[2].SetActive(false);
                 }
             }
-
-            //if(isbind)
-            //{
-            //    DotweenManager.Instance.EndBind(this.gameObject);
-            //}
         }
 
     }

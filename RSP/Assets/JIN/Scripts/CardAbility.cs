@@ -93,14 +93,15 @@ public class CardAbility : Singleton<CardAbility>
 
         else
             enemy.Hp -= damage;
-
+        
+        // 일반 공격 카드 사용 시
         if (!isSpell)
         {
             spell.transform.DOScale(Vector3.one * 0.6f, 0.2f).OnComplete(() =>
             {
                 spell.transform.DOMove(enemy.gameObject.transform.position, 0.5f).OnComplete(() =>
                 {
-                    dm.AttackAnim(enemy.gameObject, 0.5f);
+                    dm.AttackAnim(enemy.gameObject);
                     spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
                     {
                         Color color = spell.GetComponent<SpriteRenderer>().material.color;
@@ -108,7 +109,6 @@ public class CardAbility : Singleton<CardAbility>
 
                         spell.GetComponent<SpriteRenderer>().material.color = color;
                         Destroy(spell);
-
                     });
                 });
             });
@@ -135,6 +135,8 @@ public class CardAbility : Singleton<CardAbility>
 
                 dm.MagicBallAnimaition(enemy.gameObject, spellObj);
                 enemy.is109Debuff = true;
+
+                GameManager.Instance.buffIcons[2].SetActive(true);
             }
 
             // 폭탄
@@ -165,7 +167,8 @@ public class CardAbility : Singleton<CardAbility>
             spellObj = null;
 
         if (!isSpell)
-        {// 일반 방어 카드
+        {
+            // 일반 방어 카드
             dm.DefenseAnim(player.gameObject);
             player.Defense_Figures += dfigure;
 
@@ -192,6 +195,8 @@ public class CardAbility : Singleton<CardAbility>
 
             sm.SetSpell(player.gameObject, spellObj);
             player.have207buff = true;
+
+            GameManager.Instance.buffIcons[0].SetActive(true);
         }
 
         dm.DefenseAnim(player.gameObject);
@@ -223,6 +228,8 @@ public class CardAbility : Singleton<CardAbility>
                 break;
             case 2:
                 // 적 공격 무효화
+                GameManager.Instance.buffIcons[3].SetActive(true);
+
                 enemy.isbind = true;
                 spellObj = sm.spells[15];
 
@@ -273,6 +280,8 @@ public class CardAbility : Singleton<CardAbility>
                 break;
             case 7:
                 // 적 행동 봉인
+                GameManager.Instance.buffIcons[4].SetActive(true);
+
                 enemy.is307Debuff = true;
                 spellObj = sm.spells[9];
 
@@ -282,7 +291,16 @@ public class CardAbility : Singleton<CardAbility>
                 break;
             case 8:
                 // 받는 피해 감소 2회 버프
+                GameManager.Instance.buffIcons[1].SetActive(true);
+
                 player.have308buff = true;
+                if (rpsResult == 0)
+                    player.duration308 = -1;
+                else if (rpsResult == 1)
+                    player.duration308 = 1;
+                else
+                    player.duration308 = 0;
+
                 spellObj = sm.spells[17];
 
                 sm.SetSpell(player.gameObject, spellObj);

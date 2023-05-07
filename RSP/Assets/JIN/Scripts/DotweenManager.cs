@@ -129,7 +129,7 @@ public class DotweenManager : Singleton<DotweenManager>
                       spellObj.SetActive(false);
                   });
 
-                  AttackAnim(target, 0.5f);
+                  AttackAnim(target);
               });
           });
         }
