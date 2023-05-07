@@ -252,11 +252,21 @@ public class GameManager : Singleton<GameManager>
     {
         int randomDamage = Random.Range(2, 5);
 
-        Debug.Log(randomDamage);
+        GameObject aura;
+
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
+            aura = Instantiate(ca.Att1);
+        else
+            aura = Instantiate(ca.Att2);
+
+        aura.transform.SetParent(enemy.gameObject.transform);
+        aura.transform.position = enemy.transform.position + Vector3.left;
 
         // 데미지 반감
         if (player.have308buff == true && player.have207buff == false)
         {
+            // 플레이어 데미지 반감 버프 애니메이션
             GameObject spell = player.gameObject.transform.Find("17").gameObject;
             spell.SetActive(true);
             dm.HalfLifeDamage(spell);
@@ -271,11 +281,11 @@ public class GameManager : Singleton<GameManager>
                     player.Defense_Figures = 0;
                 }
             }
+
             else
                 player.Hp -= (randomDamage / 2);
 
-            dm.AttackAnim(player.gameObject);
-
+            // 플레이어 버프 턴수 관리
             player.duration308++;
             if (player.duration308 == 2)
             {
@@ -283,6 +293,8 @@ public class GameManager : Singleton<GameManager>
                 player.duration308 = 0;
                 buffIcons[1].SetActive(false);
             }
+
+            dm.AttackAura(player.gameObject, aura, -1);
         }
 
         // 공격 반사
@@ -307,10 +319,14 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 enemy.Hp -= randomDamage;
-                dm.AttackAnim(enemy.gameObject);
+                //dm.AttackAnim(enemy.gameObject);
+                aura.transform.SetParent(player.gameObject.transform);
+                aura.transform.position = player.transform.position + Vector3.right;
+                dm.AttackAura(enemy.gameObject, aura);
             }
 
             player.have207buff = false;
+
         }
 
 
@@ -330,7 +346,8 @@ public class GameManager : Singleton<GameManager>
             else
                 player.Hp -= randomDamage;
 
-            dm.AttackAnim(player.gameObject);
+            //dm.AttackAnim(player.gameObject);
+            dm.AttackAura(player.gameObject, aura, -1);
         }
 
         display.UpdateCharacterState();
@@ -342,7 +359,12 @@ public class GameManager : Singleton<GameManager>
     private void EnemyDefense()
     {
         enemy.Defense_Figures += 2;
-        dm.DefenseAnim(enemy.gameObject);
+        GameObject def;
+        def = Instantiate(ca.Def1);
+        def.transform.SetParent(enemy.gameObject.transform);
+        def.transform.position = enemy.transform.position + Vector3.left;
+
+        dm.DefenseAnim(enemy.gameObject, def, -1);
     }
 
     private void EnemyUtility()
@@ -363,7 +385,8 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        string enemyRPS=  "";
+        string enemyRPS = "";
+
         foreach (GameObject go in EnemyActionsRPS)
             if (go.activeInHierarchy)
             {
@@ -371,8 +394,28 @@ public class GameManager : Singleton<GameManager>
                 go.GetComponent<RPSMoving>().UseRPS();
             }
 
+        int rand = Random.Range(0, EnemyActionsRPS.Length);
+
+        if (EnemyActionsRPS[rand].activeInHierarchy == true)
+        {
+            while (true)
+            {
+                int rand2 = Random.Range(0, EnemyActionsRPS.Length);
+
+                if (rand2 != rand)
+                {
+                    EnemyActionsRPS[rand2].SetActive(true);
+                    break;
+                }
+            }
+
+        }
+        else
+            EnemyActionsRPS[rand].SetActive(true);
+
         int rpsWin = 0;
 
+        // 가위 바위 보 승패 판정
         if (card.Attribute.ToString() == enemyRPS)
             rpsWin = 2;
         else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Paper")
@@ -390,9 +433,6 @@ public class GameManager : Singleton<GameManager>
 
         // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card, rpsWin);
-
-        int rand = Random.Range(0, EnemyActionsRPS.Length);
-        EnemyActionsRPS[rand].SetActive(true);
 
         // 사용한 플레이어 cost 이미지 끄기
         for (int i = player.MaxCost - 1; i >= player.Cost; i--)

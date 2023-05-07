@@ -10,10 +10,10 @@ public class SceneChangeBtn : MonoBehaviour
         Button myButton = GetComponent<Button>();
 
         // 버튼 클릭 시 호출될 함수 연결
-        if (myButton.gameObject.name != "Exit")
-            myButton.onClick.AddListener(MyButtonClickFunction);
-        else
+        if (myButton.gameObject.name == "Exit")
             myButton.onClick.AddListener(ExitBtn);
+        else
+            myButton.onClick.AddListener(MyButtonClickFunction);
     }
 
     private void MyButtonClickFunction()

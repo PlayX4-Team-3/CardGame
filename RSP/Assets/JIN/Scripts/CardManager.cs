@@ -225,7 +225,7 @@ public class CardManager : Singleton<CardManager>
 
     private IEnumerator DrawDelay(int n, int cnt = 0)
     {
-        if (handList.Count < 9)
+        if (handList.Count < 7)
         {
             if (deckList.Count == 0)
                 GraveToDeck();
@@ -287,8 +287,8 @@ public class CardManager : Singleton<CardManager>
 
     public void HandToGrave(GameObject useCard)
     {
-        handList.Remove(useCard);
-        graveList.Add(useCard);
+        //handList.Remove(useCard);
+        //graveList.Add(useCard);
 
         Card card = cardDeck[int.Parse(useCard.name)];
 
@@ -312,7 +312,6 @@ public class CardManager : Singleton<CardManager>
                 deckList.Add(graveList[i]);
             
             graveList.Clear();
-            DrawCard();
         }
         else
             Debug.Log("묘지에 카드가 없습니다.");

@@ -45,13 +45,45 @@ public class DotweenManager : Singleton<DotweenManager>
         target.gameObject.transform.DOShakePosition(duration);
     }
 
-    public void DefenseAnim(GameObject target)
+    public void AttackAura(GameObject target, GameObject spell, int isPlayerAttack = 1)
     {
-        if (target.name == "Player")
+        spell.transform.DOScale(Vector3.one * 0.6f * isPlayerAttack, 0.2f).OnComplete(() =>
+        {
+            spell.transform.DOMove(target.gameObject.transform.position, 0.5f).OnComplete(() =>
+            {
+                AttackAnim(target.gameObject);
+
+                spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+                {
+                    Color color = spell.GetComponent<SpriteRenderer>().material.color;
+                    color.a = 1;
+
+                    spell.GetComponent<SpriteRenderer>().material.color = color;
+                    Destroy(spell);
+                });
+            });
+        });
+    }
+
+    public void DefenseAnim(GameObject target, GameObject spell, int isPlayerDefence = 1)
+    {
+        if (target.tag == "Player")
             target.transform.DOScale(new Vector3(1.8f, 1.8f, 1f), 0.3f).OnComplete(() => target.transform.DOScale(new Vector3(1.5f, 1.5f, 1f), 0.3f));
 
         else
             target.transform.DOScale(new Vector3(2.3f, 2.3f, 1f), 0.3f).OnComplete(() => target.transform.DOScale(new Vector3(2f, 2f, 1f), 0.3f));
+
+        spell.transform.DOScale(Vector3.one * isPlayerDefence, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+        {
+            spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+            {
+                Color color = spell.GetComponent<SpriteRenderer>().material.color;
+                color.a = 1;
+
+                spell.GetComponent<SpriteRenderer>().material.color = color;
+                Destroy(spell);
+            });
+        });
     }
 
 
@@ -190,14 +222,12 @@ public class DotweenManager : Singleton<DotweenManager>
     private void LookAtTarget(Transform self, Transform target, int drawing = -1)
     {
         Vector3 targetPosition = target.position;
-        targetPosition.z = self.position.z; // 타겟과 같은 z축으로 이동
+        targetPosition.z = self.position.z;
         Vector3 direction = (targetPosition - self.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Z축만 회전하도록 Quaternion.Euler 함수에 Z축값만 전달합니다.
         Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
 
-        // DORotate 함수를 사용하여 Z축만 회전하도록 합니다.
         self.DORotate(targetRotation.eulerAngles * drawing, 0.5f);
     }
 
@@ -205,12 +235,17 @@ public class DotweenManager : Singleton<DotweenManager>
     {
         GameManager.Instance.UseCard(card);
 
+        CardManager.Instance.handList.Remove(go);
+        CardManager.Instance.graveList.Add(go);
+
         go.transform.DOScale(Vector3.zero, 1f).OnUpdate(() => LookAtTarget(go.transform, target));
         go.transform.DOMove(CardManager.Instance.graveArea.transform.position, 1f).OnComplete(() =>
         {
             CardManager.Instance.HandToGrave(go);
             go.transform.localRotation = Quaternion.identity;
             go.transform.DOKill();
+
+            SetHandCardPositionAnimation(CardManager.Instance.handList, CardManager.Instance.handArea.transform);
         });
     }
 
@@ -224,7 +259,7 @@ public class DotweenManager : Singleton<DotweenManager>
         go.transform.DOMove(handArea.parent.transform.position, duration).OnUpdate(() => LookAtTarget(go.transform, handArea.parent, -1)).OnComplete(() =>
         {
             go.transform.DOKill();
-            go.transform.DORotate(Vector3.one, 0.2f);
+            go.transform.DORotate(Vector3.zero, 0.2f);
             CardManager.Instance.SetHandCardPosition();
         });
     }
@@ -235,25 +270,22 @@ public class DotweenManager : Singleton<DotweenManager>
 
         for (int i = 0; i < handList.Count; i++)
         {
-            //if (handList.Count == 1)
-            //    handList[i].transform.DOMove(handArea.position, duration);
-
             if (handList.Count % 2 == 1)
             {
                 if (i < mid)
-                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
+                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f * 1.5f) * Mathf.Abs(i - mid)), duration);
                 else if (i == mid)
                     handList[i].transform.DOMove(handArea.position, duration);
                 else
-                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f) * Mathf.Abs(i - mid)), duration);
+                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f * 1.5f) * Mathf.Abs(i - mid)), duration);
             }
 
             else
             {
                 if (i < mid)
-                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
+                    handList[i].transform.DOMove(handArea.position + ((Vector3.left * 124f * 1.5f) * (Mathf.Abs(i - mid) - 0.5f)), duration);
                 else
-                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
+                    handList[i].transform.DOMove(handArea.position - ((Vector3.left * 124f * 1.5f) * (Mathf.Abs(i - mid) + 0.5f)), duration);
             }
         }
     }

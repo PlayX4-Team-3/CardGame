@@ -96,25 +96,9 @@ public class CardAbility : Singleton<CardAbility>
         
         // 일반 공격 카드 사용 시
         if (!isSpell)
-        {
-            spell.transform.DOScale(Vector3.one * 0.6f, 0.2f).OnComplete(() =>
-            {
-                spell.transform.DOMove(enemy.gameObject.transform.position, 0.5f).OnComplete(() =>
-                {
-                    dm.AttackAnim(enemy.gameObject);
-                    spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
-                    {
-                        Color color = spell.GetComponent<SpriteRenderer>().material.color;
-                        color.a = 1;
+            dm.AttackAura(enemy.gameObject, spell);
 
-                        spell.GetComponent<SpriteRenderer>().material.color = color;
-                        Destroy(spell);
-                    });
-                });
-            });
-        }
-
-        if (isSpell)
+        else
         {
             // 불덩이
             if (spellNum == 7)
@@ -169,24 +153,13 @@ public class CardAbility : Singleton<CardAbility>
         if (!isSpell)
         {
             // 일반 방어 카드
-            dm.DefenseAnim(player.gameObject);
             player.Defense_Figures += dfigure;
 
             spell = Instantiate(Def1);
             spell.transform.SetParent(player.gameObject.transform);
             spell.transform.position = player.transform.position + Vector3.right;
 
-            spell.transform.DOScale(Vector3.one * 1f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
-            {
-                spell.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
-                {
-                    Color color = spell.GetComponent<SpriteRenderer>().material.color;
-                    color.a = 1;
-
-                    spell.GetComponent<SpriteRenderer>().material.color = color;
-                    Destroy(spell);
-                });
-            });
+            dm.DefenseAnim(player.gameObject, spell);
         }
         // 반사 207번
         if (spellNum == 7)
@@ -199,7 +172,7 @@ public class CardAbility : Singleton<CardAbility>
             GameManager.Instance.buffIcons[0].SetActive(true);
         }
 
-        dm.DefenseAnim(player.gameObject);
+        //dm.DefenseAnim(player.gameObject);
     }
 
     private void Utility(Card card, int key, int rpsResult)
