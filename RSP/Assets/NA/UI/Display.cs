@@ -27,6 +27,8 @@ public class Display : MonoBehaviour
 
     private void Start()
     {
+        enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+
         this.player.DataInit(this.data);
         this.enemy.DataInit(this.data);
 

@@ -16,9 +16,9 @@ public class GameManager : Singleton<GameManager>
     private CardAbility ca;
     private DotweenManager dm;
 
-    [HideInInspector]
+    
     public Player player;
-    [HideInInspector]
+    
     public Enemy enemy;
 
     public Button BtnTurnEnd;
