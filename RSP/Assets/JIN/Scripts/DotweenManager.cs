@@ -242,6 +242,7 @@ public class DotweenManager : Singleton<DotweenManager>
         go.transform.DOMove(CardManager.Instance.graveArea.transform.position, 1f).OnComplete(() =>
         {
             CardManager.Instance.HandToGrave(go);
+            this.transform.localScale = new Vector3(0.6f, 0.6f, 0f);
             go.transform.localRotation = Quaternion.identity;
             go.transform.DOKill();
 
