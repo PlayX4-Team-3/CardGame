@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ButtonAnimation : MonoBehaviour
 {
     public Button btn, ntb;
+    public Image title;
 
     private bool isUp1 = false;
     private bool isMouseExit1 = false;
 
     private bool isUp2 = false;
     private bool isMouseExit2 = false;
+
+    private void Start()
+    {
+        UIMoving();
+    }
 
     private void Update()
     {
@@ -80,5 +87,17 @@ public class ButtonAnimation : MonoBehaviour
     {
         isMouseExit2 = true;
         isUp2 = false;
+    }
+
+    private void UIMoving()
+    {
+        title.transform.DOMove(title.transform.position + Vector3.up * 30f, 1f).SetLoops(-1, LoopType.Yoyo);
+        //btn.transform.DOMove(btn.transform.position + Vector3.up * 30f, 1f).SetLoops(-1, LoopType.Yoyo);
+        //ntb.transform.DOMove(ntb.transform.position + Vector3.up * 30f, 1f).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
     }
 }

@@ -250,7 +250,7 @@ public class GameManager : Singleton<GameManager>
 
     private void EnemyAttack()
     {
-        int randomDamage = Random.Range(2, 5);
+        int randomDamage = Random.Range(3, 5);
 
         GameObject aura;
 

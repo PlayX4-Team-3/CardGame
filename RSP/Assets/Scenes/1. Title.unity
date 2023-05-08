@@ -726,7 +726,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698021706}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: bec8fff485fda624880e5c8c18ff9bb9, type: 2}
   m_Animations:
@@ -903,6 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 16589297}
   ntb: {fileID: 1376258381}
+  title: {fileID: 698021708}
 --- !u!1 &1266517416
 GameObject:
   m_ObjectHideFlags: 0
