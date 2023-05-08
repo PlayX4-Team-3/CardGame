@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonAnimation : MonoBehaviour
 {
-    public Button btn;
+    public Button btn, ntb;
 
     private bool isUp = false;
     private bool isMouseExit = false;
@@ -21,6 +21,12 @@ public class ButtonAnimation : MonoBehaviour
                 btn.GetComponent<Image>().fillAmount = 1f;
                 isUp = false;
             }
+            ntb.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
+            if (ntb.GetComponent<Image>().fillAmount >= 1f)
+            {
+                ntb.GetComponent<Image>().fillAmount = 1f;
+                isUp = false;
+            }
         }
 
         if (isMouseExit)
@@ -29,6 +35,12 @@ public class ButtonAnimation : MonoBehaviour
             if (btn.GetComponent<Image>().fillAmount <= 0f)
             {
                 btn.GetComponent<Image>().fillAmount = 0f;
+                isMouseExit = false;
+            }
+            ntb.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
+            if (ntb.GetComponent<Image>().fillAmount <= 0f)
+            {
+                ntb.GetComponent<Image>().fillAmount = 0f;
                 isMouseExit = false;
             }
         }
