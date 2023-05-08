@@ -1,28 +1,100 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : MonoBehaviour
 {
-    private AudioSource BGMPlayer;
-    private AudioSource SFXPlayer;
+    public static SoundManager Instance;
 
-    [SerializeField] private AudioClip[] BGMClip;
-    [SerializeField] private AudioClip[] SFXClip;
+    [SerializeField] private Sound[] BGMClip, SFXClip;
+    [SerializeField] private AudioSource BGMPlayer, SFXPlayer;
 
-    public float VolumeSFX = 1.0f;
-    public float VolumeBGM = 1.0f;
+    /*Dictionary<string, AudioClip> BGMDic = new Dictionary<string, AudioClip>();
+    Dictionary<string, AudioClip> SFXDic = new Dictionary<string, AudioClip>();
 
-    Dictionary<string, AudioClip> audioclipDic = new Dictionary<string, AudioClip>();
-
-    public void BGMPlay(string name, float volume = 1.0f)
+    private void Awake()
     {
-        BGMPlayer.loop = true;
-        BGMPlayer.volume = volume * VolumeBGM;
-    }
-    public void SFXPLay(string name, float volume = 1.0f)
+        BGMPlayer = GameObject.Find("BGMPlayer").GetComponent<AudioSource>();
+        SFXPlayer = GameObject.Find("SFXPlayer").GetComponent<AudioSource>();
+
+        foreach (Sound Bclip in BGMClip)
+        {
+            BGMDic.Add(Bclip.name, Bclip);
+        }
+
+        foreach (Sound clip in SFXClip)
+        {
+
+        }
+    }*/
+
+    public void Awake()
     {
-        SFXPlayer.PlayOneShot(audioclipDic[name], volume * VolumeSFX);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    public void Start()
+    {
+        BGMPlay("Theme");
+    }
+
+    public void BGMPlay(string name)
+    {
+        Sound s = Array.Find(BGMClip, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound Not Found");
+        }
+        else
+        {
+            BGMPlayer.clip = s.clip;
+            BGMPlayer.Play();
+        }
+    }
+
+    public void SFXPlay(string name)
+    {
+        Sound s = Array.Find(BGMClip, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound Not Found");
+        }
+        else
+        {
+            SFXPlayer.PlayOneShot(s.clip);
+        }
+    }
+
+    public void ToggleBGM()
+    {
+        BGMPlayer.mute = !BGMPlayer.mute;
+    }
+
+    public void ToggleSFX()
+    {
+        SFXPlayer.mute = !SFXPlayer.mute;
+    }
+
+    public void BGMVolume(float volume)
+    {
+        BGMPlayer.volume = volume;
+    }
+
+    public void SFXVolume(float volume)
+    {
+        SFXPlayer.volume = volume;
+    }
 }
