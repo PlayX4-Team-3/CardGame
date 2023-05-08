@@ -385,9 +385,11 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
+
+        // 가위 바위 보 이미지 꺼내기
         string enemyRPS = "";
 
-        foreach (GameObject go in EnemyActionsRPS)
+        foreach (var go in EnemyActionsRPS)
             if (go.activeInHierarchy)
             {
                 enemyRPS = go.tag;

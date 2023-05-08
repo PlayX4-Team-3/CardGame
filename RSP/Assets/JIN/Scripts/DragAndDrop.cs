@@ -71,6 +71,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         if (TurnManager.Instance.currentPlayer == PlayerID.Player && isDrag)
         {
+                isDrag = false;
             RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.zero);
 
             // Card in DropArea
@@ -85,7 +86,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             else
             {
                 dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
-                isDrag = false;
             }
         }
     }
