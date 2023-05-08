@@ -289,7 +289,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1122190113}
           m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
-          m_MethodName: ASD
+          m_MethodName: Btn1Up
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -305,7 +305,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1122190113}
           m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
-          m_MethodName: QWE
+          m_MethodName: Btn1Exit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -340,7 +340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46861625}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 861.4396, y: 401.24573, z: -269.04547}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -562,7 +562,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394476409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 861.4396, y: 401.24573, z: -269.04547}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -726,7 +726,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698021706}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: bec8fff485fda624880e5c8c18ff9bb9, type: 2}
   m_Animations:
@@ -903,6 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 16589297}
   ntb: {fileID: 1376258381}
+  title: {fileID: 698021708}
 --- !u!1 &1266517416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1194,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1122190113}
           m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
-          m_MethodName: ASD
+          m_MethodName: Btn2Up
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1209,7 +1210,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1122190113}
           m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
-          m_MethodName: QWE
+          m_MethodName: Btn2Exit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1481,7 +1482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912080530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 861.4396, y: 401.24573, z: -269.04547}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
