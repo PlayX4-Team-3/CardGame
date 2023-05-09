@@ -32,11 +32,11 @@ public class AutoSceneChange : MonoBehaviour
             nsb.SecondStage3.fillAmount = 1;
         }
 
-        if (roundIndex == 3)
-        {
-            nsb.ThirdStage.fillAmount = 1;
-            nsb.ThirdStage1.fillAmount = 1;
-        }
+        //if (roundIndex == 3)
+        //{
+        //    nsb.ThirdStage.fillAmount = 1;
+        //    nsb.ThirdStage1.fillAmount = 1;
+        //}
 
         Invoke("GoNextScene", 2f);
     }

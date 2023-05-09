@@ -1021,7 +1021,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 94be82d76bc7e8141add1bb901ba7585, type: 3}
+    m_Font: {fileID: 12800000, guid: 9b68b4afae1ae934398f64d6b5841e99, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -1292,7 +1292,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 94be82d76bc7e8141add1bb901ba7585, type: 3}
+    m_Font: {fileID: 12800000, guid: 9b68b4afae1ae934398f64d6b5841e99, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -1516,7 +1516,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
