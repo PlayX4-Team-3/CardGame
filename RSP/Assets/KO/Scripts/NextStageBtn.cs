@@ -1,117 +1,75 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
 
-public class NextStageBtn : MonoBehaviour
+public class NextStageBtn : Singleton<NextStageBtn>
 {
     public Image SecondStage;
     public Image SecondStage1;
     public Image SecondStage2;
     public Image SecondStage3;
+
     public Image ThirdStage;
-    public Image ThirdStage1; 
+    public Image ThirdStage1;
+
     public Image FinalStage;
 
-    public Image Player;
-
+    public Image One;
     public Image Two;
     public Image Three;
     public Image Four;
     public Image Five;
     public Image Six;
     public Image Seven;
-    public Image Eight; 
+    public Image Eight;
 
-
-    public int VictoryPoint;
-
-    private bool MouseUp=false; 
+    private float duration = 0.7f;
 
     void Update()
     {
-        switch (VictoryPoint)
+        switch (SceneChange.Instance.roundIndex)
         {
+            case 0:
+                One.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Two.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Three.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Four.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Five.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Six.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Seven.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                Eight.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                break;
             case 1:
-                SecondStage.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                SecondStage1.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                SecondStage2.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                SecondStage3.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
+                SecondStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                SecondStage1.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                SecondStage2.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                SecondStage3.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                ThirdStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                ThirdStage1.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                FinalStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                Player.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
+                One.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Two.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Three.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Four.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Five.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Six.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Seven.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                Eight.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 break;
 
             case 2:
-                ThirdStage.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                ThirdStage1.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
+                ThirdStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+                ThirdStage1.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                SecondStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage1.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage2.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage3.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                FinalStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                Player.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
+                SecondStage.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                SecondStage1.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                SecondStage2.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                SecondStage3.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 break;
 
             case 3:
-                FinalStage.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
+                FinalStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                SecondStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                ThirdStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                ThirdStage1.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                Player.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                break;
-
-            case 0:
-                Player.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount += 3f * Time.deltaTime;
-
-                SecondStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage1.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage2.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                SecondStage3.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                ThirdStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-                ThirdStage1.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
-
-                FinalStage.GetComponent<Image>().fillAmount -= 3f * Time.deltaTime;
+                ThirdStage.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+                ThirdStage1.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 break;
         }
     }
