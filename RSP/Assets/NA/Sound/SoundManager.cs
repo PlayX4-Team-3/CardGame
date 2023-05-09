@@ -74,13 +74,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void BGMVolume(float volume)
+    public void BGMVolume(float volume)
     {
         BGMPlayer.volume = volume;
         PlayerPrefs.SetFloat("Volume", volume);
     }
 
-    private void SFXVolume(float volume)
+    public void SFXVolume(float volume)
     {
         SFXPlayer.volume = volume;
         PlayerPrefs.SetFloat("Volume", volume);

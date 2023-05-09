@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject[] buffIcons;
 
+
     private void Start()
     {
         cm = CardManager.Instance;
