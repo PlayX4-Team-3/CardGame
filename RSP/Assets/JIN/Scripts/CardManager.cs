@@ -82,12 +82,25 @@ public class CardManager : Singleton<CardManager>
                 go.transform.SetParent(deckArea, false);
 
                 // 카드 속성이 None이 아닌것들 생성
-                if (card.Attribute != "None")
+                if (card.Attribute != "None" && card.Attribute !="Wild")
                 {
                     GameObject go2 = new GameObject(card.Attribute.ToString());
                     go2.transform.SetParent(go.transform);
                     go2.transform.localPosition = new Vector2(125f, 195f);
                     go2.transform.localScale = new Vector2(0.06f, 0.06f);
+
+                    Image img2 = go2.AddComponent<Image>();
+                    string sprite2 = card.RPSLink;
+                    img2.sprite = Resources.Load<Sprite>(sprite2);
+                    img2.SetNativeSize();
+                }
+
+                else if(card.Attribute == "Wild")
+                {
+                    GameObject go2 = new GameObject(card.Attribute.ToString());
+                    go2.transform.SetParent(go.transform);
+                    go2.transform.localPosition = new Vector2(125f, 195f);
+                    go2.transform.localScale = new Vector2(0.3f, 0.3f);
 
                     Image img2 = go2.AddComponent<Image>();
                     string sprite2 = card.RPSLink;
