@@ -260,7 +260,7 @@ public class CardAbility : Singleton<CardAbility>
 
                 sm.SetSpell(enemy.gameObject, spellObj);
 
-                spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
+                dm.IcicleAnimation(spellObj);
                 break;
             case 8:
                 // 받는 피해 감소 2회 버프
