@@ -197,7 +197,7 @@ public class DotweenManager : Singleton<DotweenManager>
         if (tmp == 0)
         {
             spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
-            SoundManager.Instance.SFXPlay("Ice");
+            //SoundManager.Instance.SFXPlay("Ice");
         }
 
         else
@@ -266,7 +266,7 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void DrawCardAnimation(GameObject go, Transform handArea, float duration)
     {
-        SoundManager.Instance.SFXPlay("CardShuffle");
+        SoundManager.Instance.SFXPlay("Draw");
         go.transform.DOMove(handArea.parent.transform.position, duration).OnUpdate(() => LookAtTarget(go.transform, handArea.parent, -1)).OnComplete(() =>
         {
             go.transform.DOKill();
