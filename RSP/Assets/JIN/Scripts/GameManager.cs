@@ -457,7 +457,7 @@ public class GameManager : Singleton<GameManager>
         PlayerID winnerPlayer = currentPlayer;
 
         if (winnerPlayer == PlayerID.Player)
-            SceneChange.Instance.roundIndex++;
+            SceneChange.Instance.roundIndex = (SceneChange.Instance.roundIndex + 1) % 3;
         else
             SceneChange.Instance.roundIndex = 0;
 

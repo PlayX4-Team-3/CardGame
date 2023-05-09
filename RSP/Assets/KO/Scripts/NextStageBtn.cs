@@ -65,12 +65,12 @@ public class NextStageBtn : Singleton<NextStageBtn>
                 SecondStage3.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 break;
 
-            case 3:
-                FinalStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+            //case 3:
+            //    FinalStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                ThirdStage.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                ThirdStage1.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                break;
+            //    ThirdStage.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+            //    ThirdStage1.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+            //    break;
         }
     }
 }
