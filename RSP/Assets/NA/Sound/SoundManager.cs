@@ -27,6 +27,13 @@ public class SoundManager : MonoBehaviour
 
     public void Start()
     {
+        BGMPlay();
+    }
+
+    public void BGMPlay()
+    {
+        BGMPlayer.loop = true;
+        BGMPlayer.Play();
     }
 
     public void SFXPlay(string name)
@@ -41,6 +48,11 @@ public class SoundManager : MonoBehaviour
         {
             SFXPlayer.PlayOneShot(s.clip);
         }
+    }
+
+    public void Clear()
+    {
+
     }
 
     public void ToggleBGM()
