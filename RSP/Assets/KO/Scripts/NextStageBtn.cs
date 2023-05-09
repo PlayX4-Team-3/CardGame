@@ -38,6 +38,8 @@ public class NextStageBtn : Singleton<NextStageBtn>
                 Six.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
                 Seven.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
                 Eight.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+
+                //Invoke("TTT", duration+0.7f);
                 break;
             case 1:
                 SecondStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
@@ -73,4 +75,10 @@ public class NextStageBtn : Singleton<NextStageBtn>
             //    break;
         }
     }
+
+    //private void TTT()
+    //{
+    //    One.GetComponent<Transform>().localScale = new Vector2(1.1f, 1.1f);
+        
+    //}
 }
