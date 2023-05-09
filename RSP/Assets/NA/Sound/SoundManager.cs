@@ -25,10 +25,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-    }
-
     public void SFXPlay(string name)
     {
         Sound s = Array.Find(SFXClip, x => x.name == name);

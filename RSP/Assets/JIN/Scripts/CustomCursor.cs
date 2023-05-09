@@ -7,6 +7,7 @@ public class CustomCursor : Singleton<CustomCursor>
     public Texture2D defaultCursor;
     public Texture2D clickCursor;
 
+    private bool isClick;
     void Awake()
     {
         if (_instance == null)
@@ -32,16 +33,25 @@ public class CustomCursor : Singleton<CustomCursor>
     void Start()
     {
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+
+        isClick = false;
     }
 
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            Cursor.SetCursor(clickCursor, Vector2.zero, CursorMode.Auto);
-            SoundManager.Instance.SFXPlay("ButtonClick");
+            if (isClick == false)
+            {
+                Cursor.SetCursor(clickCursor, Vector2.zero, CursorMode.Auto);
+                SoundManager.Instance.SFXPlay("ButtonClick");
+                isClick = true;
+            }
         }
         else
+        {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+            isClick = false;
+        }
     }
 }
