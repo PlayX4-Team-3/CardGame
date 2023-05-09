@@ -195,10 +195,8 @@ public class DotweenManager : Singleton<DotweenManager>
     public void IcicleAnimation(GameObject spellObj, int tmp = 0) // 0 : 카드를 사용했을 때 애니메이션, 1 : 카드 효과가 끝날 때 애니메이션
     {
         SoundManager.Instance.SFXPlay("Ice");
-
         if (tmp == 0)
-            spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
-
+            spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);   
         else
         {
             sm.spells[9].transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
