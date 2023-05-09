@@ -157,6 +157,10 @@ public class GameManager : Singleton<GameManager>
             enemy.CheckDebuff();
             display.UpdateCharacterState();
 
+            // 적의 체력이 0이 되면 게임 종료
+            if (enemy.Hp == 0)
+                GameEnd(PlayerID.Player);
+
             EnemyTurn();
         }
     }

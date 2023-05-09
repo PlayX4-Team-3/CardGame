@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/1. Title.unity
     guid: 4eb326a2ef3c2a54bb7fd3f18cc8a788
   - enabled: 1
-    path: Assets/Scenes/2. Bracket.unity
-    guid: fe8c2579c4bf56c4e8217f3dda372216
+    path: Assets/KO/2. Bracket.unity
+    guid: 5bb4ba60ccdb7dd4d98b728a7c067893
   - enabled: 1
     path: Assets/JIN/GameScene.unity
     guid: 5baa2a71aa31eda4eb905996c4d0cef0
