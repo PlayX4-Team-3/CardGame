@@ -49,6 +49,7 @@ public class DotweenManager : Singleton<DotweenManager>
     {
         spell.transform.DOScale(Vector3.one * 0.6f * isPlayerAttack, 0.2f).OnComplete(() =>
         {
+            SoundManager.Instance.SFXPlay("Swing");
             spell.transform.DOMove(target.gameObject.transform.position, 0.5f).OnComplete(() =>
             {
                 AttackAnim(target.gameObject);
@@ -93,8 +94,8 @@ public class DotweenManager : Singleton<DotweenManager>
         spellObj.transform.localScale = Vector3.right;
         spellObj.transform.localPosition = new Vector3(0f, -0.5f * attacker, 0f);
         spellObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 33f, 0f));
-
         spellObj.transform.DOScaleY(1f, 1f);
+        SoundManager.Instance.SFXPlay("Wood");
     }
 
     public void EndBind(GameObject target)
@@ -125,6 +126,7 @@ public class DotweenManager : Singleton<DotweenManager>
         AttackAnim(target, 0.5f);
         spellObj.transform.DOScaleX(15f, 0.8f).OnComplete(() =>
         {
+            SoundManager.Instance.SFXPlay("Beam");
             spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.8f).OnComplete(() =>
             {
                 Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
@@ -140,8 +142,8 @@ public class DotweenManager : Singleton<DotweenManager>
     {
         spellObj.transform.position += new Vector3(1f, 0.3f, 0f);
         spellObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 66f, 0f));
-
         spellObj.transform.DOScale(Vector3.one, 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() => spellObj.SetActive(false));
+        SoundManager.Instance.SFXPlay("Crash");
     }
 
     public void MagicBallAnimaition(GameObject target, GameObject spellObj, int spellType = 0)
@@ -150,6 +152,7 @@ public class DotweenManager : Singleton<DotweenManager>
         {
             spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
           {
+              SoundManager.Instance.SFXPlay("FireBall");
               spellObj.transform.DOMove(target.transform.position, 0.5f).OnComplete(() =>
               {
                   spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
@@ -197,6 +200,7 @@ public class DotweenManager : Singleton<DotweenManager>
         {
             sm.spells[9].transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
+                SoundManager.Instance.SFXPlay("Ice");
                 sm.spells[9].transform.localScale = Vector3.one;
                 sm.spells[9].SetActive(false);
             });

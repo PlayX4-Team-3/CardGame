@@ -339,12 +339,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46861625}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 394476411}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &46861627
 AudioSource:
@@ -546,14 +546,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ddfa72045dd6c4ab9a483f20d61a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMClip: []
   SFXClip:
-  - {fileID: 8300000, guid: 6657a3f5dbe07a046947ec5accc81584, type: 3}
-  - {fileID: 8300000, guid: 014e4946d6344ee4b9ce9c6a671a385e, type: 3}
-  - {fileID: 8300000, guid: c3021c1813cb3c541b1351ad2c7b686b, type: 3}
-  - {fileID: 8300000, guid: 382c413d26a76884a9e0d6e8d3a242d2, type: 3}
-  VolumeSFX: 1
-  VolumeBGM: 1
+  - name: Beam
+    clip: {fileID: 8300000, guid: 1244b425f4f8fa046b2938d0387736d1, type: 3}
+  - name: Crash
+    clip: {fileID: 8300000, guid: 014e4946d6344ee4b9ce9c6a671a385e, type: 3}
+  - name: FireBall
+    clip: {fileID: 8300000, guid: c3021c1813cb3c541b1351ad2c7b686b, type: 3}
+  - name: Ice
+    clip: {fileID: 8300000, guid: 382c413d26a76884a9e0d6e8d3a242d2, type: 3}
+  - name: Swing
+    clip: {fileID: 8300000, guid: 6657a3f5dbe07a046947ec5accc81584, type: 3}
+  - name: Wood
+    clip: {fileID: 8300000, guid: 4787905c6feb7cf4cafe79c9182cdbaf, type: 3}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: a8c179d39625dab4b8f4d6eafeec3303, type: 3}
+  BGMPlayer: {fileID: 1912080532}
+  SFXPlayer: {fileID: 46861627}
 --- !u!4 &394476411
 Transform:
   m_ObjectHideFlags: 0
@@ -564,7 +573,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1912080531}
+  - {fileID: 46861626}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1481,12 +1492,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912080530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 394476411}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1912080532
 AudioSource:
@@ -1498,7 +1509,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3f486280d67be854a87e49953c2b816c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

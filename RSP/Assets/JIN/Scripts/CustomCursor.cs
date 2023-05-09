@@ -37,7 +37,10 @@ public class CustomCursor : Singleton<CustomCursor>
     void Update()
     {
         if (Input.GetMouseButton(0))
+        {
             Cursor.SetCursor(clickCursor, Vector2.zero, CursorMode.Auto);
+            SoundManager.Instance.SFXPlay("ButtonClick");
+        }
         else
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
     }
