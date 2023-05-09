@@ -124,9 +124,9 @@ public class DotweenManager : Singleton<DotweenManager>
         spellObj.transform.localScale = new Vector3(0f, 1f, 1f);
 
         AttackAnim(target, 0.5f);
+        SoundManager.Instance.SFXPlay("Beam");
         spellObj.transform.DOScaleX(15f, 0.8f).OnComplete(() =>
         {
-            SoundManager.Instance.SFXPlay("Beam");
             spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.8f).OnComplete(() =>
             {
                 Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
@@ -173,6 +173,7 @@ public class DotweenManager : Singleton<DotweenManager>
         {
             spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
             {
+                SoundManager.Instance.SFXPlay("Boom");
                 spellObj.transform.DOMoveY(target.transform.position.y + 3f, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => { spellObj.transform.DOMoveY(target.transform.position.y, 0.25f).SetEase(Ease.InQuad); });
                 spellObj.transform.DOMoveX(target.transform.position.x, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
                 {
@@ -194,7 +195,10 @@ public class DotweenManager : Singleton<DotweenManager>
     public void IcicleAnimation(GameObject spellObj, int tmp = 0) // 0 : 내가 공격했을 때 애니메이션, 1 : 카드 효과가 끝날 때 애니메이션
     {
         if (tmp == 0)
+        {
             spellObj.transform.DOScale(Vector3.one * 0.5f, 0.3f);
+            SoundManager.Instance.SFXPlay("Ice");
+        }
 
         else
         {
@@ -209,6 +213,7 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void HealNManaAnimation(GameObject spellObj, GameObject target)
     {
+        SoundManager.Instance.SFXPlay("Drink");
         spellObj.transform.localScale = Vector3.one;
         spellObj.transform.DOMove(target.gameObject.transform.position + (Vector3.up * 2f), 2f);
         spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 2f).OnComplete(() =>
@@ -261,6 +266,7 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void DrawCardAnimation(GameObject go, Transform handArea, float duration)
     {
+        SoundManager.Instance.SFXPlay("CardShuffle");
         go.transform.DOMove(handArea.parent.transform.position, duration).OnUpdate(() => LookAtTarget(go.transform, handArea.parent, -1)).OnComplete(() =>
         {
             go.transform.DOKill();

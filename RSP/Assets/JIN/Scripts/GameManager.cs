@@ -136,7 +136,7 @@ public class GameManager : Singleton<GameManager>
             int rand = Random.Range(0, EnemyActionsRPS.Length);
             EnemyActionsRPS[rand].SetActive(true);
 
-            cm.DrawCard();
+            cm.DrawCard(2);
 
             player.Cost = player.MaxCost;
 
