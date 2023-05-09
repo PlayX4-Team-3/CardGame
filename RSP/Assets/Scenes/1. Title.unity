@@ -344,7 +344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 394476411}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &46861627
 AudioSource:
@@ -561,6 +561,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4787905c6feb7cf4cafe79c9182cdbaf, type: 3}
   - name: ButtonClick
     clip: {fileID: 8300000, guid: a8c179d39625dab4b8f4d6eafeec3303, type: 3}
+  - name: Draw
+    clip: {fileID: 8300000, guid: 3b1ab61df4fa5fe4eb4b41d5845b330c, type: 3}
+  - name: Drink
+    clip: {fileID: 8300000, guid: cc2e65e7d2a08274f8debdf272c4e967, type: 3}
+  - name: Boom
+    clip: {fileID: 8300000, guid: 621a0797453061241a5c278fb3c3dd21, type: 3}
   BGMPlayer: {fileID: 1912080532}
   SFXPlayer: {fileID: 46861627}
 --- !u!4 &394476411
@@ -574,7 +580,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1912080531}
   - {fileID: 46861626}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -1018,7 +1023,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 94be82d76bc7e8141add1bb901ba7585, type: 3}
+    m_Font: {fileID: 12800000, guid: 9b68b4afae1ae934398f64d6b5841e99, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -1289,7 +1294,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 94be82d76bc7e8141add1bb901ba7585, type: 3}
+    m_Font: {fileID: 12800000, guid: 9b68b4afae1ae934398f64d6b5841e99, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -1496,8 +1501,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 394476411}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1912080532
 AudioSource:
