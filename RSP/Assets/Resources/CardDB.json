@@ -183,13 +183,13 @@
     {
       "ID": 207,
       "Name": "Reflect",
-      "Attribute": "None",
+      "Attribute": "Wild",
       "Type": "Defense",
       "Cost": 5,
       "Power": 0,
       "ImageLink": "CardImage\/Portal_Card",
       "Description": "적의 공격을 1회 반사합니다.",
-      "RPSLink": "None",
+      "RPSLink": "RPSImage\/star",
       "BuffOrDebuff": "None"
     },
     {
@@ -207,13 +207,13 @@
     {
       "ID": 302,
       "Name": "Bind",
-      "Attribute": "None",
+      "Attribute": "Wild",
       "Type": "Utility",
       "Cost": 2,
       "Power": 0,
       "ImageLink": "CardImage\/Bind_Card",
       "Description": "다음 턴의 적의 공격을 1회 무효화 합니다.",
-      "RPSLink": "None",
+      "RPSLink": "RPSImage\/star",
       "BuffOrDebuff": "None"
     },
     {
@@ -267,13 +267,13 @@
     {
       "ID": 307,
       "Name": "Icicle",
-      "Attribute": "None",
+      "Attribute": "Wild",
       "Type": "Utility",
       "Cost": 5,
       "Power": 0,
       "ImageLink": "CardImage\/Icicle_Card",
       "Description": "적을 얼려 적을 행동불능으로 만듭니다.",
-      "RPSLink": "None",
+      "RPSLink": "RPSImage\/star",
       "BuffOrDebuff": "None"
     },
     {

@@ -421,7 +421,7 @@ public class GameManager : Singleton<GameManager>
 
         int rpsWin = 0;
 
-        // 가위 바위 보 승패 판정
+        // 가위 바위 보 승패 판정  0 : 승, 1 : 패, 2 : 비김
         if (card.Attribute.ToString() == enemyRPS)
             rpsWin = 2;
         else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Paper")
@@ -434,8 +434,10 @@ public class GameManager : Singleton<GameManager>
             rpsWin = 1;
         else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Rock")
             rpsWin = 1;
-        else
+        else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Paper")
             rpsWin = 0;
+        else
+            rpsWin = 2;
 
         // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card, rpsWin);
