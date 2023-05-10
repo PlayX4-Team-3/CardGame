@@ -14,6 +14,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource BGMPlayer, SFXPlayer;
     [SerializeField] private Slider BGMSlider, SFXSlider;
 
+    public float bSound, sSound;
+
     public void Awake()
     {
         if (Instance == null)
@@ -77,12 +79,14 @@ public class SoundManager : MonoBehaviour
     public void BGMVolume(float volume)
     {
         BGMPlayer.volume = volume;
-        PlayerPrefs.SetFloat("Volume", volume);
+        bSound = volume;
+        PlayerPrefs.SetFloat("Volume", BGMPlayer.volume);
     }
 
     public void SFXVolume(float volume)
     {
         SFXPlayer.volume = volume;
-        PlayerPrefs.SetFloat("Volume", volume);
+        sSound = volume;
+        PlayerPrefs.SetFloat("Volume", SFXPlayer.volume);
     }
 }

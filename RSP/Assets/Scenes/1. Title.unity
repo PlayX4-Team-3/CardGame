@@ -576,6 +576,8 @@ MonoBehaviour:
   SFXPlayer: {fileID: 46861627}
   BGMSlider: {fileID: 2126178579}
   SFXSlider: {fileID: 1973425467}
+  bSound: 1
+  sSound: 1
 --- !u!4 &394476411
 Transform:
   m_ObjectHideFlags: 0
