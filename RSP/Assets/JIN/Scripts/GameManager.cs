@@ -15,7 +15,6 @@ public class GameManager : Singleton<GameManager>
     private TurnManager tm;
     private CardAbility ca;
     private DotweenManager dm;
-
     
     public Player player;
     
@@ -41,7 +40,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject[] buffIcons;
 
-
+    #region 게임 시작 전 초기화
     private void Start()
     {
         cm = CardManager.Instance;
@@ -78,7 +77,10 @@ public class GameManager : Singleton<GameManager>
         cm.DeckInit();
         cm.DrawCard(3);
     }
+    #endregion
 
+    #region 치트
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -110,7 +112,10 @@ public class GameManager : Singleton<GameManager>
             display.UpdateCharacterState();
         }
     }
+#endif
+    #endregion
 
+    #region 턴 종료 시 다음 플레이어 초기화
     public void OnTurnEnd(PlayerID nextPlayer)
     {
         if (gs != GameState.Playing)
@@ -165,7 +170,9 @@ public class GameManager : Singleton<GameManager>
             EnemyTurn();
         }
     }
+    #endregion
 
+    #region 적 행동 로직
     private void EnemyAction()
     {
         enemyActionRate = Random.Range(0, 1000);
@@ -381,7 +388,9 @@ public class GameManager : Singleton<GameManager>
         SpellImageMaker.Instance.SetSpell(enemy.gameObject, spellObj);
         dm.HealNManaAnimation(spellObj, enemy.gameObject);
     }
+    #endregion
 
+    #region 플레이어 카드 사용 로직
     public void UseCard(Card card)
     {
         if (gs != GameState.Playing)
@@ -390,8 +399,7 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-
-        // 가위 바위 보 이미지 꺼내기
+        #region 가위 바위 보 이미지 꺼내기, 오브젝트 풀링 사용
         string enemyRPS = "";
 
         foreach (var go in EnemyActionsRPS)
@@ -403,42 +411,44 @@ public class GameManager : Singleton<GameManager>
 
         int rand = Random.Range(0, EnemyActionsRPS.Length);
 
-        if (EnemyActionsRPS[rand].activeInHierarchy == true)
+        if (EnemyActionsRPS[rand].activeInHierarchy)
         {
-            while (true)
+            for (int i = 0; i < EnemyActionsRPS.Length; i++)
             {
-                int rand2 = Random.Range(0, EnemyActionsRPS.Length);
-
-                if (rand2 != rand)
+                if (i != rand && !EnemyActionsRPS[i].activeInHierarchy)
                 {
-                    EnemyActionsRPS[rand2].SetActive(true);
+                    EnemyActionsRPS[i].SetActive(true);
                     break;
                 }
             }
-
         }
         else
             EnemyActionsRPS[rand].SetActive(true);
+        #endregion
 
+        #region 가위 바위 보 승패 판정  0 : 승, 1 : 패, 2 : 비김
         int rpsWin = 0;
 
-        // 가위 바위 보 승패 판정  0 : 승, 1 : 패, 2 : 비김
-        if (card.Attribute.ToString() == enemyRPS)
+        if (card.Attribute.ToString() == enemyRPS) // 비김
             rpsWin = 2;
-        else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Paper")
-            rpsWin = 1;
+
         else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Sissors")
             rpsWin = 0;
         else if (card.Attribute.ToString() == "Paper" && enemyRPS == "Rock")
             rpsWin = 0;
+        else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Paper")
+            rpsWin = 0;
+
+        else if (card.Attribute.ToString() == "Rock" && enemyRPS == "Paper")
+            rpsWin = 1;
         else if (card.Attribute.ToString() == "Paper" && enemyRPS == "Sissors")
             rpsWin = 1;
         else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Rock")
             rpsWin = 1;
-        else if (card.Attribute.ToString() == "Sissors" && enemyRPS == "Paper")
-            rpsWin = 0;
-        else
+
+        else // 와일드 카드 사용 시
             rpsWin = 2;
+        #endregion
 
         // 카드 능력 발동 부분
         CardAbility.Instance.UseCard(card, rpsWin);
@@ -454,7 +464,9 @@ public class GameManager : Singleton<GameManager>
         if (enemy.Hp == 0)
             GameEnd(tm.currentPlayer);
     }
+    #endregion
 
+    #region 게임 승, 패 시 호출 함수
     private void GameEnd(PlayerID currentPlayer)
     {
         PlayerID winnerPlayer = currentPlayer;
@@ -476,4 +488,5 @@ public class GameManager : Singleton<GameManager>
         SceneChange.Instance.winnerIndex = (int)player;
         SceneChange.Instance.GoAccordingToResultScene();
     }
+    #endregion
 }

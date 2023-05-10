@@ -21,15 +21,18 @@ public class DotweenManager : Singleton<DotweenManager>
     public void RPSMove(GameObject go)
     {
         go.transform.DOKill();
+
         Vector3 origin = go.transform.localScale;
         go.transform.localScale = Vector3.zero;
 
         go.transform.DOScale(origin, 0.5f);
         go.transform.DOMoveY(go.transform.position.y + 50f, 1f).SetLoops(-1, LoopType.Yoyo);
     }
+
     public void RPSUse(GameObject go)
     {
         go.transform.DOKill();
+
         go.transform.DOMoveY(go.transform.position.y + 220f, 1f).OnComplete(() =>
         {
             go.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
