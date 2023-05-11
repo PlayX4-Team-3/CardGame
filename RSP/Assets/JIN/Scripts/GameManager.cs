@@ -406,19 +406,21 @@ public class GameManager : Singleton<GameManager>
         string enemyRPS = "";
 
         foreach (var go in EnemyActionsRPS)
-            if (go.activeInHierarchy)
+            if (go.activeInHierarchy && go.GetComponent<RPSMoving>().isUsed == false)
             {
                 enemyRPS = go.tag;
+                Debug.Log(enemyRPS);
+
                 go.GetComponent<RPSMoving>().UseRPS();
             }
 
         int rand = Random.Range(0, EnemyActionsRPS.Length);
 
-        if (EnemyActionsRPS[rand].activeInHierarchy)
+        if (EnemyActionsRPS[rand].activeInHierarchy && EnemyActionsRPS[rand].GetComponent<RPSMoving>().isUsed)
         {
             for (int i = 0; i < EnemyActionsRPS.Length; i++)
             {
-                if (i != rand && !EnemyActionsRPS[i].activeInHierarchy)
+                if (i != rand && !EnemyActionsRPS[i].activeInHierarchy && EnemyActionsRPS[rand].GetComponent<RPSMoving>().isUsed == false)
                 {
                     EnemyActionsRPS[i].SetActive(true);
                     break;

@@ -261,7 +261,7 @@ public class CardAbility : Singleton<CardAbility>
                 enemy.is307Debuff = true;
                 spellObj = sm.spells[9];
 
-                sm.SetSpell(enemy.gameObject, spellObj);
+                sm.SetSpell(enemy.gameObject, spellObj, 0f, -0.9f);
 
                 dm.IcicleAnimation(spellObj);
                 break;

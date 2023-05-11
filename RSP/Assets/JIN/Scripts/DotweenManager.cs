@@ -31,14 +31,15 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void RPSUse(GameObject go)
     {
-        go.transform.DOKill();
-        go.GetComponent<RPSMoving>().isUsed = true;
         go.transform.SetAsLastSibling();
+
+        go.transform.DOKill();
 
         go.transform.DOMoveY(go.transform.position.y + 220f, 1f).OnComplete(() =>
         {
             go.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
+                go.transform.DOKill();
                 go.SetActive(false);
             });
         });

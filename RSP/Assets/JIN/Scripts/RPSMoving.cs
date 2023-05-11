@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RPSMoving : MonoBehaviour
 {
-    public bool isUsed = false;
+    public bool isUsed;
 
     private void OnEnable()
     {
@@ -18,9 +18,15 @@ public class RPSMoving : MonoBehaviour
         DotweenManager.Instance.RPSMove(this.gameObject);
     }
 
+    private void OnDisable()
+    {
+        isUsed = false;
+    }
+
     public void UseRPS()
     {
-        if (isUsed == false)
-            DotweenManager.Instance.RPSUse(this.gameObject);
+        isUsed = true;
+
+        DotweenManager.Instance.RPSUse(this.gameObject);
     }
 }

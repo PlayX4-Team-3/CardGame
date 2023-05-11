@@ -31,12 +31,12 @@ public class SpellImageMaker : Singleton<SpellImageMaker>
         tempV = Vector3.zero;
     }
 
-    public void SetSpell(GameObject target, GameObject spell, float plusVector = 0f)
+    public void SetSpell(GameObject target, GameObject spell, float plusVectorX = 0f, float plusVectorY = 0f)
     {
         spell.SetActive(true);
 
         spell.transform.SetParent(target.gameObject.transform);
-        spell.transform.position = target.transform.position + new Vector3(plusVector, 0f, 0f);
+        spell.transform.position = target.transform.position + new Vector3(plusVectorX, plusVectorY, 0f);
         spell.transform.localScale = Vector3.zero;
     }
 }
