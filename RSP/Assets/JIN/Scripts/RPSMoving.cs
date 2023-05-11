@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class RPSMoving : MonoBehaviour
 {
+    public bool isUsed = false;
+
     private void OnEnable()
     {
+        isUsed = false;
+
         RectTransform rt = this.GetComponent<RectTransform>();
 
         rt.anchoredPosition3D = Vector3.zero;
@@ -16,6 +20,7 @@ public class RPSMoving : MonoBehaviour
 
     public void UseRPS()
     {
-        DotweenManager.Instance.RPSUse(this.gameObject);
+        if (isUsed == false)
+            DotweenManager.Instance.RPSUse(this.gameObject);
     }
 }
