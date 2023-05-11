@@ -40,9 +40,6 @@ public class SceneChange : Singleton<SceneChange>
 
     public void GoAccordingToResultScene()
     {
-        // Game Scene 이 끝날때 모든 tween 제거
-        DG.Tweening.DOTween.KillAll();
-
         int nextSceneIndex;
         // 이겼을 때
         if (roundIndex != 0)

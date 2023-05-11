@@ -64,17 +64,13 @@ public class GameManager : Singleton<GameManager>
         foreach (GameObject go2 in buffIcons)
             go2.SetActive(false);
 
-        //int rand = Random.Range(0, EnemyActionsRPS.Length);
-        //EnemyActionsRPS[rand].SetActive(true);
-
         EnemyAction();
 
         isEnemyAttackMode = false;
 
-        // 배열의 길이를 저장
+        #region 가위바위보 리스트 섞기
         int n = EnemyActionsRPS.Length;
-
-        // 배열의 모든 요소를 랜덤하게 섞음
+        
         while (n > 1)
         {
             n--;
@@ -84,15 +80,14 @@ public class GameManager : Singleton<GameManager>
             EnemyActionsRPS[n] = temp;
         }
 
-        GameObject go3 = EnemyActionsRPS[0];
+        GameObject firstRPS = EnemyActionsRPS[0];
+        firstRPS.SetActive(true);
 
         for (int i = 0; i < EnemyActionsRPS.Length - 1; i++)
             EnemyActionsRPS[i] = EnemyActionsRPS[i + 1];
 
-        EnemyActionsRPS[EnemyActionsRPS.Length - 1] = go3;
-
-        go3.GetComponent<RPSMoving>().UseRPS();
-        EnemyActionsRPS[0].SetActive(true);
+        EnemyActionsRPS[EnemyActionsRPS.Length - 1] = firstRPS;
+        #endregion
     }
 
     private void StartDelay()
@@ -154,23 +149,22 @@ public class GameManager : Singleton<GameManager>
         {
             BtnTurnEnd.interactable = true;
 
-            string enemyRPS = "";
-            foreach (GameObject go in EnemyActionsRPS)
-                if (go.activeInHierarchy)
-                {
-                    enemyRPS = go.tag;
-                    go.GetComponent<RPSMoving>().UseRPS();
-                }
-
-            int rand = Random.Range(0, EnemyActionsRPS.Length);
-            EnemyActionsRPS[rand].SetActive(true);
-
             cm.DrawCard(2);
 
             player.Cost = player.MaxCost;
 
             for (int i = 0; i < player.MaxCost; i++)
                 playerCostImg[i].gameObject.SetActive(true);
+
+            //EnemyActionsRPS[EnemyActionsRPS.Length - 1].GetComponent<RPSMoving>().UseRPS();
+
+            GameObject firstRPS = EnemyActionsRPS[0];
+            firstRPS.SetActive(true);
+
+            for (int i = 0; i < EnemyActionsRPS.Length - 1; i++)
+                EnemyActionsRPS[i] = EnemyActionsRPS[i + 1];
+
+            EnemyActionsRPS[EnemyActionsRPS.Length - 1] = firstRPS;
 
             EnemyAction();
         }
@@ -179,6 +173,8 @@ public class GameManager : Singleton<GameManager>
         else
         {
             BtnTurnEnd.interactable = false;
+
+            EnemyActionsRPS[EnemyActionsRPS.Length - 1].GetComponent<RPSMoving>().UseRPS();
 
             enemy.Defense_Figures = 0;
 
@@ -426,41 +422,16 @@ public class GameManager : Singleton<GameManager>
         }
 
         #region 가위 바위 보 이미지 꺼내기, 오브젝트 풀링 사용
-        GameObject go = EnemyActionsRPS[0];
-        string enemyRPS = go.tag;
+        string enemyRPS = EnemyActionsRPS[EnemyActionsRPS.Length - 1].tag;
+        EnemyActionsRPS[EnemyActionsRPS.Length - 1].GetComponent<RPSMoving>().UseRPS();
+
+        GameObject firstRPS = EnemyActionsRPS[0];
+        firstRPS.SetActive(true);
 
         for (int i = 0; i < EnemyActionsRPS.Length - 1; i++)
             EnemyActionsRPS[i] = EnemyActionsRPS[i + 1];
 
-        EnemyActionsRPS[EnemyActionsRPS.Length - 1] = go;
-
-        go.GetComponent<RPSMoving>().UseRPS();
-        EnemyActionsRPS[0].SetActive(true);
-
-        
-        //foreach (var go in EnemyActionsRPS)
-        //    if (go.activeInHierarchy)
-        //    {
-        //        enemyRPS = go.tag;
-
-        //        go.GetComponent<RPSMoving>().UseRPS();
-        //    }
-
-        //int rand = Random.Range(0, EnemyActionsRPS.Length);
-
-        //if (EnemyActionsRPS[rand].activeInHierarchy)
-        //{
-        //    for (int i = 0; i < EnemyActionsRPS.Length; i++)
-        //    {
-        //        if (i != rand && !EnemyActionsRPS[i].activeInHierarchy)
-        //        {
-        //            EnemyActionsRPS[i].SetActive(true);
-        //            break;
-        //        }
-        //    }
-        //}
-        //else
-        //    EnemyActionsRPS[rand].SetActive(true);
+        EnemyActionsRPS[EnemyActionsRPS.Length - 1] = firstRPS;
         #endregion
 
         #region 가위 바위 보 승패 판정  0 : 승, 1 : 패, 2 : 비김
@@ -521,6 +492,9 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator GameEndDelay(PlayerID player)
     {
         yield return new WaitForSeconds(1.5f);
+
+        // Game Scene 이 끝날때 모든 tween 제거
+        DG.Tweening.DOTween.KillAll();
 
         SceneChange.Instance.winnerIndex = (int)player;
         SceneChange.Instance.GoAccordingToResultScene();

@@ -92,26 +92,31 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        thisChildIndex = this.transform.GetSiblingIndex();
+        if (canUse)
+        {
+            thisChildIndex = this.transform.GetSiblingIndex();
 
-        dm.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
+            dm.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
 
-        this.transform.SetParent(canvasT);
+            this.transform.SetParent(canvasT);
 
-        gm.dummy.SetActive(true);
-        gm.dummy.transform.SetParent(previousParentT);
-        gm.dummy.transform.SetSiblingIndex(thisChildIndex);
+            gm.dummy.SetActive(true);
+            gm.dummy.transform.SetParent(previousParentT);
+            gm.dummy.transform.SetSiblingIndex(thisChildIndex);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Card Not Used
-        gm.dummy.transform.SetParent(canvasT);
-        gm.dummy.SetActive(false);
+        if (canUse)
+        {// Card Not Used
+            gm.dummy.transform.SetParent(canvasT);
+            gm.dummy.SetActive(false);
 
-        this.transform.SetParent(previousParentT);
-        this.transform.SetSiblingIndex(thisChildIndex);
+            this.transform.SetParent(previousParentT);
+            this.transform.SetSiblingIndex(thisChildIndex);
 
-        dm.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
+            dm.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
+        }
     }
 }
