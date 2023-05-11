@@ -486,7 +486,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator GameEndDelay(PlayerID player)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         SceneChange.Instance.winnerIndex = (int)player;
         SceneChange.Instance.GoAccordingToResultScene();

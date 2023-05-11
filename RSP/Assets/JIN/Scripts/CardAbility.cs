@@ -171,8 +171,6 @@ public class CardAbility : Singleton<CardAbility>
 
             GameManager.Instance.buffIcons[0].SetActive(true);
         }
-
-        //dm.DefenseAnim(player.gameObject);
     }
 
     private void Utility(Card card, int key, int rpsResult)
@@ -199,6 +197,7 @@ public class CardAbility : Singleton<CardAbility>
                 sm.SetSpell(player.gameObject, spellObj);
                 dm.HealNManaAnimation(spellObj, player.gameObject);
                 break;
+
             case 2:
                 // 적 공격 무효화
                 GameManager.Instance.buffIcons[3].SetActive(true);
@@ -209,6 +208,7 @@ public class CardAbility : Singleton<CardAbility>
                 sm.SetSpell(enemy.gameObject, spellObj);
                 dm.BindAttack(spellObj, enemy.gameObject);
                 break;
+
             case 3:
             case 4:
                 // 드로우
@@ -219,6 +219,7 @@ public class CardAbility : Singleton<CardAbility>
 
                 CardManager.Instance.DrawCard(card.Power);
                 break;
+
             case 5:
                 // 힐
                 if (rpsResult == 0)
@@ -234,6 +235,7 @@ public class CardAbility : Singleton<CardAbility>
                 dm.HealNManaAnimation(spellObj, player.gameObject);
 
                 break;
+
             case 6:
                 // 적 방어도 파괴
                 if (rpsResult == 0)
@@ -251,6 +253,7 @@ public class CardAbility : Singleton<CardAbility>
                 sm.SetSpell(player.gameObject, spellObj);
                 dm.BreakDefense(spellObj, enemy.gameObject);
                 break;
+
             case 7:
                 // 적 행동 봉인
                 GameManager.Instance.buffIcons[4].SetActive(true);
@@ -262,6 +265,7 @@ public class CardAbility : Singleton<CardAbility>
 
                 dm.IcicleAnimation(spellObj);
                 break;
+
             case 8:
                 // 받는 피해 감소 2회 버프
                 GameManager.Instance.buffIcons[1].SetActive(true);

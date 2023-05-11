@@ -106,12 +106,16 @@ public class DotweenManager : Singleton<DotweenManager>
     public void EndBind(GameObject target)
     {
         GameObject spell = target.transform.Find("15").gameObject;
-        GameObject papa = target.gameObject;
-        spell.transform.SetParent(papa.transform.parent);
+        //GameObject papa = target.gameObject;
+        spell.transform.SetParent(target.transform.parent);
+
+        SoundManager.Instance.SFXPlay("Wood");
+
+        AttackAnim(target);
 
         spell.transform.DOScaleY(0f, 1f).OnComplete(() =>
         {
-            spell.transform.SetParent(papa.transform);
+            spell.transform.SetParent(target.transform);
             spell.SetActive(false);
         });
     }
@@ -158,6 +162,7 @@ public class DotweenManager : Singleton<DotweenManager>
             spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
           {
               SoundManager.Instance.SFXPlay("FireBall");
+
               spellObj.transform.DOMove(target.transform.position, 0.5f).OnComplete(() =>
               {
                   spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
@@ -178,10 +183,11 @@ public class DotweenManager : Singleton<DotweenManager>
         {
             spellObj.transform.DOScale(new Vector3(0.5f, 0.5f, 1f), 0.3f).OnComplete(() =>
             {
-                SoundManager.Instance.SFXPlay("Boom");
                 spellObj.transform.DOMoveY(target.transform.position.y + 3f, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => { spellObj.transform.DOMoveY(target.transform.position.y, 0.25f).SetEase(Ease.InQuad); });
                 spellObj.transform.DOMoveX(target.transform.position.x, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    SoundManager.Instance.SFXPlay("Boom");
+
                     spellObj.GetComponent<SpriteRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
                     {
                         Color color = spellObj.GetComponent<SpriteRenderer>().material.color;
