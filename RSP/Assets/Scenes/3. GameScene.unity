@@ -6411,8 +6411,6 @@ MonoBehaviour:
   - {fileID: 1772635369}
   - {fileID: 2068513776}
   - {fileID: 155155796}
-  BGMSlider: {fileID: 1879627220}
-  SFXSlider: {fileID: 1704811202}
 --- !u!4 &1529364994
 Transform:
   m_ObjectHideFlags: 0
@@ -8297,6 +8295,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2051475819}
     - target: {fileID: 4400841370253118283, guid: ce1d4c2634fbe2c4fb559719b3f8c9ca, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 27e209e234a61f94a8071246c9107f37, type: 2}
+    - target: {fileID: 4400841370253118283, guid: ce1d4c2634fbe2c4fb559719b3f8c9ca, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
@@ -8412,7 +8414,7 @@ PrefabInstance:
     - target: {fileID: 5603428888644071829, guid: 99b5720089a977c468d3171b61405876, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: bcf1b75fb860c564f8e4bfcc7f6fed49, type: 2}
+      objectReference: {fileID: 9100000, guid: 871e562d7ee70bb46967a0effd4bb7cb, type: 2}
     - target: {fileID: 5603428888644071829, guid: 99b5720089a977c468d3171b61405876, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
@@ -8625,6 +8627,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8354931037788601698, guid: a644a41c80b870d46a49a34c02d4b2c2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 27e209e234a61f94a8071246c9107f37, type: 2}
+    - target: {fileID: 8354931037788601698, guid: a644a41c80b870d46a49a34c02d4b2c2, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
@@ -8697,6 +8703,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9057826488986651929, guid: cecf2fff66c2b2c4692c6e13c0650657, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 27e209e234a61f94a8071246c9107f37, type: 2}
     - target: {fileID: 9057826488986651929, guid: cecf2fff66c2b2c4692c6e13c0650657, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
