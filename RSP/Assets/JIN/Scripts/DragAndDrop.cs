@@ -21,7 +21,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private Card card;
 
-    public bool isDrag;
+    [SerializeField]
+    private bool canUse;
 
     private void Start()
     {
@@ -37,12 +38,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         card = cm.cardDeck[int.Parse(this.name)];
 
-        isDrag = false;
+        canUse = true;
     }
 
     // 카드 비활성화시 초기화
     private void OnDisable()
     {
+        this.canUse = true;
+
         this.transform.localScale = restoredCardScale;
         this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
@@ -56,8 +59,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
             this.transform.SetParent(canvasT);
             this.transform.SetAsLastSibling();
-
-            isDrag = true;
         }
     }
 
@@ -69,14 +70,15 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (TurnManager.Instance.currentPlayer == PlayerID.Player && isDrag)
+        if (TurnManager.Instance.currentPlayer == PlayerID.Player && this.canUse == true)
         {
-                isDrag = false;
             RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.zero);
 
             // Card in DropArea
             if (hit.collider != null && hit.collider.CompareTag("DropArea") && gm.player.Cost >= card.Cost)
             {
+                this.canUse = false;
+
                 gm.player.Cost -= card.Cost;
 
                 dm.UseCardAnimation(this.gameObject, card, cm.graveArea);
@@ -84,40 +86,32 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
             // Card Not in DropArea
             else
-            {
                 dm.SetHandCardPositionAnimation(cm.handList, cm.handArea.transform);
-            }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isDrag)
-        {
-            thisChildIndex = this.transform.GetSiblingIndex();
+        thisChildIndex = this.transform.GetSiblingIndex();
 
-            dm.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
+        dm.PointedCardAnimation(this.gameObject, magnifiedCardScale, 0.15f);
 
-            this.transform.SetParent(canvasT);
+        this.transform.SetParent(canvasT);
 
-            gm.dummy.SetActive(true);
-            gm.dummy.transform.SetParent(previousParentT);
-            gm.dummy.transform.SetSiblingIndex(thisChildIndex);
-        }
+        gm.dummy.SetActive(true);
+        gm.dummy.transform.SetParent(previousParentT);
+        gm.dummy.transform.SetSiblingIndex(thisChildIndex);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // Card Not Used
-        if (!isDrag)
-        {
-            gm.dummy.transform.SetParent(canvasT);
-            gm.dummy.SetActive(false);
+        gm.dummy.transform.SetParent(canvasT);
+        gm.dummy.SetActive(false);
 
-            this.transform.SetParent(previousParentT);
-            this.transform.SetSiblingIndex(thisChildIndex);
+        this.transform.SetParent(previousParentT);
+        this.transform.SetSiblingIndex(thisChildIndex);
 
-            dm.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
-        }
+        dm.PointedCardAnimation(this.gameObject, restoredCardScale, 0.15f);
     }
 }
