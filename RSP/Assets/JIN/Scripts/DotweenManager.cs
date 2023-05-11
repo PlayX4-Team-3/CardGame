@@ -31,7 +31,7 @@ public class DotweenManager : Singleton<DotweenManager>
 
     public void RPSUse(GameObject go)
     {
-        go.transform.SetAsLastSibling();
+        //go.transform.SetAsLastSibling();
 
         go.transform.DOKill();
 

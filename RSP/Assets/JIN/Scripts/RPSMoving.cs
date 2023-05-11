@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class RPSMoving : MonoBehaviour
 {
-    public bool isUsed;
+    //public bool isUsed;
 
     private void OnEnable()
     {
-        isUsed = false;
+        //isUsed = false;
 
         RectTransform rt = this.GetComponent<RectTransform>();
 
@@ -18,14 +18,14 @@ public class RPSMoving : MonoBehaviour
         DotweenManager.Instance.RPSMove(this.gameObject);
     }
 
-    private void OnDisable()
-    {
-        isUsed = false;
-    }
+    //private void OnDisable()
+    //{
+    //    isUsed = false;
+    //}
 
     public void UseRPS()
     {
-        isUsed = true;
+        //isUsed = true;
 
         DotweenManager.Instance.RPSUse(this.gameObject);
     }
