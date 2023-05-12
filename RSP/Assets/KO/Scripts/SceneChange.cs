@@ -40,17 +40,17 @@ public class SceneChange : Singleton<SceneChange>
 
     public void GoAccordingToResultScene()
     {
-        int nextSceneIndex;
-        // 이겼을 때
-        if (roundIndex != 0)
-            nextSceneIndex = 1;
-        // 졌을 때
-        else
-            nextSceneIndex = 3;
+        //int nextSceneIndex;
+        //// 이겼을 때
+        //if (roundIndex != 0)
+        //    nextSceneIndex = 1;
+        //// 졌을 때
+        //else
+        //    nextSceneIndex = 3;
 
-        if (roundIndex != 3)
-            SceneManager.LoadScene(nextSceneIndex);
-        else
+        //if (roundIndex != 3)
+        //    SceneManager.LoadScene(nextSceneIndex);
+        //else
             GoNextScene();
     }
 

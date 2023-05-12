@@ -12,25 +12,25 @@ public class AutoSceneChange : MonoBehaviour
         nsb = NextStageBtn.Instance;
         roundIndex = SceneChange.Instance.roundIndex;
 
-        if(roundIndex == 1)
-        {
-            nsb.One.fillAmount = 1;
-            nsb.Two.fillAmount = 1;
-            nsb.Three.fillAmount = 1;
-            nsb.Four.fillAmount = 1;
-            nsb.Five.fillAmount = 1;
-            nsb.Six.fillAmount = 1;
-            nsb.Seven.fillAmount = 1;
-            nsb.Eight.fillAmount = 1;
-        }
+        //if(roundIndex == 1)
+        //{
+        //    nsb.One.fillAmount = 1;
+        //    nsb.Two.fillAmount = 1;
+        //    nsb.Three.fillAmount = 1;
+        //    nsb.Four.fillAmount = 1;
+        //    nsb.Five.fillAmount = 1;
+        //    nsb.Six.fillAmount = 1;
+        //    nsb.Seven.fillAmount = 1;
+        //    nsb.Eight.fillAmount = 1;
+        //}
 
-        if(roundIndex ==  2)
-        {
+        //if(roundIndex ==  2)
+        //{
             nsb.SecondStage.fillAmount = 1;
             nsb.SecondStage1.fillAmount = 1;
             nsb.SecondStage2.fillAmount = 1;
             nsb.SecondStage3.fillAmount = 1;
-        }
+        //}
 
         //if (roundIndex == 3)
         //{

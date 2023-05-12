@@ -31,11 +31,11 @@ namespace AllCharacter
             //체력 초기화
             if (SceneChange.Instance != null)
             {
-                if (SceneChange.Instance.roundIndex == 0)
-                    InitHp(30);
-                else if (SceneChange.Instance.roundIndex == 1)
-                    InitHp(40);
-                else
+                //if (SceneChange.Instance.roundIndex == 0)
+                //    InitHp(30);
+                //else if (SceneChange.Instance.roundIndex == 1)
+                //    InitHp(40);
+                //else
                     InitHp(50);
             }
             else

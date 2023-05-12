@@ -27,37 +27,37 @@ public class NextStageBtn : Singleton<NextStageBtn>
 
     void Update()
     {
-        switch (SceneChange.Instance.roundIndex)
-        {
-            case 0:
-                One.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //switch (SceneChange.Instance.roundIndex)
+        //{
+        //    case 0:
+        //        One.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Two.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Three.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Four.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Five.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Six.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Seven.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        Eight.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                //Invoke("TTT", duration+0.7f);
-                break;
-            case 1:
-                SecondStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                SecondStage1.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                SecondStage2.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
-                SecondStage3.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        //Invoke("TTT", duration+0.7f);
+        //        break;
+        //    case 1:
+        //        SecondStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        SecondStage1.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        SecondStage2.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
+        //        SecondStage3.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
-                One.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Two.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Three.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Four.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Five.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Six.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Seven.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                Eight.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                break;
+        //        One.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Two.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Three.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Four.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Five.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Six.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Seven.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        Eight.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
+        //        break;
 
-            case 2:
+            //case 2:
                 ThirdStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
                 ThirdStage1.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
 
@@ -65,7 +65,7 @@ public class NextStageBtn : Singleton<NextStageBtn>
                 SecondStage1.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 SecondStage2.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
                 SecondStage3.GetComponent<Image>().fillAmount -= duration * Time.deltaTime;
-                break;
+                //break;
 
             //case 3:
             //    FinalStage.GetComponent<Image>().fillAmount += duration * Time.deltaTime;
@@ -81,4 +81,4 @@ public class NextStageBtn : Singleton<NextStageBtn>
     //    One.GetComponent<Transform>().localScale = new Vector2(1.1f, 1.1f);
         
     //}
-}
+//}
