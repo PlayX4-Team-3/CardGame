@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>
     private void StartDelay()
     { 
         cm.DeckInit();
-        cm.DrawCard(3);
+        cm.DrawCard(4);
     }
     #endregion
 
@@ -149,7 +149,7 @@ public class GameManager : Singleton<GameManager>
         {
             BtnTurnEnd.interactable = true;
 
-            cm.DrawCard(2);
+            cm.DrawCard();
 
             player.Cost = player.MaxCost;
 
