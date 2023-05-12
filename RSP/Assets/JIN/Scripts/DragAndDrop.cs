@@ -21,8 +21,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private Card card;
 
-    [SerializeField]
-    private bool canUse;
+    public bool canUse;
 
     private void Start()
     {
@@ -38,6 +37,17 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         card = cm.cardDeck[int.Parse(this.name)];
 
+        canUse = false;
+    }
+
+    private void OnEnable()
+    {
+        canUse = false;
+        Invoke("CanUseTOTrue", 0.6f);
+    }
+
+    private void CanUseTOTrue()
+    {
         canUse = true;
     }
 
@@ -52,7 +62,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (TurnManager.Instance.currentPlayer == PlayerID.Player)
+        if (TurnManager.Instance.currentPlayer == PlayerID.Player && canUse == true)
         {
             previousPos = this.transform.position;
             offset = previousPos - eventData.position;
@@ -64,7 +74,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (TurnManager.Instance.currentPlayer == PlayerID.Player)
+        if (TurnManager.Instance.currentPlayer == PlayerID.Player && canUse == true)
             this.transform.position = eventData.position + offset;
     }
 
